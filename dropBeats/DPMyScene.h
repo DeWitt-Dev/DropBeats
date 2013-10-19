@@ -10,4 +10,6 @@
 
 @interface DPMyScene : SKScene
 
+-(void)createInstument: (NSUInteger) index;
+
 @end

@@ -18,13 +18,21 @@
 		AE3907A81812ECD8001D7BBE /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE3907A61812ECD8001D7BBE /* Main_iPad.storyboard */; };
 		AE3907AB1812ECD8001D7BBE /* DPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3907AA1812ECD8001D7BBE /* DPViewController.m */; };
 		AE3907AE1812ECD8001D7BBE /* DPMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3907AD1812ECD8001D7BBE /* DPMyScene.m */; };
-		AE3907B01812ECD8001D7BBE /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3907AF1812ECD8001D7BBE /* Spaceship.png */; };
 		AE3907B21812ECD8001D7BBE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE3907B11812ECD8001D7BBE /* Images.xcassets */; };
 		AE3907B91812ECD8001D7BBE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3907B81812ECD8001D7BBE /* XCTest.framework */; };
 		AE3907BA1812ECD8001D7BBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39078F1812ECD7001D7BBE /* Foundation.framework */; };
 		AE3907BB1812ECD8001D7BBE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3907931812ECD7001D7BBE /* UIKit.framework */; };
 		AE3907C31812ECD8001D7BBE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE3907C11812ECD8001D7BBE /* InfoPlist.strings */; };
 		AE3907C51812ECD8001D7BBE /* dropBeatsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3907C41812ECD8001D7BBE /* dropBeatsTests.m */; };
+		AE3907D21812ED7E001D7BBE /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3907CE1812ED7E001D7BBE /* Ball.png */; };
+		AE3907D31812ED7E001D7BBE /* Box1.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3907CF1812ED7E001D7BBE /* Box1.png */; };
+		AE3907D41812ED7E001D7BBE /* Box2.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3907D01812ED7E001D7BBE /* Box2.png */; };
+		AE3907D51812ED7E001D7BBE /* Box3.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3907D11812ED7E001D7BBE /* Box3.png */; };
+		AE3907D91812F0CF001D7BBE /* InstrumentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3907D81812F0CF001D7BBE /* InstrumentCell.m */; };
+		AE5378D418130FF50056B18C /* Cymbols1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AE5378D118130FF50056B18C /* Cymbols1.mp3 */; };
+		AE5378D518130FF50056B18C /* DeepBass1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AE5378D218130FF50056B18C /* DeepBass1.mp3 */; };
+		AE5378D618130FF50056B18C /* FilthyBass1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AE5378D318130FF50056B18C /* FilthyBass1.mp3 */; };
+		AE5378D9181314A80056B18C /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE5378D8181314A80056B18C /* background-music-aac.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,13 +63,22 @@
 		AE3907AA1812ECD8001D7BBE /* DPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPViewController.m; sourceTree = "<group>"; };
 		AE3907AC1812ECD8001D7BBE /* DPMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPMyScene.h; sourceTree = "<group>"; };
 		AE3907AD1812ECD8001D7BBE /* DPMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPMyScene.m; sourceTree = "<group>"; };
-		AE3907AF1812ECD8001D7BBE /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		AE3907B11812ECD8001D7BBE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AE3907B71812ECD8001D7BBE /* dropBeatsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dropBeatsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE3907B81812ECD8001D7BBE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		AE3907C01812ECD8001D7BBE /* dropBeatsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "dropBeatsTests-Info.plist"; sourceTree = "<group>"; };
 		AE3907C21812ECD8001D7BBE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AE3907C41812ECD8001D7BBE /* dropBeatsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dropBeatsTests.m; sourceTree = "<group>"; };
+		AE3907CE1812ED7E001D7BBE /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
+		AE3907CF1812ED7E001D7BBE /* Box1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Box1.png; sourceTree = "<group>"; };
+		AE3907D01812ED7E001D7BBE /* Box2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Box2.png; sourceTree = "<group>"; };
+		AE3907D11812ED7E001D7BBE /* Box3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Box3.png; sourceTree = "<group>"; };
+		AE3907D71812F0CF001D7BBE /* InstrumentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstrumentCell.h; sourceTree = "<group>"; };
+		AE3907D81812F0CF001D7BBE /* InstrumentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstrumentCell.m; sourceTree = "<group>"; };
+		AE5378D118130FF50056B18C /* Cymbols1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Cymbols1.mp3; sourceTree = "<group>"; };
+		AE5378D218130FF50056B18C /* DeepBass1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = DeepBass1.mp3; path = dropBeats/DeepBass1.mp3; sourceTree = SOURCE_ROOT; };
+		AE5378D318130FF50056B18C /* FilthyBass1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = FilthyBass1.mp3; sourceTree = "<group>"; };
+		AE5378D8181314A80056B18C /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,15 +140,19 @@
 		AE3907971812ECD7001D7BBE /* dropBeats */ = {
 			isa = PBXGroup;
 			children = (
+				AE3907A61812ECD8001D7BBE /* Main_iPad.storyboard */,
+				AE3907A31812ECD8001D7BBE /* Main_iPhone.storyboard */,
+				AE3907D71812F0CF001D7BBE /* InstrumentCell.h */,
+				AE3907D81812F0CF001D7BBE /* InstrumentCell.m */,
 				AE3907A01812ECD8001D7BBE /* DPAppDelegate.h */,
 				AE3907A11812ECD8001D7BBE /* DPAppDelegate.m */,
-				AE3907A31812ECD8001D7BBE /* Main_iPhone.storyboard */,
-				AE3907A61812ECD8001D7BBE /* Main_iPad.storyboard */,
 				AE3907A91812ECD8001D7BBE /* DPViewController.h */,
 				AE3907AA1812ECD8001D7BBE /* DPViewController.m */,
 				AE3907AC1812ECD8001D7BBE /* DPMyScene.h */,
 				AE3907AD1812ECD8001D7BBE /* DPMyScene.m */,
-				AE3907AF1812ECD8001D7BBE /* Spaceship.png */,
+				AE5378D8181314A80056B18C /* background-music-aac.caf */,
+				AE5378D718130FF90056B18C /* Sounds */,
+				AE3907D61812ED83001D7BBE /* Images */,
 				AE3907B11812ECD8001D7BBE /* Images.xcassets */,
 				AE3907981812ECD7001D7BBE /* Supporting Files */,
 			);
@@ -165,6 +186,27 @@
 				AE3907C11812ECD8001D7BBE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AE3907D61812ED83001D7BBE /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				AE3907CE1812ED7E001D7BBE /* Ball.png */,
+				AE3907CF1812ED7E001D7BBE /* Box1.png */,
+				AE3907D01812ED7E001D7BBE /* Box2.png */,
+				AE3907D11812ED7E001D7BBE /* Box3.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		AE5378D718130FF90056B18C /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				AE5378D118130FF50056B18C /* Cymbols1.mp3 */,
+				AE5378D218130FF50056B18C /* DeepBass1.mp3 */,
+				AE5378D318130FF50056B18C /* FilthyBass1.mp3 */,
+			);
+			name = Sounds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,10 +286,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AE3907B01812ECD8001D7BBE /* Spaceship.png in Resources */,
+				AE3907D51812ED7E001D7BBE /* Box3.png in Resources */,
+				AE3907D31812ED7E001D7BBE /* Box1.png in Resources */,
+				AE5378D618130FF50056B18C /* FilthyBass1.mp3 in Resources */,
+				AE3907D21812ED7E001D7BBE /* Ball.png in Resources */,
+				AE5378D518130FF50056B18C /* DeepBass1.mp3 in Resources */,
 				AE3907B21812ECD8001D7BBE /* Images.xcassets in Resources */,
+				AE5378D418130FF50056B18C /* Cymbols1.mp3 in Resources */,
 				AE3907A81812ECD8001D7BBE /* Main_iPad.storyboard in Resources */,
+				AE5378D9181314A80056B18C /* background-music-aac.caf in Resources */,
 				AE3907A51812ECD8001D7BBE /* Main_iPhone.storyboard in Resources */,
+				AE3907D41812ED7E001D7BBE /* Box2.png in Resources */,
 				AE39079C1812ECD7001D7BBE /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -267,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE3907D91812F0CF001D7BBE /* InstrumentCell.m in Sources */,
 				AE3907A21812ECD8001D7BBE /* DPAppDelegate.m in Sources */,
 				AE3907AB1812ECD8001D7BBE /* DPViewController.m in Sources */,
 				AE3907AE1812ECD8001D7BBE /* DPMyScene.m in Sources */,
@@ -491,6 +541,7 @@
 				AE3907CA1812ECD8001D7BBE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AE3907CB1812ECD8001D7BBE /* Build configuration list for PBXNativeTarget "dropBeatsTests" */ = {
 			isa = XCConfigurationList;
@@ -499,6 +550,7 @@
 				AE3907CD1812ECD8001D7BBE /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

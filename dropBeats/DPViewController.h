@@ -11,4 +11,8 @@
 
 @interface DPViewController : UIViewController
 
+@property (nonatomic) BOOL displayBanner;
+
+- (IBAction)hideShowBanner:(UIButton *)sender;
+
 @end
