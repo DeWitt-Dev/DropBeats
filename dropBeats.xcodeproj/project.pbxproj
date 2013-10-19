@@ -1,0 +1,506 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AE3907901812ECD7001D7BBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39078F1812ECD7001D7BBE /* Foundation.framework */; };
+		AE3907921812ECD7001D7BBE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3907911812ECD7001D7BBE /* CoreGraphics.framework */; };
+		AE3907941812ECD7001D7BBE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3907931812ECD7001D7BBE /* UIKit.framework */; };
+		AE3907961812ECD7001D7BBE /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3907951812ECD7001D7BBE /* SpriteKit.framework */; };
+		AE39079C1812ECD7001D7BBE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE39079A1812ECD7001D7BBE /* InfoPlist.strings */; };
+		AE39079E1812ECD8001D7BBE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AE39079D1812ECD8001D7BBE /* main.m */; };
+		AE3907A21812ECD8001D7BBE /* DPAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3907A11812ECD8001D7BBE /* DPAppDelegate.m */; };
+		AE3907A51812ECD8001D7BBE /* Main_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE3907A31812ECD8001D7BBE /* Main_iPhone.storyboard */; };
+		AE3907A81812ECD8001D7BBE /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE3907A61812ECD8001D7BBE /* Main_iPad.storyboard */; };
+		AE3907AB1812ECD8001D7BBE /* DPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3907AA1812ECD8001D7BBE /* DPViewController.m */; };
+		AE3907AE1812ECD8001D7BBE /* DPMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3907AD1812ECD8001D7BBE /* DPMyScene.m */; };
+		AE3907B01812ECD8001D7BBE /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3907AF1812ECD8001D7BBE /* Spaceship.png */; };
+		AE3907B21812ECD8001D7BBE /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE3907B11812ECD8001D7BBE /* Images.xcassets */; };
+		AE3907B91812ECD8001D7BBE /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3907B81812ECD8001D7BBE /* XCTest.framework */; };
+		AE3907BA1812ECD8001D7BBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39078F1812ECD7001D7BBE /* Foundation.framework */; };
+		AE3907BB1812ECD8001D7BBE /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3907931812ECD7001D7BBE /* UIKit.framework */; };
+		AE3907C31812ECD8001D7BBE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE3907C11812ECD8001D7BBE /* InfoPlist.strings */; };
+		AE3907C51812ECD8001D7BBE /* dropBeatsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3907C41812ECD8001D7BBE /* dropBeatsTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AE3907BC1812ECD8001D7BBE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AE3907841812ECD7001D7BBE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AE39078B1812ECD7001D7BBE;
+			remoteInfo = dropBeats;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AE39078C1812ECD7001D7BBE /* dropBeats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dropBeats.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE39078F1812ECD7001D7BBE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		AE3907911812ECD7001D7BBE /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		AE3907931812ECD7001D7BBE /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		AE3907951812ECD7001D7BBE /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
+		AE3907991812ECD7001D7BBE /* dropBeats-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "dropBeats-Info.plist"; sourceTree = "<group>"; };
+		AE39079B1812ECD7001D7BBE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AE39079D1812ECD8001D7BBE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AE39079F1812ECD8001D7BBE /* dropBeats-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "dropBeats-Prefix.pch"; sourceTree = "<group>"; };
+		AE3907A01812ECD8001D7BBE /* DPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPAppDelegate.h; sourceTree = "<group>"; };
+		AE3907A11812ECD8001D7BBE /* DPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPAppDelegate.m; sourceTree = "<group>"; };
+		AE3907A41812ECD8001D7BBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		AE3907A71812ECD8001D7BBE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		AE3907A91812ECD8001D7BBE /* DPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPViewController.h; sourceTree = "<group>"; };
+		AE3907AA1812ECD8001D7BBE /* DPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPViewController.m; sourceTree = "<group>"; };
+		AE3907AC1812ECD8001D7BBE /* DPMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DPMyScene.h; sourceTree = "<group>"; };
+		AE3907AD1812ECD8001D7BBE /* DPMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DPMyScene.m; sourceTree = "<group>"; };
+		AE3907AF1812ECD8001D7BBE /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
+		AE3907B11812ECD8001D7BBE /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AE3907B71812ECD8001D7BBE /* dropBeatsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = dropBeatsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE3907B81812ECD8001D7BBE /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		AE3907C01812ECD8001D7BBE /* dropBeatsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "dropBeatsTests-Info.plist"; sourceTree = "<group>"; };
+		AE3907C21812ECD8001D7BBE /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AE3907C41812ECD8001D7BBE /* dropBeatsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dropBeatsTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AE3907891812ECD7001D7BBE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE3907921812ECD7001D7BBE /* CoreGraphics.framework in Frameworks */,
+				AE3907941812ECD7001D7BBE /* UIKit.framework in Frameworks */,
+				AE3907961812ECD7001D7BBE /* SpriteKit.framework in Frameworks */,
+				AE3907901812ECD7001D7BBE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE3907B41812ECD8001D7BBE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE3907B91812ECD8001D7BBE /* XCTest.framework in Frameworks */,
+				AE3907BB1812ECD8001D7BBE /* UIKit.framework in Frameworks */,
+				AE3907BA1812ECD8001D7BBE /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AE3907831812ECD7001D7BBE = {
+			isa = PBXGroup;
+			children = (
+				AE3907971812ECD7001D7BBE /* dropBeats */,
+				AE3907BE1812ECD8001D7BBE /* dropBeatsTests */,
+				AE39078E1812ECD7001D7BBE /* Frameworks */,
+				AE39078D1812ECD7001D7BBE /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AE39078D1812ECD7001D7BBE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AE39078C1812ECD7001D7BBE /* dropBeats.app */,
+				AE3907B71812ECD8001D7BBE /* dropBeatsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AE39078E1812ECD7001D7BBE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AE39078F1812ECD7001D7BBE /* Foundation.framework */,
+				AE3907911812ECD7001D7BBE /* CoreGraphics.framework */,
+				AE3907931812ECD7001D7BBE /* UIKit.framework */,
+				AE3907951812ECD7001D7BBE /* SpriteKit.framework */,
+				AE3907B81812ECD8001D7BBE /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AE3907971812ECD7001D7BBE /* dropBeats */ = {
+			isa = PBXGroup;
+			children = (
+				AE3907A01812ECD8001D7BBE /* DPAppDelegate.h */,
+				AE3907A11812ECD8001D7BBE /* DPAppDelegate.m */,
+				AE3907A31812ECD8001D7BBE /* Main_iPhone.storyboard */,
+				AE3907A61812ECD8001D7BBE /* Main_iPad.storyboard */,
+				AE3907A91812ECD8001D7BBE /* DPViewController.h */,
+				AE3907AA1812ECD8001D7BBE /* DPViewController.m */,
+				AE3907AC1812ECD8001D7BBE /* DPMyScene.h */,
+				AE3907AD1812ECD8001D7BBE /* DPMyScene.m */,
+				AE3907AF1812ECD8001D7BBE /* Spaceship.png */,
+				AE3907B11812ECD8001D7BBE /* Images.xcassets */,
+				AE3907981812ECD7001D7BBE /* Supporting Files */,
+			);
+			path = dropBeats;
+			sourceTree = "<group>";
+		};
+		AE3907981812ECD7001D7BBE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AE3907991812ECD7001D7BBE /* dropBeats-Info.plist */,
+				AE39079A1812ECD7001D7BBE /* InfoPlist.strings */,
+				AE39079D1812ECD8001D7BBE /* main.m */,
+				AE39079F1812ECD8001D7BBE /* dropBeats-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AE3907BE1812ECD8001D7BBE /* dropBeatsTests */ = {
+			isa = PBXGroup;
+			children = (
+				AE3907C41812ECD8001D7BBE /* dropBeatsTests.m */,
+				AE3907BF1812ECD8001D7BBE /* Supporting Files */,
+			);
+			path = dropBeatsTests;
+			sourceTree = "<group>";
+		};
+		AE3907BF1812ECD8001D7BBE /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AE3907C01812ECD8001D7BBE /* dropBeatsTests-Info.plist */,
+				AE3907C11812ECD8001D7BBE /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AE39078B1812ECD7001D7BBE /* dropBeats */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE3907C81812ECD8001D7BBE /* Build configuration list for PBXNativeTarget "dropBeats" */;
+			buildPhases = (
+				AE3907881812ECD7001D7BBE /* Sources */,
+				AE3907891812ECD7001D7BBE /* Frameworks */,
+				AE39078A1812ECD7001D7BBE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = dropBeats;
+			productName = dropBeats;
+			productReference = AE39078C1812ECD7001D7BBE /* dropBeats.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AE3907B61812ECD8001D7BBE /* dropBeatsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AE3907CB1812ECD8001D7BBE /* Build configuration list for PBXNativeTarget "dropBeatsTests" */;
+			buildPhases = (
+				AE3907B31812ECD8001D7BBE /* Sources */,
+				AE3907B41812ECD8001D7BBE /* Frameworks */,
+				AE3907B51812ECD8001D7BBE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AE3907BD1812ECD8001D7BBE /* PBXTargetDependency */,
+			);
+			name = dropBeatsTests;
+			productName = dropBeatsTests;
+			productReference = AE3907B71812ECD8001D7BBE /* dropBeatsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AE3907841812ECD7001D7BBE /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = DP;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = "Michael Dewitt";
+				TargetAttributes = {
+					AE3907B61812ECD8001D7BBE = {
+						TestTargetID = AE39078B1812ECD7001D7BBE;
+					};
+				};
+			};
+			buildConfigurationList = AE3907871812ECD7001D7BBE /* Build configuration list for PBXProject "dropBeats" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AE3907831812ECD7001D7BBE;
+			productRefGroup = AE39078D1812ECD7001D7BBE /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AE39078B1812ECD7001D7BBE /* dropBeats */,
+				AE3907B61812ECD8001D7BBE /* dropBeatsTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AE39078A1812ECD7001D7BBE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE3907B01812ECD8001D7BBE /* Spaceship.png in Resources */,
+				AE3907B21812ECD8001D7BBE /* Images.xcassets in Resources */,
+				AE3907A81812ECD8001D7BBE /* Main_iPad.storyboard in Resources */,
+				AE3907A51812ECD8001D7BBE /* Main_iPhone.storyboard in Resources */,
+				AE39079C1812ECD7001D7BBE /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE3907B51812ECD8001D7BBE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE3907C31812ECD8001D7BBE /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AE3907881812ECD7001D7BBE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE3907A21812ECD8001D7BBE /* DPAppDelegate.m in Sources */,
+				AE3907AB1812ECD8001D7BBE /* DPViewController.m in Sources */,
+				AE3907AE1812ECD8001D7BBE /* DPMyScene.m in Sources */,
+				AE39079E1812ECD8001D7BBE /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AE3907B31812ECD8001D7BBE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AE3907C51812ECD8001D7BBE /* dropBeatsTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AE3907BD1812ECD8001D7BBE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AE39078B1812ECD7001D7BBE /* dropBeats */;
+			targetProxy = AE3907BC1812ECD8001D7BBE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AE39079A1812ECD7001D7BBE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE39079B1812ECD7001D7BBE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AE3907A31812ECD8001D7BBE /* Main_iPhone.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE3907A41812ECD8001D7BBE /* Base */,
+			);
+			name = Main_iPhone.storyboard;
+			sourceTree = "<group>";
+		};
+		AE3907A61812ECD8001D7BBE /* Main_iPad.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE3907A71812ECD8001D7BBE /* Base */,
+			);
+			name = Main_iPad.storyboard;
+			sourceTree = "<group>";
+		};
+		AE3907C11812ECD8001D7BBE /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AE3907C21812ECD8001D7BBE /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AE3907C61812ECD8001D7BBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AE3907C71812ECD8001D7BBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AE3907C91812ECD8001D7BBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "dropBeats/dropBeats-Prefix.pch";
+				INFOPLIST_FILE = "dropBeats/dropBeats-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AE3907CA1812ECD8001D7BBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "dropBeats/dropBeats-Prefix.pch";
+				INFOPLIST_FILE = "dropBeats/dropBeats-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SPRITEKIT_TEXTURE_ATLAS_OUTPUT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		AE3907CC1812ECD8001D7BBE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/dropBeats.app/dropBeats";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "dropBeats/dropBeats-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "dropBeatsTests/dropBeatsTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		AE3907CD1812ECD8001D7BBE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/dropBeats.app/dropBeats";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "dropBeats/dropBeats-Prefix.pch";
+				INFOPLIST_FILE = "dropBeatsTests/dropBeatsTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AE3907871812ECD7001D7BBE /* Build configuration list for PBXProject "dropBeats" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE3907C61812ECD8001D7BBE /* Debug */,
+				AE3907C71812ECD8001D7BBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AE3907C81812ECD8001D7BBE /* Build configuration list for PBXNativeTarget "dropBeats" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE3907C91812ECD8001D7BBE /* Debug */,
+				AE3907CA1812ECD8001D7BBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		AE3907CB1812ECD8001D7BBE /* Build configuration list for PBXNativeTarget "dropBeatsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AE3907CC1812ECD8001D7BBE /* Debug */,
+				AE3907CD1812ECD8001D7BBE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AE3907841812ECD7001D7BBE /* Project object */;
+}
