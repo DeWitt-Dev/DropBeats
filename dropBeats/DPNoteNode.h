@@ -14,6 +14,7 @@
 
 @property (nonatomic) CGRect crd;
 @property (nonatomic) DPNote* note;
+@property (nonatomic) BOOL animate; 
 
 + (instancetype) noteNodeWithNote: (DPNote*) note;
 

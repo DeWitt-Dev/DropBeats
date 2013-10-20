@@ -28,9 +28,10 @@
 @property (nonatomic) CGPoint ballStart;
 
 @property (strong, nonatomic) DPSong* song;
+@property (strong, nonatomic) DPSong* played;
+
 @property BOOL sceneCreated;
 @property BOOL validTouch;
-@property DPSong* played;
 @property SKSpriteNode* tick;
 
 @end
@@ -85,7 +86,7 @@ static const uint32_t floorCategory = 0x1 << 1;
         //Background Notes
         [self drawDivider];
         //[self drawTick];
-        [self displaySong: [[DPSong song] getSampleSong:0]];
+        [self displaySong: [DPSong getSong:1 WithTolerance:0.2 andDuration:12.0f]];
 
         [self drawStanzaAndCreateBall];
     }
@@ -204,17 +205,16 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 #pragma mark - Collision Dection
 
-
 - (void) drawDPStrike: (DPStrike*) strike atTime: (NSTimeInterval) time
 {
     NSLog(@"drawDPStrike");
-    if (time <= 10.0) {
+    if (time <= 10.0){//self.song.duration) {
 #warning Fix to non-constant duration
         NSLog(@"drawing");
+        
         DPStrikeNode* node = [DPStrikeNode strike: strike];
         float x = 0 ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
         float y = ((1 - (time / 10.0)) * (0.85 * self.frame.size.height)) + (.05 * self.frame.size.height);
-        
         
         [node setPosition: CGPointMake(x, y)];
         [self addChild:node];

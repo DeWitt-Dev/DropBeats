@@ -9,6 +9,8 @@
 #import "DPNoteNode.h"
 
 
+#define RESIZE_INTERVAL 0.2
+
 #define HEIGHT 25
 
 #define W_LOW 100
@@ -31,6 +33,18 @@
     {
         self.note = note;
         [self setupNode];
+        
+        if (self.animate) {
+            SKAction* zeroMorph = [SKAction resizeToWidth:0 duration:0.0f];
+            SKAction* correctSizeW = [SKAction resizeToWidth:self.size.width duration:RESIZE_INTERVAL];
+            SKAction* overSizeW = [SKAction resizeToWidth:self.size.width*1.2 duration:RESIZE_INTERVAL];
+            SKAction* underSize = [SKAction resizeToWidth:self.size.width*0.9 duration:RESIZE_INTERVAL];
+            
+            
+            SKAction* sequence = [SKAction sequence:@[zeroMorph, correctSizeW, overSizeW, underSize, correctSizeW]];
+            
+            [self runAction:sequence];
+        }
     }
     
     return self;
