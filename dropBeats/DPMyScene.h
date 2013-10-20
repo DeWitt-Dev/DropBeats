@@ -10,6 +10,8 @@
 #import "InstrumentNode.h"
 #import "DPGame.h"
 
+typedef void (^DPSceneCompletionHandler)(void);
+
 @interface DPMyScene : SKScene
 
 @property (strong, nonatomic) DPGame* game;
@@ -19,5 +21,7 @@
 -(void) createInstrument: (int) index AtLocation: (CGPoint) location;
 
 -(void)handlePan:(UIPanGestureRecognizer*)recognizer;
+
++(void)loadEverythingYouCanWithCompletionHandeler: (DPSceneCompletionHandler) handler;
 
 @end

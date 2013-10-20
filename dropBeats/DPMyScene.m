@@ -14,7 +14,7 @@
 @interface DPMyScene() <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
 {
     #define ZFLOOR 10
-    #define MIN_COLLISIONIMPULSE 10
+    #define MIN_COLLISIONIMPULSE 15
 }
 @property (nonatomic, strong) SKSpriteNode *selectedNode;
 
@@ -42,12 +42,28 @@ static const uint32_t floorCategory = 0x1 << 1;
     /* Setup your scene here */
     self.backgroundColor = [SKColor whiteColor]; //[SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
     
+    SKSpriteNode* background = [[SKSpriteNode alloc] initWithImageNamed:@"Backdrop1"];
+//    background.size = self.view.bounds.size;
+//    [background setScale:0.7];
+    background.zPosition = -1; 
+    [self addChild:background];
+    
     //Resister for Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(gameEnded:) name:@"gameEnded" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
      selector:@selector(gameStarted:) name:@"gameStarted" object:nil];
+}
+
++(void)loadEverythingYouCanWithCompletionHandeler: (DPSceneCompletionHandler) handler
+{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
+                   ^{
+                       [InstrumentNode loadActions];
+                       
+                       dispatch_sync(dispatch_get_main_queue(), handler);
+                   });
 }
 
 -(void)didMoveToView:(SKView *)view
@@ -172,6 +188,7 @@ int i = 0;
 
     if (contact.collisionImpulse >= MIN_COLLISIONIMPULSE) {
         [instrumentNode playInstrument];
+        [self onStrikeFrom:kStrike];
     }
 
 //    if ((contact.bodyA.categoryBitMask == floorCategory)
@@ -189,10 +206,6 @@ int i = 0;
 //            NSLog(@"Collision");
 //        }
 //    }
-   
-    
-    [self onStrikeFrom:kStrike];
-    // TODO: set this correctly!
 }
 
 - (void) onStrikeFrom: (NoteType) type
@@ -262,7 +275,6 @@ int i = 0;
 
 -(void)didSimulatePhysics
 {
-    NSLog(@"didSimulatePhysics");
     [self enumerateChildNodesWithName:@"ballNode" usingBlock:
      ^(SKNode *node,BOOL *stop) {
          if (node.position.y < 0){

@@ -51,6 +51,9 @@
 		AE3AEE0F18136BA70041DAB3 /* Instrument5_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEE0018136BA70041DAB3 /* Instrument5_2.caf */; };
 		AE3AEE1018136BA70041DAB3 /* Instrument5_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEE0118136BA70041DAB3 /* Instrument5_3.caf */; };
 		AE3AEE14181378400041DAB3 /* DPGame.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEE13181378400041DAB3 /* DPGame.m */; };
+		AE3AEE29181390C30041DAB3 /* Instrument1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEE28181390C30041DAB3 /* Instrument1.atlas */; };
+		AE3AEE2B1813A2770041DAB3 /* Backdrop.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEE2A1813A2770041DAB3 /* Backdrop.png */; };
+		AE3AEE2D1813A49C0041DAB3 /* Backdrop1.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEE2C1813A49C0041DAB3 /* Backdrop1.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +123,9 @@
 		AE3AEE0118136BA70041DAB3 /* Instrument5_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument5_3.caf; path = dropBeats/sounds/Instrument5_3.caf; sourceTree = "<group>"; };
 		AE3AEE12181378400041DAB3 /* DPGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPGame.h; sourceTree = "<group>"; };
 		AE3AEE13181378400041DAB3 /* DPGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPGame.m; sourceTree = "<group>"; };
+		AE3AEE28181390C30041DAB3 /* Instrument1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Instrument1.atlas; sourceTree = "<group>"; };
+		AE3AEE2A1813A2770041DAB3 /* Backdrop.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Backdrop.png; sourceTree = "<group>"; };
+		AE3AEE2C1813A49C0041DAB3 /* Backdrop1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Backdrop1.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -209,6 +215,8 @@
 		AE3907981812ECD7001D7BBE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AE3AEE2C1813A49C0041DAB3 /* Backdrop1.png */,
+				AE3AEE2A1813A2770041DAB3 /* Backdrop.png */,
 				AE3AEE1118136BAE0041DAB3 /* Sounds */,
 				AE3907B11812ECD8001D7BBE /* Images.xcassets */,
 				AE3AEDEF18136B590041DAB3 /* Instrument1.png */,
@@ -216,6 +224,7 @@
 				AE3AEDDA1813617A0041DAB3 /* Box1.png */,
 				AE3AEDDB1813617A0041DAB3 /* Box2.png */,
 				AE3AEDDC1813617A0041DAB3 /* Box3.png */,
+				AE3AEE28181390C30041DAB3 /* Instrument1.atlas */,
 				AE2863C21813576D007BC8DD /* Assets.atlas */,
 				AE2863C118134CD9007BC8DD /* Sounds */,
 				AE3907991812ECD7001D7BBE /* dropBeats-Info.plist */,
@@ -371,6 +380,7 @@
 				AE3AEE0F18136BA70041DAB3 /* Instrument5_2.caf in Resources */,
 				AE3AEE0318136BA70041DAB3 /* Instrument1_2.caf in Resources */,
 				AE3AEE0418136BA70041DAB3 /* Instrument1_3.caf in Resources */,
+				AE3AEE2D1813A49C0041DAB3 /* Backdrop1.png in Resources */,
 				AE3AEDDD1813617A0041DAB3 /* Box1.png in Resources */,
 				AE3AEDDF1813617A0041DAB3 /* Box3.png in Resources */,
 				AE3AEDF118136B590041DAB3 /* Instrument1.png in Resources */,
@@ -386,6 +396,7 @@
 				AE3AEDDE1813617A0041DAB3 /* Box2.png in Resources */,
 				AE3AEE0518136BA70041DAB3 /* Instrument2_1.caf in Resources */,
 				AE3AEE0618136BA70041DAB3 /* Instrument2_2.caf in Resources */,
+				AE3AEE29181390C30041DAB3 /* Instrument1.atlas in Resources */,
 				AE3AEDF218136B590041DAB3 /* Instrument2.png in Resources */,
 				AE3AEE0C18136BA70041DAB3 /* Instrument4_2.caf in Resources */,
 				AE3907B21812ECD8001D7BBE /* Images.xcassets in Resources */,
@@ -393,6 +404,7 @@
 				AE3907A81812ECD8001D7BBE /* Main_iPad.storyboard in Resources */,
 				AE3907A51812ECD8001D7BBE /* Main_iPhone.storyboard in Resources */,
 				AE39079C1812ECD7001D7BBE /* InfoPlist.strings in Resources */,
+				AE3AEE2B1813A2770041DAB3 /* Backdrop.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

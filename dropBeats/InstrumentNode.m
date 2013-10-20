@@ -9,23 +9,31 @@
 #import "InstrumentNode.h"
 
 @interface InstrumentNode()
-@property (strong, nonatomic) NSString* imageID;
+
+#define DEFAULT_ANIMATION_FRAMES 10
+#define ANIMATION_INTERVAL 0.008
+
 @end
+
 @implementation InstrumentNode
 
 static NSString * const kInstrumentPrefix = @"Instrument";
+static NSString* imageID;
+static SKAction* lowFrequncySound;
+static SKAction* midFrequncySound;
+static SKAction* highFrequncySound;
+static NSMutableArray *animationFrames;
+static bool loaded;
 
 -(id)initWIthInstrumentIndex: (int) index
 {
-    self.imageID = [NSString stringWithFormat:@"%@%d",kInstrumentPrefix, index+1];
-    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Assets"];
-    SKTexture *texture = [atlas textureNamed:self.imageID];
+    SKTexture *texture = animationFrames[0];
     
     if (self = [super initWithTexture:texture]) {
         
         self.name = kInstrumentNode;
         self.frequency = kMidFrequency;
-        [self setScale:0.18];
+        [self setScale:0.22];
         
         [self updatePhysicsBody];
     }
@@ -33,6 +41,29 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     return self;
 }
 
++(void)loadActions
+{
+    imageID = [NSString stringWithFormat:@"%@%d",kInstrumentPrefix, 1];
+
+    lowFrequncySound = [SKAction playSoundFileNamed:[NSString stringWithFormat:@"%@_%d.caf", imageID, kLowFrequency] waitForCompletion:YES];
+    midFrequncySound = [SKAction playSoundFileNamed:[NSString stringWithFormat:@"%@_%d.caf", imageID, kMidFrequency] waitForCompletion:YES];
+    highFrequncySound = [SKAction playSoundFileNamed:[NSString stringWithFormat:@"%@_%d.caf", imageID, kHighFrequency] waitForCompletion:YES];
+    
+    SKTextureAtlas *animationAtlas = [SKTextureAtlas atlasNamed: imageID];
+    animationFrames = [[NSMutableArray alloc]initWithCapacity:DEFAULT_ANIMATION_FRAMES];
+
+    int numImages = animationAtlas.textureNames.count; //divide by 2 for retina
+    for (int i=0; i < numImages; i++) {
+        NSString *textureName = [NSString stringWithFormat:@"%@_%d", imageID, i];
+        SKTexture *temp = [animationAtlas textureNamed:textureName];
+        [animationFrames addObject:temp];
+    }
+    for (int i=2; i < numImages; i++) {
+        [animationFrames addObject: animationFrames[numImages-i]];
+    }
+    
+    loaded = YES;
+}
 
 #pragma mark - Setters/getters
 -(void)setScale:(CGFloat)scale
@@ -63,12 +94,21 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 
 -(void)playInstrument
 {
-    NSString* soundID = [NSString stringWithFormat:@"%@_%d.caf", self.imageID, self.frequency];
+    NSString* soundID = [NSString stringWithFormat:@"%@_%d.caf", imageID, self.frequency];
 
     [self removeAllActions];
     
-    SKAction *action = [SKAction playSoundFileNamed:soundID waitForCompletion:YES];
-    [self runAction:action];
+    SKAction *soundAction = [SKAction playSoundFileNamed:soundID waitForCompletion:YES];
+    [self runAction:soundAction];
+    
+    //This is our general runAction method to make our bear walk.
+    SKAction *hitAction = [SKAction repeatAction:[SKAction animateWithTextures:animationFrames timePerFrame:ANIMATION_INTERVAL resize:NO restore:YES] count:1];
+    [self runAction:hitAction];
+    
+    SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:-4.0f/180.0f * M_PI duration:0.1],
+                                              [SKAction rotateByAngle:0.0 duration:0.1],
+                                              [SKAction rotateByAngle:4.0f/180.0f * M_PI duration:0.1]]];
+    [self runAction:[SKAction repeatAction:sequence count:2]];
 }
 
 //helper method to keep body aligned with Shape
