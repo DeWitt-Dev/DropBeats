@@ -15,7 +15,7 @@ typedef void (^DPSceneCompletionHandler)(void);
 @interface DPMyScene : SKScene
 
 @property (strong, nonatomic) DPGame* game;
-
+@property (nonatomic) CGSize startingInstrumentSize;
 
 -(void) createBallNodeAtLocation: (CGPoint) location;
 -(void) createInstrument: (int) index AtLocation: (CGPoint) location;

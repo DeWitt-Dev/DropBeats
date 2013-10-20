@@ -224,7 +224,7 @@ int i = 0;
 
 -(void) createInstrument: (int) index AtLocation: (CGPoint) location
 {
-    SKSpriteNode *tonePad = [[InstrumentNode alloc]initWIthInstrumentIndex:index];
+    SKSpriteNode *tonePad = [[InstrumentNode alloc]initWithInstrumentIndex:index andSize:self.startingInstrumentSize];
     
     tonePad.name = kInstrumentNode;
     tonePad.position = location;

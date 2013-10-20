@@ -11,8 +11,12 @@
 #import "InstrumentCell.h"
 
 @interface DPViewController() <UICollectionViewDataSource, UICollectionViewDelegate>
+{
+    #define ANIMATION_DURATION 0.5
+    #define COLLECTIONVIEW_CELL_SIZE CGSizeMake(190,190)
 
-#define ANIMATION_DURATION 0.5
+}
+
 @property (weak, nonatomic) IBOutlet SKView *skView;
 @property (strong, nonatomic) DPMyScene * scene;
 
@@ -38,6 +42,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     // Create and configure the scene.
     self.scene = [DPMyScene sceneWithSize:self.skView.bounds.size];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
+    self.scene.startingInstrumentSize = COLLECTIONVIEW_CELL_SIZE; //self.collectionView.collectionViewLayout.z;
     
     [DPMyScene loadEverythingYouCanWithCompletionHandeler:^{
         // Present the scene.

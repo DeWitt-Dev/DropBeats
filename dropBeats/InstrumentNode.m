@@ -25,7 +25,7 @@ static SKAction* highFrequncySound;
 static NSMutableArray *animationFrames;
 static bool loaded;
 
--(id)initWIthInstrumentIndex: (int) index
+-(id)initWithInstrumentIndex: (int) index andSize: (CGSize) size
 {
     SKTexture *texture = animationFrames[0];
     
@@ -33,8 +33,7 @@ static bool loaded;
         
         self.name = kInstrumentNode;
         self.frequency = kMidFrequency;
-        [self setScale:0.22];
-        
+        [self setSize:size];
         [self updatePhysicsBody];
     }
     

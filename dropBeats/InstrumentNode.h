@@ -24,7 +24,8 @@ typedef enum {
 
 @property (nonatomic) FrequencyRange frequency;
 
--(id)initWIthInstrumentIndex: (int) index;
+-(id)initWithInstrumentIndex: (int) index andSize: (CGSize) size;
+
 +(void)loadActions;
 
 -(void)playInstrument;
