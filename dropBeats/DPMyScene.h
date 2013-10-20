@@ -17,7 +17,8 @@ typedef void (^DPSceneCompletionHandler)(void);
 @property (strong, nonatomic) DPGame* game;
 @property (nonatomic) CGSize startingInstrumentSize;
 
--(void) createBallNodeAtLocation: (CGPoint) location;
+-(void) createBall;
+-(void) dropBall; 
 -(void) createInstrument: (int) index AtLocation: (CGPoint) location;
 
 -(void)handlePan:(UIPanGestureRecognizer*)recognizer;

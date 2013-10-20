@@ -104,8 +104,6 @@ static NSString * const kInstrumentPrefix = @"Instrument";
              
          } completion:nil];
         
-        [sender setTitle:@">" forState:UIControlStateNormal];
-        
         [self.scene.game startGame];
     }
     else{
@@ -116,9 +114,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
              self.bannerView.frame = frame;
              
          } completion:nil];
-        
-        [sender setTitle:@"<" forState:UIControlStateNormal];
-        
+                
         [self.scene.game endGame];
     }
     self.displayBanner = !self.displayBanner;
@@ -150,6 +146,32 @@ static NSString * const kInstrumentPrefix = @"Instrument";
         [self hideShowBanner:self.hideShowButton];
         [sender setTranslation:CGPointZero inView:sender.view];
     }
+}
+- (IBAction)resetGame:(UIButton *)sender {
+    [self.scene.game endGame];
+    [UIView animateWithDuration:0.2F animations:
+     ^{
+         sender.transform = CGAffineTransformRotate(sender.transform, 2*M_PI/3.0);
+     } completion:
+     ^(BOOL finished) {
+         if (finished) {
+             [UIView animateWithDuration:0.2F animations:
+              ^{
+                  sender.transform = CGAffineTransformRotate(sender.transform, 2*M_PI/3.0);
+              } completion:
+              ^(BOOL finished) {
+                  if (finished) {
+                      [UIView animateWithDuration:0.2f animations:
+                       ^{
+                           sender.transform = CGAffineTransformRotate(sender.transform, 2*M_PI);
+                       }];
+                  }
+              }];
+         }
+         
+     }];
+
+    [self.scene.game startGame];
 }
 
 - (BOOL)shouldAutorotate

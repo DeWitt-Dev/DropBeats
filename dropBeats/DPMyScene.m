@@ -15,17 +15,20 @@
 
 @interface DPMyScene() <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
 {
+    #define GRAVITY -3
+    #define BALL_RESTITUTION 0.9f
     #define ZFLOOR 10
     #define MIN_COLLISIONIMPULSE 15
     #define DELETE_VELOCITY 850
 }
 
 @property (nonatomic, strong) SKSpriteNode *selectedNode;
+@property (nonatomic, strong) SKSpriteNode *ballNode;
+@property (nonatomic) CGPoint ballStart;
 
 @property (strong, nonatomic) DPSong* song;
 @property BOOL sceneCreated;
 @property BOOL validTouch;
-@property NSDate* timeDrop;
 @property DPSong* played;
 
 @end
@@ -36,32 +39,6 @@ static NSString * const kBallNode = @"BallNode";
 static const uint32_t ballCategory = 0x1 << 0;
 static const uint32_t floorCategory = 0x1 << 1;
 
--(id)initWithSize:(CGSize)size {
-    if (self = [super initWithSize:size]) {
-        [self commonInit];
-    }
-    return self;
-}
-
--(void)commonInit
-{
-    /* Setup your scene here */
-    self.backgroundColor = [SKColor whiteColor];
-
-//    SKSpriteNode* background = [[SKSpriteNode alloc] initWithImageNamed:@"Backdrop1"];
-//    background.size = self.view.bounds.size;
-//    [background setScale:0.7];
-//    background.zPosition = -1; 
-//    [self addChild:background];
-    
-
-    //Resister for Notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(gameEnded:) name:@"gameEnded" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-     selector:@selector(gameStarted:) name:@"gameStarted" object:nil];
-}
 
 +(void)loadEverythingYouCanWithCompletionHandeler: (DPSceneCompletionHandler) handler
 {
@@ -72,11 +49,32 @@ static const uint32_t floorCategory = 0x1 << 1;
                    });
 }
 
+-(id)initWithSize:(CGSize)size {
+    if (self = [super initWithSize:size]) {
+        [self commonInit];
+    }
+    return self;
+}
+
+-(void)commonInit
+{
+    self.backgroundColor = [SKColor whiteColor];
+
+
+    //Resister for Notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(gameEnded:) name:@"gameEnded" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(gameStarted:) name:@"gameStarted" object:nil];
+}
+
 -(void)didMoveToView:(SKView *)view
 {
     if(!self.sceneCreated)
     {
-        self.physicsWorld.gravity = CGVectorMake(0, -3);
+        /* Setup your scene here */
+        self.physicsWorld.gravity = CGVectorMake(0, GRAVITY);
         self.physicsWorld.contactDelegate = self;
         self.sceneCreated = YES;
         
@@ -85,6 +83,8 @@ static const uint32_t floorCategory = 0x1 << 1;
         //Background Notes
         [self drawDivider];
         [self displaySong: [[DPSong song] getSampleSong:0]];
+
+        [self drawStanzaAndCreateBall];
     }
 }
 -(void)initGestures
@@ -129,6 +129,21 @@ static const uint32_t floorCategory = 0x1 << 1;
     [self addChild:divider];
 }
 
+- (void) drawStanzaAndCreateBall
+{
+    SKSpriteNode* stanza = [[SKSpriteNode alloc] initWithImageNamed:@"Stanza"];
+    stanza.size = CGSizeMake(self.view.frame.size.width*(2/3.0),stanza.size.height);
+    stanza.anchorPoint = CGPointZero;
+    stanza.zPosition = ZFLOOR-1;
+    
+    CGPoint position = CGPointMake((self.frame.size.width - stanza.size.width)/2, .90 * self.frame.size.height);
+    stanza.position = position;
+    
+    [self addChild:stanza];
+    self.ballStart = CGPointMake(self.view.frame.size.width/2, stanza.position.y);
+    [self createBall];
+}
+
 - (void) displaySong: (DPSong*) song
 {
     self.song = song;
@@ -156,7 +171,6 @@ static const uint32_t floorCategory = 0x1 << 1;
 }
 
 #pragma mark - Collision Dection
-
 
 - (void) drawDPStrike: (DPStrike*) strike atTime: (float) time
 {
@@ -224,11 +238,10 @@ static const uint32_t floorCategory = 0x1 << 1;
     NSDate* now = [[NSDate alloc] init];
     DPStrike* strike = [DPStrike strikeAtTime:[[NSDate alloc] init] fromType:kStrike];
     
-    NSTimeInterval nowInt = [now timeIntervalSinceDate:self.timeDrop];
+    NSTimeInterval nowInt = [now timeIntervalSinceDate:self.game.startDate];
     float timePercent = nowInt / 10.0;
     
     [self drawDPStrike:strike atTime:timePercent];
-
 }
 
 - (void)didEndContact:(SKPhysicsContact *)contact
@@ -249,34 +262,40 @@ static const uint32_t floorCategory = 0x1 << 1;
     [self addChild:tonePad];
 }
 
--(void) createBallNodeAtLocation: (CGPoint) location
+-(void) createBall
 {
-    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Assets"];
-    SKSpriteNode *ball = [[SKSpriteNode alloc] initWithTexture:[atlas textureNamed:@"Ball"]];
+    [self enumerateChildNodesWithName:kBallNode usingBlock:
+     ^(SKNode *node,BOOL *stop) {
+            [node removeFromParent]; //ensures only one ball at a time
+     }];
     
-    ball.name = kBallNode;
-    ball.position = CGPointMake(self.size.width/2, self.size.height);
+    self.ballNode = [[SKSpriteNode alloc] initWithImageNamed:@"Ball"];
     
-    ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:(ball.size.width/2)-8];
-    ball.physicsBody.usesPreciseCollisionDetection = YES;
-    ball.physicsBody.restitution = 0.9f; //energy conservation
+    self.ballNode.name = kBallNode;
+    self.ballNode.size = CGSizeMake(50, 50);
+    self.ballNode.position = self.ballStart;
+    self.ballNode.zPosition = ZFLOOR+1;
     
-    ball.physicsBody.categoryBitMask = ballCategory;
-    ball.physicsBody.contactTestBitMask = floorCategory;
-    ball.physicsBody.collisionBitMask = ballCategory | floorCategory;
-    ball.zPosition = ZFLOOR +1; 
+    [self addChild:self.ballNode];
+}
+
+-(void)dropBall
+{
+    self.ballNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:(self.ballNode.size.width/2)-8];
+    self.ballNode.physicsBody.usesPreciseCollisionDetection = YES;
+    self.ballNode.physicsBody.restitution = BALL_RESTITUTION; //energy conservation
     
-    self.timeDrop = [[NSDate alloc] init];
-    self.played = [DPSong song];
-    
-    [self addChild:ball];
+    self.ballNode.physicsBody.categoryBitMask = ballCategory;
+    self.ballNode.physicsBody.contactTestBitMask = floorCategory;
+    self.ballNode.physicsBody.collisionBitMask = ballCategory | floorCategory;
 }
 
 #pragma mark - Game notifications
 -(void)gameStarted: (NSNotification*) notification
 {
     if (![self.game isInProgress]) {
-        [self createBallNodeAtLocation:CGPointZero];
+        [self createBall];
+        [self dropBall];
     }
 }
 -(void)gameEnded: (NSNotification *) notification
@@ -284,21 +303,21 @@ static const uint32_t floorCategory = 0x1 << 1;
     [self enumerateChildNodesWithName:kBallNode usingBlock:
      ^(SKNode *node,BOOL *stop) {
          [node removeFromParent];
+         [self createBall];
      }];
 }
-
-
 
 -(void)didSimulatePhysics
 {
     [self enumerateChildNodesWithName:kBallNode usingBlock:
      ^(SKNode *node,BOOL *stop) {
          if (node.position.y < 0){
-             if ([self.game isInProgress]) {
-                 [self createBallNodeAtLocation:CGPointZero];
-                 [self endStrikes];
-             }
             [node removeFromParent];
+            [self createBall];
+             if ([self.game isInProgress]) {
+                 [self endStrikes];
+                 [self dropBall];
+             }
          }
     }];
     [self enumerateChildNodesWithName:kInstrumentNode usingBlock:
@@ -340,6 +359,14 @@ static const uint32_t floorCategory = 0x1 << 1;
 - (void)selectNodeForTouch:(CGPoint)touchLocation {
     SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     
+    if ([touchedNode.name isEqualToString:kBallNode]) {
+        if (self.game.isInProgress) {
+            return;
+        }
+        self.selectedNode = touchedNode;
+        return;
+    }
+    
     if (![touchedNode isKindOfClass:[InstrumentNode class]])
         return;
     
@@ -374,12 +401,23 @@ static const uint32_t floorCategory = 0x1 << 1;
         
         CGPoint translation = [recognizer translationInView:self.view];
 //        translation = [self.view convertPoint:translation fromView:recognizer.view];
+        if ([self.selectedNode.name isEqualToString:kBallNode])
+            translation = CGPointMake(translation.x,0); // Moving ball horizontally
+        else
         translation = CGPointMake(translation.x, -translation.y); // Must invert translation for SpriteKit
         
         CGPoint position = [self.selectedNode position];
         
         if (self.validTouch) {
-            [self.selectedNode setPosition:CGPointMake(position.x + translation.x, position.y + translation.y)];
+            if ([self.selectedNode.name isEqualToString:kBallNode]) {
+                translation = CGPointMake(position.x + translation.x, position.y);
+                translation.x = MAX(MIN(self.view.bounds.size.width, translation.x), 0);
+                [self.selectedNode setPosition:translation];
+                self.ballStart = self.selectedNode.position;
+            }
+            else{
+                [self.selectedNode setPosition:CGPointMake(position.x + translation.x, position.y + translation.y)];
+            }
             [recognizer setTranslation:CGPointZero inView:recognizer.view];
         }
         
