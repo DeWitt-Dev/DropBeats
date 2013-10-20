@@ -9,14 +9,11 @@
 #import "DPNoteNode.h"
 
 
-#define HEIGHT 75
+#define HEIGHT 25
 
-#define W_BASS 50
-#define W_SNARE 40
-#define W_CYMBOL 30
-#define W_GUITAR 45
-#define W_STRIKE 160
-#define W_ERROR 20
+#define W_LOW 100
+#define W_MID 175
+#define W_HIGH 250
 
 
 @implementation DPNoteNode : SKSpriteNode
@@ -46,32 +43,20 @@
     
     NSLog(@"setupNode");
     // Set with depending on type of instrument
-    switch ([self.note type]) {
-        case kBass:
-            width = W_BASS;
+    switch (self.note.freq)
+    {
+        case 0:
+            width = W_LOW;
             break;
-        case kSnare:
-            width = W_SNARE;
+        case 1:
+            width = W_MID;
             break;
-        case kCymbol:
-            width = W_CYMBOL;
-            break;
-        case kGuitar:
-            width = W_GUITAR;
-            break;
-        case kStrike:
-            width = W_STRIKE;
-            height = 2;
-            break;
-        default:
-            width = W_ERROR;
+        case 2:
+            width = W_HIGH;
             break;
     }
 
-    NSLog(@"test: %0.f", [self.note tolerance]);
     height = (int)((1.0 + [self.note tolerance]) * HEIGHT);
-    
-    NSLog(@"height: %d", height);
     
     CGSize size = CGSizeMake(width, height);
     self.size = size;

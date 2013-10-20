@@ -33,6 +33,7 @@ static bool loaded;
         
         self.name = kInstrumentNode;
         self.frequency = kMidFrequency;
+        self.index = index;
         [self setSize:size];
         [self updatePhysicsBody];
     }

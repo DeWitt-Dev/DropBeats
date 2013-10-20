@@ -10,8 +10,8 @@
 
 @interface InstrumentNode : SKSpriteNode
 {
-    #define MAX_SCALE 0.65
-    #define MIN_SCALE 0.15
+    #define MAX_SCALE 1.5
+    #define MIN_SCALE 0.8
     #define kInstrumentNode @"movable"
 }
 
@@ -23,6 +23,7 @@ typedef enum {
 } FrequencyRange;
 
 @property (nonatomic) FrequencyRange frequency;
+@property (nonatomic) NSInteger index;
 
 -(id)initWithInstrumentIndex: (int) index andSize: (CGSize) size;
 +(void)loadActions;

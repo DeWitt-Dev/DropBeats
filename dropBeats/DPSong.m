@@ -48,11 +48,11 @@ NSMutableArray* notes;
     return notes;
 }
 
-- (NSInteger) duration
+- (float) duration
 {
     int index = [notes count] - 1;
     DPNote* note = [notes objectAtIndex:index];
-    return [note time];
+    return 5.0;
 }
 
 - (DPSong*) getSampleSong: (NSInteger) song
@@ -80,7 +80,8 @@ NSMutableArray* notes;
     NSMutableArray* song = [[NSMutableArray alloc] initWithCapacity:10];
     
     [song addObject: [DPNote DPNoteWithTime:0.1 freq:0 type:kCymbol tolerance:0.1]];
-    [song addObject: [DPNote DPNoteWithTime:0.8 freq:0 type:kCymbol tolerance:0.6]];
+    [song addObject: [DPNote DPNoteWithTime:0.5 freq:1 type:kSnare tolerance:0.1]];
+    [song addObject: [DPNote DPNoteWithTime:0.8 freq:2 type:kSnare tolerance:0.1]];
     
     return song;
 }

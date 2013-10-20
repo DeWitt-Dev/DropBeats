@@ -8,13 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "DPNote.h"
+#import "InstrumentNode.h"
 
 @interface DPStrike : NSObject
 
 @property (nonatomic) NSDate* time;
-@property (nonatomic) NoteType type;
+@property (nonatomic) DPNote* note;
 
-+ (instancetype) strikeAtTime: (NSDate*) time fromType: (NoteType) type;
++ (instancetype) strikeAtTime: (NSDate*) time withNote: (DPNote*) note;
 
 
 @end
