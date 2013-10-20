@@ -66,11 +66,12 @@ NSMutableArray* notes;
 {
     NSMutableArray* song = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [song addObject:[[DPNote alloc] initWithTime:1 freq:0 type:kSnare]];
-    [song addObject:[[DPNote alloc] initWithTime:4 freq:0 type:kBass]];
-    [song addObject:[[DPNote alloc] initWithTime:6 freq:0 type:kGuitar]];
-    [song addObject:[[DPNote alloc] initWithTime:8 freq:0 type:kCymbol]];
-    [song addObject:[[DPNote alloc] initWithTime:13 freq:0 type:kSnare]];
+    [song addObject: [DPNote DPNoteWithTime:0.1 freq:0 type:kCymbol tolerance:0.1]];
+    [song addObject: [DPNote DPNoteWithTime:0.3 freq:0 type:kCymbol tolerance:0.2]];
+    [song addObject: [DPNote DPNoteWithTime:0.4 freq:0 type:kCymbol tolerance:0.4]];
+    [song addObject: [DPNote DPNoteWithTime:0.7 freq:0 type:kCymbol tolerance:0.5]];
+    [song addObject: [DPNote DPNoteWithTime:0.8 freq:0 type:kCymbol tolerance:0.6]];
+
     
     return song;
 }
@@ -79,11 +80,8 @@ NSMutableArray* notes;
 {
     NSMutableArray* song = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [song addObject:[[DPNote alloc] initWithTime:2 freq:0 type:kSnare]];
-    [song addObject:[[DPNote alloc] initWithTime:4 freq:0 type:kBass]];
-    [song addObject:[[DPNote alloc] initWithTime:7 freq:0 type:kGuitar]];
-    [song addObject:[[DPNote alloc] initWithTime:10 freq:0 type:kCymbol]];
-    [song addObject:[[DPNote alloc] initWithTime:12 freq:0 type:kSnare]];
+    [song addObject: [DPNote DPNoteWithTime:0.1 freq:0 type:kCymbol tolerance:0.1]];
+    [song addObject: [DPNote DPNoteWithTime:0.8 freq:0 type:kCymbol tolerance:0.6]];
     
     return song;
 }

@@ -39,10 +39,8 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     self.scene = [DPMyScene sceneWithSize:self.skView.bounds.size];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     
-    [DPMyScene loadEverythingYouCanWithCompletionHandeler:^{
-        // Present the scene.
-        [self.skView presentScene:self.scene];
-    } ];
+    // Present the scene.
+    [self.skView presentScene:self.scene];
 }
 
 -(void)viewWillLayoutSubviews

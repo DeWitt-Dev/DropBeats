@@ -9,7 +9,7 @@
 #import "DPNoteNode.h"
 
 
-#define HEIGHT 15
+#define HEIGHT 75
 
 #define W_BASS 50
 #define W_SNARE 40
@@ -49,30 +49,29 @@
     switch ([self.note type]) {
         case kBass:
             width = W_BASS;
-            height = HEIGHT;
             break;
         case kSnare:
             width = W_SNARE;
-            height = HEIGHT;
             break;
         case kCymbol:
             width = W_CYMBOL;
-            height = HEIGHT;
             break;
         case kGuitar:
             width = W_GUITAR;
-            height = HEIGHT;
             break;
         case kStrike:
             width = W_STRIKE;
-            height = HEIGHT;
             height = 2;
             break;
         default:
             width = W_ERROR;
-            height = HEIGHT;
             break;
     }
+
+    NSLog(@"test: %0.f", [self.note tolerance]);
+    height = (int)((1.0 + [self.note tolerance]) * HEIGHT);
+    
+    NSLog(@"height: %d", height);
     
     CGSize size = CGSizeMake(width, height);
     self.size = size;
