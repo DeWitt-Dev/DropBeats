@@ -7,8 +7,15 @@
 //
 
 #import "DPMyScene.h"
+#import "DPNoteNode.h"
+#import "DPNote.h"
+#import "DPSong.h"
 
 @interface DPMyScene() <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
+{
+    DPSong* song;
+    #define ZFLOOR 10
+}
 @property (nonatomic, strong) SKSpriteNode *selectedNode;
 
 @property BOOL sceneCreated;
@@ -54,6 +61,9 @@ static const uint32_t floorCategory = 0x1 << 1;
         self.sceneCreated = YES;
         
         [self initGestures];
+        
+        [self drawDivider];
+        [self displaySong: [[DPSong song] getSampleSong:0]];
     }
 }
 -(void)initGestures
@@ -77,6 +87,38 @@ static const uint32_t floorCategory = 0x1 << 1;
     
     SKAction *releaseBalls = [SKAction sequence:@[[SKAction performSelector:@selector(createBallNodeAtLocation:) onTarget:self], [SKAction waitForDuration:4]]];
     [self runAction: [SKAction repeatActionForever:releaseBalls]]; //[SKAction repeatAction:releaseBalls count:self.ballCount]];
+}
+
+#pragma mark - Background Music
+- (void) drawDivider
+{
+    CGSize size = CGSizeMake(3, self.frame.size.height);
+    SKSpriteNode* divider = [[SKSpriteNode alloc] initWithColor:[UIColor blueColor] size: size];
+    divider.anchorPoint = CGPointMake(0, 0);
+    divider.position = CGPointMake(self.frame.size.width / 2, 0);
+    divider.zPosition = ZFLOOR;
+    [self addChild:divider];
+}
+
+- (void) displaySong: (DPSong*) s
+{
+    song = s;
+    
+    for (DPNote* dpnote in [song getNotes])
+    {
+        [self drawDPNote:dpnote onSide: 0];
+    }
+}
+
+- (void) drawDPNote: (DPNote*) note onSide: (NSInteger) side
+{
+    DPNoteNode* node = [DPNoteNode noteNodeWithNote:note];
+    float x = side ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
+    int space = (self.frame.size.height / [song duration]);
+    float y = self.frame.size.height - [[node note] time] * space;
+    
+    [node setPosition: CGPointMake(x, y)];
+    [self addChild:node];
 }
 
 - (void) didBeginContact:(SKPhysicsContact *)contact
@@ -133,6 +175,7 @@ static const uint32_t floorCategory = 0x1 << 1;
     ball.physicsBody.categoryBitMask = ballCategory;
     ball.physicsBody.contactTestBitMask = floorCategory;
     ball.physicsBody.collisionBitMask = ballCategory | floorCategory;
+    ball.zPosition = ZFLOOR +1; 
     
     [self addChild:ball];
 }
@@ -155,6 +198,7 @@ static const uint32_t floorCategory = 0x1 << 1;
     tonePad.physicsBody.categoryBitMask = floorCategory;
     tonePad.physicsBody.contactTestBitMask = ballCategory;
     tonePad.physicsBody.collisionBitMask = ballCategory | floorCategory;
+    tonePad.zPosition = ZFLOOR +1;
     
     [self addChild:tonePad];
 }

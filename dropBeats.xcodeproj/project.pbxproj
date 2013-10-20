@@ -45,6 +45,9 @@
 		AE3AEDDD1813617A0041DAB3 /* Box1.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDDA1813617A0041DAB3 /* Box1.png */; };
 		AE3AEDDE1813617A0041DAB3 /* Box2.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDDB1813617A0041DAB3 /* Box2.png */; };
 		AE3AEDDF1813617A0041DAB3 /* Box3.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDDC1813617A0041DAB3 /* Box3.png */; };
+		AE3AEDE6181368C40041DAB3 /* DPNote.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEDE1181368C40041DAB3 /* DPNote.m */; };
+		AE3AEDE7181368C40041DAB3 /* DPNoteNode.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEDE3181368C40041DAB3 /* DPNoteNode.m */; };
+		AE3AEDE8181368C40041DAB3 /* DPSong.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEDE5181368C40041DAB3 /* DPSong.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +107,12 @@
 		AE3AEDDA1813617A0041DAB3 /* Box1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Box1.png; path = Assets.atlas/Box1.png; sourceTree = "<group>"; };
 		AE3AEDDB1813617A0041DAB3 /* Box2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Box2.png; path = Assets.atlas/Box2.png; sourceTree = "<group>"; };
 		AE3AEDDC1813617A0041DAB3 /* Box3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Box3.png; path = Assets.atlas/Box3.png; sourceTree = "<group>"; };
+		AE3AEDE0181368C40041DAB3 /* DPNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPNote.h; sourceTree = "<group>"; };
+		AE3AEDE1181368C40041DAB3 /* DPNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPNote.m; sourceTree = "<group>"; };
+		AE3AEDE2181368C40041DAB3 /* DPNoteNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPNoteNode.h; sourceTree = "<group>"; };
+		AE3AEDE3181368C40041DAB3 /* DPNoteNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPNoteNode.m; sourceTree = "<group>"; };
+		AE3AEDE4181368C40041DAB3 /* DPSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSong.h; sourceTree = "<group>"; };
+		AE3AEDE5181368C40041DAB3 /* DPSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSong.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -200,6 +209,12 @@
 				AE28638218132AE6007BC8DD /* InstrumentNode.m */,
 				AE3907D71812F0CF001D7BBE /* InstrumentCell.h */,
 				AE3907D81812F0CF001D7BBE /* InstrumentCell.m */,
+				AE3AEDE0181368C40041DAB3 /* DPNote.h */,
+				AE3AEDE1181368C40041DAB3 /* DPNote.m */,
+				AE3AEDE2181368C40041DAB3 /* DPNoteNode.h */,
+				AE3AEDE3181368C40041DAB3 /* DPNoteNode.m */,
+				AE3AEDE4181368C40041DAB3 /* DPSong.h */,
+				AE3AEDE5181368C40041DAB3 /* DPSong.m */,
 				AE3907981812ECD7001D7BBE /* Supporting Files */,
 			);
 			path = dropBeats;
@@ -358,12 +373,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE3AEDE8181368C40041DAB3 /* DPSong.m in Sources */,
 				AE28638318132AE6007BC8DD /* InstrumentNode.m in Sources */,
 				AE3907D91812F0CF001D7BBE /* InstrumentCell.m in Sources */,
 				AE3907A21812ECD8001D7BBE /* DPAppDelegate.m in Sources */,
 				AE3907AB1812ECD8001D7BBE /* DPViewController.m in Sources */,
 				AE3907AE1812ECD8001D7BBE /* DPMyScene.m in Sources */,
+				AE3AEDE6181368C40041DAB3 /* DPNote.m in Sources */,
 				AE39079E1812ECD8001D7BBE /* main.m in Sources */,
+				AE3AEDE7181368C40041DAB3 /* DPNoteNode.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
