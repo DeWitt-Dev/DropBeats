@@ -7,9 +7,15 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "InstrumentNode.h"
 
 @interface DPMyScene : SKScene
 
--(void)createInstument: (NSUInteger) index;
+@property (nonatomic) BOOL play; 
+
+-(void) createBallNodeAtLocation: (CGPoint) location;
+-(void) createInstrument: (int) index AtLocation: (CGPoint) location;
+
+-(void)handlePan:(UIPanGestureRecognizer*)recognizer;
 
 @end

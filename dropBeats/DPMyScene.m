@@ -18,7 +18,6 @@
 
 @implementation DPMyScene
 
-static NSString * const kInstrumentNode = @"movable";
 static const uint32_t ballCategory = 0x1 << 0;
 static const uint32_t floorCategory = 0x1 << 1;
 
@@ -49,15 +48,11 @@ static const uint32_t floorCategory = 0x1 << 1;
     if(!self.sceneCreated)
     {
         self.ballCount = 3;
-        self.physicsWorld.gravity = CGVectorMake(0, -2);
+        self.physicsWorld.gravity = CGVectorMake(0, -3);
         self.physicsWorld.contactDelegate = self;
-        
-        [self createBallNodeAtLocation:CGPointZero];
-//        [self initBallDrop];
         self.sceneCreated = YES;
         
         [self initGestures];
-        
     }
 }
 -(void)initGestures
@@ -85,51 +80,54 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 - (void) didBeginContact:(SKPhysicsContact *)contact
 {
-    SKSpriteNode *firstNode, *secondNode;
+    SKSpriteNode *ballNode;
+    InstrumentNode *instrumentNode;
     
-    firstNode = (SKSpriteNode *)contact.bodyA.node;
-    secondNode = (SKSpriteNode *) contact.bodyB.node;
-    
+    if ([contact.bodyA.node isKindOfClass:[InstrumentNode class]]) {
+        
+        instrumentNode = (InstrumentNode *)contact.bodyA.node;
+        ballNode = (SKSpriteNode *) contact.bodyB.node;
+    }
+    else if ([contact.bodyB.node isKindOfClass:[InstrumentNode class]])
+    {
+        instrumentNode = (InstrumentNode *)contact.bodyB.node;
+        ballNode = (SKSpriteNode *) contact.bodyA.node;
+    }
+
+    [instrumentNode playInstrument];
+
     if ((contact.bodyA.categoryBitMask == floorCategory)
         && (contact.bodyB.categoryBitMask == ballCategory))
     {
         CGPoint contactPoint = contact.contactPoint;
         
         float contact_y = contactPoint.y;
-        float target_y = secondNode.position.y;
-        float margin = secondNode.frame.size.height/2 - 25;
+        float target_y = instrumentNode.position.y;
+        float margin = ballNode.frame.size.height/2 - 25;
         
         if ((contact_y > (target_y - margin)) &&
             (contact_y < (target_y + margin)))
         {
             NSLog(@"Collision");
-            [SKAction playSoundFileNamed:@"Cymbols1" waitForCompletion:YES];
         }
-        
-        [self runAction:[SKAction playSoundFileNamed:@"background-music-aac.caf" waitForCompletion:NO]];
     }
 }
 
 - (void)didEndContact:(SKPhysicsContact *)contact
-{
-    
-}
-
--(void)createInstument: (NSUInteger) index
-{
-    [self createTonePad:index AtLocation: CGPointMake(300, 300)];
-}
+{}
 
 -(void) createBallNodeAtLocation: (CGPoint) location
 {
+    self.play = YES;
+
     SKSpriteNode *ball = [[SKSpriteNode alloc]initWithImageNamed:@"Ball"];
     
     ball.name = @"ballNode";
     ball.position = CGPointMake(self.size.width/2, self.size.height);
     
-    ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:(ball.size.width/2)-7];
+    ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:(ball.size.width/2)-8];
     ball.physicsBody.usesPreciseCollisionDetection = YES;
-    ball.physicsBody.restitution = 0.7f;
+    ball.physicsBody.restitution = 0.9f; //energy conservation
     
     ball.physicsBody.categoryBitMask = ballCategory;
     ball.physicsBody.contactTestBitMask = floorCategory;
@@ -138,24 +136,21 @@ static const uint32_t floorCategory = 0x1 << 1;
     [self addChild:ball];
 }
 
--(void) createTonePad
+-(void) setPlay:(BOOL)play
 {
-    [self createBallNodeAtLocation:CGPointMake(100, 0)];
+    _play = play;
+    if (!play) {
+        [self enumerateChildNodesWithName:@"ballNode" usingBlock:
+         ^(SKNode *node,BOOL *stop) {
+                 [node removeFromParent];
+         }];
+    }
 }
-
--(void) createTonePad: (NSUInteger) index AtLocation: (CGPoint) location
+-(void) createInstrument: (int) index AtLocation: (CGPoint) location
 {
-    SKSpriteNode *tonePad = [[SKSpriteNode alloc]initWithImageNamed: [NSString stringWithFormat:@"Box%d", index+1]]; //[[SKSpriteNode alloc]initWithColor:[UIColor blackColor] size:CGSizeMake(50, 5)];
+    SKSpriteNode *tonePad = [[InstrumentNode alloc]initWIthInstrumentIndex:index];
     
-    tonePad.name = kInstrumentNode;
     tonePad.position = location;
-    
-    tonePad.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:tonePad.size];
-    tonePad.physicsBody.usesPreciseCollisionDetection = YES;
-    tonePad.physicsBody.affectedByGravity = NO;
-    tonePad.physicsBody.dynamic = NO;
-    tonePad.physicsBody.restitution = 0.0;
-    
     tonePad.physicsBody.categoryBitMask = floorCategory;
     tonePad.physicsBody.contactTestBitMask = ballCategory;
     tonePad.physicsBody.collisionBitMask = ballCategory | floorCategory;
@@ -168,7 +163,9 @@ static const uint32_t floorCategory = 0x1 << 1;
     [self enumerateChildNodesWithName:@"ballNode" usingBlock:
      ^(SKNode *node,BOOL *stop) {
          if (node.position.y < 0){
-            [self createBallNodeAtLocation:CGPointZero];
+             if (self.play) {
+                 [self createBallNodeAtLocation:CGPointZero];
+             }
             [node removeFromParent];
          }
     }];
@@ -184,10 +181,13 @@ static const uint32_t floorCategory = 0x1 << 1;
 - (void)selectNodeForTouch:(CGPoint)touchLocation {
     SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     
-	if(![self.selectedNode isEqual:touchedNode] && [touchedNode containsPoint:touchLocation]) {
+	if(![self.selectedNode isEqual:touchedNode]) {
 		[self.selectedNode removeAllActions];
         
-		self.selectedNode = touchedNode;
+        if ([touchedNode containsPoint:touchLocation]) {
+            self.selectedNode = touchedNode;
+        }
+        
 		if([[touchedNode name] isEqualToString:kInstrumentNode]) {
 			SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(-4.0f) duration:0.1],
 													  [SKAction rotateByAngle:0.0 duration:0.1],
@@ -201,17 +201,21 @@ static const uint32_t floorCategory = 0x1 << 1;
 }
 
 -(void)handlePan:(UIPanGestureRecognizer*)recognizer{
+    CGPoint touchLocation = [recognizer locationInView:self.view];
+    touchLocation = [self convertPointFromView:touchLocation];
+    
     if (recognizer.state == UIGestureRecognizerStateBegan) {
-        CGPoint touchLocation = [recognizer locationInView:recognizer.view];
-        touchLocation = [self convertPointFromView:touchLocation];
         [self selectNodeForTouch:touchLocation];
         
     } else if (recognizer.state == UIGestureRecognizerStateChanged) {
         
-        CGPoint translation = [recognizer translationInView:recognizer.view];
+        CGPoint translation = [recognizer translationInView:self.view];
+//        translation = [self.view convertPoint:translation fromView:recognizer.view];
         translation = CGPointMake(translation.x, -translation.y); // Must invert translation for SpriteKit
         
         CGPoint position = [self.selectedNode position];
+        
+        if([self.selectedNode containsPoint:touchLocation])
         [self.selectedNode setPosition:CGPointMake(position.x + translation.x, position.y + translation.y)];
         
         [recognizer setTranslation:CGPointZero inView:recognizer.view];

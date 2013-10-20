@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>7B9B3C40-3A5D-47EA-84FF-74618ACC5C6C</string>
+	<key>IDESourceControlProjectName</key>
+	<string>dropBeats</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>30C170D6-7EC1-40D6-9EE9-A553FA41AFAD</key>
+		<string>https://github.com/DeWitt-Dev/DropBeats.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>dropBeats.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>30C170D6-7EC1-40D6-9EE9-A553FA41AFAD</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/DeWitt-Dev/DropBeats.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>30C170D6-7EC1-40D6-9EE9-A553FA41AFAD</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>30C170D6-7EC1-40D6-9EE9-A553FA41AFAD</string>
+			<key>IDESourceControlWCCName</key>
+			<string>dropBeats</string>
+		</dict>
+	</array>
+</dict>
+</plist>

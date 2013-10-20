@@ -22,35 +22,36 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4jr-ul-c46" userLabel="Banner">
-                                <rect key="frame" x="0.0" y="819" width="768" height="205"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4jr-ul-c46" userLabel="Banner">
+                                <rect key="frame" x="0.0" y="820" width="768" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="F2V-we-gWp">
-                                        <rect key="frame" x="0.0" y="0.0" width="709" height="205"/>
+                                        <rect key="frame" x="0.0" y="5" width="709" height="200"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9e7-Lb-see">
-                                            <size key="itemSize" width="202" height="205"/>
+                                            <size key="itemSize" width="190" height="190"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                             <inset key="sectionInset" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="InstrumentCell" id="ztL-WZ-CSn" customClass="InstrumentCell">
-                                                <rect key="frame" x="5" y="0.0" width="202" height="205"/>
+                                                <rect key="frame" x="5" y="5" width="190" height="190"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="202" height="205"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="190" height="190"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pC2-P5-46t">
-                                                            <rect key="frame" x="0.0" y="0.0" width="202" height="205"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="190" height="190"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                         </imageView>
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
+                                                <gestureRecognizers/>
                                                 <connections>
                                                     <outlet property="imageView" destination="pC2-P5-46t" id="nr4-6X-9kg"/>
                                                 </connections>
@@ -64,18 +65,17 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i5V-JB-gO6">
                                         <rect key="frame" x="722" y="0.0" width="46" height="205"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <gestureRecognizers/>
                                         <state key="normal" title="&lt;">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="hideShowBanner:" destination="BV1-FR-VrT" eventType="touchUpInside" id="KJZ-g4-tiN"/>
+                                            <outletCollection property="gestureRecognizers" destination="ZCh-Ab-rgt" appends="YES" id="ZCK-na-Gag"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="200" id="55b-Pz-jwb"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -83,10 +83,16 @@
                     <connections>
                         <outlet property="bannerView" destination="4jr-ul-c46" id="dO7-uo-Hxc"/>
                         <outlet property="collectionView" destination="F2V-we-gWp" id="sPu-Ya-Uo5"/>
+                        <outlet property="hideShowButton" destination="i5V-JB-gO6" id="w11-7x-gkZ"/>
                         <outlet property="skView" destination="Q4W-6q-7x7" id="FAy-hK-O9k"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="ZCh-Ab-rgt" userLabel="ButtonPan Gesture Recognizer">
+                    <connections>
+                        <action selector="dragBanner:" destination="BV1-FR-VrT" id="pK5-SW-qLe"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
         </scene>
     </scenes>

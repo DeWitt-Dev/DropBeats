@@ -9,7 +9,6 @@
 #import "DPViewController.h"
 #import "DPMyScene.h"
 #import "InstrumentCell.h"
-@import AVFoundation;
 
 @interface DPViewController() <UICollectionViewDataSource, UICollectionViewDelegate>
 
@@ -19,11 +18,13 @@
 
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (weak, nonatomic) IBOutlet UIButton *hideShowButton;
 
-@property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
 @end
 
 @implementation DPViewController
+
+static NSString * const kInstrumentPrefix = @"Box";
 
 - (void)viewDidLoad
 {
@@ -45,14 +46,7 @@
 -(void)viewWillLayoutSubviews
 {
     [super viewWillLayoutSubviews];
-    
-    //Init audio
-    NSError *error;
-    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"background-music-aac" withExtension:@"caf"];
-    self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
-    self.backgroundMusicPlayer.numberOfLoops = -1;
-//    [self.backgroundMusicPlayer prepareToPlay];
-//    [self.backgroundMusicPlayer play];
+
 }
 
 #pragma mark - CollectionView
@@ -64,29 +58,33 @@
 {
     InstrumentCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"InstrumentCell" forIndexPath:indexPath];
     
-    cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    
-    switch (indexPath.row) {
-        case 0:
-            [cell.imageView setImage:[UIImage imageNamed:@"Box1"]];
-            break;
-        case 1:
-            [cell.imageView setImage:[UIImage imageNamed:@"Box2"]];
-            break;
-        case 2:
-            [cell.imageView setImage:[UIImage imageNamed:@"Box3"]];
-            break;
-            
-        default:
-            break;
+    if (cell.panGesture == nil) {
+        cell.panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(dragInstrument:)];
+        [cell addGestureRecognizer:cell.panGesture];
     }
+    
+    NSString* imageId = [NSString stringWithFormat:@"%@%d", kInstrumentPrefix, indexPath.row+1];
+    cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
+    UIImage* image = [UIImage imageNamed:imageId];
+    [cell.imageView setImage: image];
     
     return cell;
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.scene createInstument:indexPath.row];
+    [self.scene createInstrument:indexPath.row AtLocation:CGPointMake(300, 300)];
+}
+- (void)dragInstrument:(UIPanGestureRecognizer *)sender {
+
+    if (sender.state == UIGestureRecognizerStateBegan) {
+        NSIndexPath* pathForInstrument = [self.collectionView indexPathForCell: (InstrumentCell*)sender.view];
+        CGPoint start = [sender locationInView:self.scene.view];
+        start.y = self.view.frame.size.height - start.y; 
+        [self.scene createInstrument:pathForInstrument.row AtLocation:start];
+    }
+    
+    [self.scene handlePan:sender];
 }
 
 - (IBAction)hideShowBanner:(UIButton *)sender {
@@ -103,6 +101,7 @@
          } completion:nil];
         
         [sender setTitle:@">" forState:UIControlStateNormal];
+        [self.scene createBallNodeAtLocation:CGPointZero];
     }
     else{
         [UIView animateWithDuration:ANIMATION_DURATION animations:
@@ -114,8 +113,37 @@
          } completion:nil];
         
         [sender setTitle:@"<" forState:UIControlStateNormal];
+        self.scene.play = NO;
     }
     self.displayBanner = !self.displayBanner;
+}
+
+- (IBAction)dragBanner:(UIPanGestureRecognizer *)sender {
+    
+    CGPoint translation = [sender translationInView:sender.view];
+    CGRect frame = self.bannerView.frame;
+    
+    if (!self.displayBanner) {
+        frame.origin.x = translation.x;
+        self.bannerView.frame = frame;
+    }
+    else{
+        frame.origin.x = translation.x -frame.size.width;
+        self.bannerView.frame = frame;
+    }
+    
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        
+        if (!self.displayBanner && -self.bannerView.frame.origin.x < self.collectionView.bounds.size.width/2 ) {
+            self.displayBanner = YES;
+        }
+        else if (self.displayBanner && -self.bannerView.frame.origin.x > self.collectionView.bounds.size.width/2)
+        {
+            self.displayBanner = NO;
+        }
+        [self hideShowBanner:self.hideShowButton];
+        [sender setTranslation:CGPointZero inView:sender.view];
+    }
 }
 
 - (BOOL)shouldAutorotate
