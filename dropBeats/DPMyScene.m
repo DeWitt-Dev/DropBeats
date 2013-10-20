@@ -12,6 +12,7 @@
 @property (nonatomic, strong) SKSpriteNode *selectedNode;
 
 @property BOOL sceneCreated;
+@property BOOL validTouch;
 @property int ballCount;
 
 @end
@@ -119,8 +120,8 @@ static const uint32_t floorCategory = 0x1 << 1;
 -(void) createBallNodeAtLocation: (CGPoint) location
 {
     self.play = YES;
-
-    SKSpriteNode *ball = [[SKSpriteNode alloc]initWithImageNamed:@"Ball"];
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Assets"];
+    SKSpriteNode *ball = [[SKSpriteNode alloc] initWithTexture:[atlas textureNamed:@"Ball"]];
     
     ball.name = @"ballNode";
     ball.position = CGPointMake(self.size.width/2, self.size.height);
@@ -177,16 +178,18 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 #pragma mark - Gesture Recognizers
 
-#define WIGGLE 1.5
+#define WIGGLE 2.0
 - (void)selectNodeForTouch:(CGPoint)touchLocation {
     SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
+    
+    if (![touchedNode isKindOfClass:[InstrumentNode class]]) {
+        return;
+    }
     
 	if(![self.selectedNode isEqual:touchedNode]) {
 		[self.selectedNode removeAllActions];
         
-        if ([touchedNode containsPoint:touchLocation]) {
-            self.selectedNode = touchedNode;
-        }
+        self.selectedNode = touchedNode;
         
 		if([[touchedNode name] isEqualToString:kInstrumentNode]) {
 			SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(-4.0f) duration:0.1],
@@ -195,9 +198,6 @@ static const uint32_t floorCategory = 0x1 << 1;
 			[self.selectedNode runAction:[SKAction repeatAction:sequence count:WIGGLE]];
 		}
 	}
-//    else{
-//        self.selectedNode = nil;
-//    }
 }
 
 -(void)handlePan:(UIPanGestureRecognizer*)recognizer{
@@ -206,6 +206,8 @@ static const uint32_t floorCategory = 0x1 << 1;
     
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         [self selectNodeForTouch:touchLocation];
+        if([self.selectedNode containsPoint:touchLocation])
+            self.validTouch = YES;
         
     } else if (recognizer.state == UIGestureRecognizerStateChanged) {
         
@@ -215,13 +217,14 @@ static const uint32_t floorCategory = 0x1 << 1;
         
         CGPoint position = [self.selectedNode position];
         
-        if([self.selectedNode containsPoint:touchLocation])
-        [self.selectedNode setPosition:CGPointMake(position.x + translation.x, position.y + translation.y)];
-        
-        [recognizer setTranslation:CGPointZero inView:recognizer.view];
+        if (self.validTouch) {
+            [self.selectedNode setPosition:CGPointMake(position.x + translation.x, position.y + translation.y)];
+            [recognizer setTranslation:CGPointZero inView:recognizer.view];
+        }
         
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
         
+        self.validTouch = NO;
         if (![[self.selectedNode name] isEqualToString:kInstrumentNode]) {
             float scrollDuration = 0.2;
             CGPoint velocity = [recognizer velocityInView:recognizer.view];
@@ -243,7 +246,6 @@ static const uint32_t floorCategory = 0x1 << 1;
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         CGPoint touchLocation = [recognizer locationInView:recognizer.view];
         touchLocation = [self convertPointFromView:touchLocation];
-//        self.selectedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
         [self selectNodeForTouch:touchLocation];
     }
     

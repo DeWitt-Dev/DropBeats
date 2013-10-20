@@ -42,6 +42,9 @@
 		AE3907C31812ECD8001D7BBE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE3907C11812ECD8001D7BBE /* InfoPlist.strings */; };
 		AE3907C51812ECD8001D7BBE /* dropBeatsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3907C41812ECD8001D7BBE /* dropBeatsTests.m */; };
 		AE3907D91812F0CF001D7BBE /* InstrumentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3907D81812F0CF001D7BBE /* InstrumentCell.m */; };
+		AE3AEDDD1813617A0041DAB3 /* Box1.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDDA1813617A0041DAB3 /* Box1.png */; };
+		AE3AEDDE1813617A0041DAB3 /* Box2.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDDB1813617A0041DAB3 /* Box2.png */; };
+		AE3AEDDF1813617A0041DAB3 /* Box3.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDDC1813617A0041DAB3 /* Box3.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +101,9 @@
 		AE3907C41812ECD8001D7BBE /* dropBeatsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dropBeatsTests.m; sourceTree = "<group>"; };
 		AE3907D71812F0CF001D7BBE /* InstrumentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstrumentCell.h; sourceTree = "<group>"; };
 		AE3907D81812F0CF001D7BBE /* InstrumentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstrumentCell.m; sourceTree = "<group>"; };
+		AE3AEDDA1813617A0041DAB3 /* Box1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Box1.png; path = Assets.atlas/Box1.png; sourceTree = "<group>"; };
+		AE3AEDDB1813617A0041DAB3 /* Box2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Box2.png; path = Assets.atlas/Box2.png; sourceTree = "<group>"; };
+		AE3AEDDC1813617A0041DAB3 /* Box3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Box3.png; path = Assets.atlas/Box3.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +209,9 @@
 			isa = PBXGroup;
 			children = (
 				AE3907B11812ECD8001D7BBE /* Images.xcassets */,
+				AE3AEDDA1813617A0041DAB3 /* Box1.png */,
+				AE3AEDDB1813617A0041DAB3 /* Box2.png */,
+				AE3AEDDC1813617A0041DAB3 /* Box3.png */,
 				AE2863C21813576D007BC8DD /* Assets.atlas */,
 				AE2863C118134CD9007BC8DD /* Sounds */,
 				AE3907991812ECD7001D7BBE /* dropBeats-Info.plist */,
@@ -308,11 +317,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE3AEDDD1813617A0041DAB3 /* Box1.png in Resources */,
 				AE2863BE18134CD3007BC8DD /* Instrument5_1.caf in Resources */,
+				AE3AEDDF1813617A0041DAB3 /* Box3.png in Resources */,
 				AE2863BB18134CD3007BC8DD /* Instrument4_1.caf in Resources */,
 				AE2863C31813576D007BC8DD /* Assets.atlas in Resources */,
 				AE2863BA18134CD3007BC8DD /* Instrument3_3.caf in Resources */,
 				AE2863B718134CD3007BC8DD /* Instrument2_3.caf in Resources */,
+				AE3AEDDE1813617A0041DAB3 /* Box2.png in Resources */,
 				AE2863B518134CD3007BC8DD /* Instrument2_1.caf in Resources */,
 				AE2863B218134CD3007BC8DD /* Instrument1_1.caf in Resources */,
 				AE2863BC18134CD3007BC8DD /* Instrument4_2.caf in Resources */,

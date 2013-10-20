@@ -18,9 +18,10 @@ static NSString * const kInstrumentPrefix = @"Box";
 -(id)initWIthInstrumentIndex: (int) index
 {
     self.imageID = [NSString stringWithFormat:@"%@%d",kInstrumentPrefix, index+1];
-//    SKTexture *texture = [SKTexture textureWithImageNamed:self.imageID];
+    SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Assets"];
+    SKTexture *texture = [atlas textureNamed:self.imageID];
     
-    if (self = [super initWithImageNamed:self.imageID]) {
+    if (self = [super initWithTexture:texture]) {
         
         self.name = kInstrumentNode;
         self.frequency = kMidFrequency; 
