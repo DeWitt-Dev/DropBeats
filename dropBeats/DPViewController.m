@@ -24,7 +24,7 @@
 
 @implementation DPViewController
 
-static NSString * const kInstrumentPrefix = @"Box";
+static NSString * const kInstrumentPrefix = @"Instrument";
 
 - (void)viewDidLoad
 {

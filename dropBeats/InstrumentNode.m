@@ -13,7 +13,7 @@
 @end
 @implementation InstrumentNode
 
-static NSString * const kInstrumentPrefix = @"Box";
+static NSString * const kInstrumentPrefix = @"Instrument";
 
 -(id)initWIthInstrumentIndex: (int) index
 {
@@ -24,10 +24,8 @@ static NSString * const kInstrumentPrefix = @"Box";
     if (self = [super initWithTexture:texture]) {
         
         self.name = kInstrumentNode;
-        self.frequency = kMidFrequency; 
-        
-        #warning temporary Implementation
-        self.imageID = [NSString stringWithFormat:@"Instrument%d", index+1];
+        self.frequency = kMidFrequency;
+        [self setScale:0.18];
         
         [self updatePhysicsBody];
     }
@@ -58,12 +56,6 @@ static NSString * const kInstrumentPrefix = @"Box";
             [self updatePhysicsBody];
         }
     }
-}
-
--(void)setScale:(CGFloat)scale
-{
-    [super setScale:scale];
-   
 }
 
 -(void)frequencyChanged

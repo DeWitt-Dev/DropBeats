@@ -8,21 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		AE28638318132AE6007BC8DD /* InstrumentNode.m in Sources */ = {isa = PBXBuildFile; fileRef = AE28638218132AE6007BC8DD /* InstrumentNode.m */; };
-		AE2863B218134CD3007BC8DD /* Instrument1_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863A318134CD3007BC8DD /* Instrument1_1.caf */; };
-		AE2863B318134CD3007BC8DD /* Instrument1_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863A418134CD3007BC8DD /* Instrument1_2.caf */; };
-		AE2863B418134CD3007BC8DD /* Instrument1_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863A518134CD3007BC8DD /* Instrument1_3.caf */; };
-		AE2863B518134CD3007BC8DD /* Instrument2_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863A618134CD3007BC8DD /* Instrument2_1.caf */; };
-		AE2863B618134CD3007BC8DD /* Instrument2_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863A718134CD3007BC8DD /* Instrument2_2.caf */; };
-		AE2863B718134CD3007BC8DD /* Instrument2_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863A818134CD3007BC8DD /* Instrument2_3.caf */; };
-		AE2863B818134CD3007BC8DD /* Instrument3_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863A918134CD3007BC8DD /* Instrument3_1.caf */; };
-		AE2863B918134CD3007BC8DD /* Instrument3_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863AA18134CD3007BC8DD /* Instrument3_2.caf */; };
-		AE2863BA18134CD3007BC8DD /* Instrument3_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863AB18134CD3007BC8DD /* Instrument3_3.caf */; };
-		AE2863BB18134CD3007BC8DD /* Instrument4_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863AC18134CD3007BC8DD /* Instrument4_1.caf */; };
-		AE2863BC18134CD3007BC8DD /* Instrument4_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863AD18134CD3007BC8DD /* Instrument4_2.caf */; };
-		AE2863BD18134CD3007BC8DD /* Instrument4_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863AE18134CD3007BC8DD /* Instrument4_3.caf */; };
-		AE2863BE18134CD3007BC8DD /* Instrument5_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863AF18134CD3007BC8DD /* Instrument5_1.caf */; };
-		AE2863BF18134CD3007BC8DD /* Instrument5_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863B018134CD3007BC8DD /* Instrument5_2.caf */; };
-		AE2863C018134CD3007BC8DD /* Instrument5_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE2863B118134CD3007BC8DD /* Instrument5_3.caf */; };
 		AE2863C31813576D007BC8DD /* Assets.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AE2863C21813576D007BC8DD /* Assets.atlas */; };
 		AE3907901812ECD7001D7BBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39078F1812ECD7001D7BBE /* Foundation.framework */; };
 		AE3907921812ECD7001D7BBE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3907911812ECD7001D7BBE /* CoreGraphics.framework */; };
@@ -48,6 +33,23 @@
 		AE3AEDE6181368C40041DAB3 /* DPNote.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEDE1181368C40041DAB3 /* DPNote.m */; };
 		AE3AEDE7181368C40041DAB3 /* DPNoteNode.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEDE3181368C40041DAB3 /* DPNoteNode.m */; };
 		AE3AEDE8181368C40041DAB3 /* DPSong.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEDE5181368C40041DAB3 /* DPSong.m */; };
+		AE3AEDF118136B590041DAB3 /* Instrument1.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDEF18136B590041DAB3 /* Instrument1.png */; };
+		AE3AEDF218136B590041DAB3 /* Instrument2.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDF018136B590041DAB3 /* Instrument2.png */; };
+		AE3AEE0218136BA70041DAB3 /* Instrument1_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDF318136BA70041DAB3 /* Instrument1_1.caf */; };
+		AE3AEE0318136BA70041DAB3 /* Instrument1_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDF418136BA70041DAB3 /* Instrument1_2.caf */; };
+		AE3AEE0418136BA70041DAB3 /* Instrument1_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDF518136BA70041DAB3 /* Instrument1_3.caf */; };
+		AE3AEE0518136BA70041DAB3 /* Instrument2_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDF618136BA70041DAB3 /* Instrument2_1.caf */; };
+		AE3AEE0618136BA70041DAB3 /* Instrument2_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDF718136BA70041DAB3 /* Instrument2_2.caf */; };
+		AE3AEE0718136BA70041DAB3 /* Instrument2_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDF818136BA70041DAB3 /* Instrument2_3.caf */; };
+		AE3AEE0818136BA70041DAB3 /* Instrument3_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDF918136BA70041DAB3 /* Instrument3_1.caf */; };
+		AE3AEE0918136BA70041DAB3 /* Instrument3_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDFA18136BA70041DAB3 /* Instrument3_2.caf */; };
+		AE3AEE0A18136BA70041DAB3 /* Instrument3_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDFB18136BA70041DAB3 /* Instrument3_3.caf */; };
+		AE3AEE0B18136BA70041DAB3 /* Instrument4_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDFC18136BA70041DAB3 /* Instrument4_1.caf */; };
+		AE3AEE0C18136BA70041DAB3 /* Instrument4_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDFD18136BA70041DAB3 /* Instrument4_2.caf */; };
+		AE3AEE0D18136BA70041DAB3 /* Instrument4_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDFE18136BA70041DAB3 /* Instrument4_3.caf */; };
+		AE3AEE0E18136BA70041DAB3 /* Instrument5_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDFF18136BA70041DAB3 /* Instrument5_1.caf */; };
+		AE3AEE0F18136BA70041DAB3 /* Instrument5_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEE0018136BA70041DAB3 /* Instrument5_2.caf */; };
+		AE3AEE1018136BA70041DAB3 /* Instrument5_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEE0118136BA70041DAB3 /* Instrument5_3.caf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,21 +65,6 @@
 /* Begin PBXFileReference section */
 		AE28638118132AE6007BC8DD /* InstrumentNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstrumentNode.h; sourceTree = "<group>"; };
 		AE28638218132AE6007BC8DD /* InstrumentNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstrumentNode.m; sourceTree = "<group>"; };
-		AE2863A318134CD3007BC8DD /* Instrument1_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument1_1.caf; sourceTree = "<group>"; };
-		AE2863A418134CD3007BC8DD /* Instrument1_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument1_2.caf; sourceTree = "<group>"; };
-		AE2863A518134CD3007BC8DD /* Instrument1_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument1_3.caf; sourceTree = "<group>"; };
-		AE2863A618134CD3007BC8DD /* Instrument2_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument2_1.caf; sourceTree = "<group>"; };
-		AE2863A718134CD3007BC8DD /* Instrument2_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument2_2.caf; sourceTree = "<group>"; };
-		AE2863A818134CD3007BC8DD /* Instrument2_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument2_3.caf; sourceTree = "<group>"; };
-		AE2863A918134CD3007BC8DD /* Instrument3_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument3_1.caf; sourceTree = "<group>"; };
-		AE2863AA18134CD3007BC8DD /* Instrument3_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument3_2.caf; sourceTree = "<group>"; };
-		AE2863AB18134CD3007BC8DD /* Instrument3_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument3_3.caf; sourceTree = "<group>"; };
-		AE2863AC18134CD3007BC8DD /* Instrument4_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument4_1.caf; sourceTree = "<group>"; };
-		AE2863AD18134CD3007BC8DD /* Instrument4_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument4_2.caf; sourceTree = "<group>"; };
-		AE2863AE18134CD3007BC8DD /* Instrument4_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument4_3.caf; sourceTree = "<group>"; };
-		AE2863AF18134CD3007BC8DD /* Instrument5_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument5_1.caf; sourceTree = "<group>"; };
-		AE2863B018134CD3007BC8DD /* Instrument5_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument5_2.caf; sourceTree = "<group>"; };
-		AE2863B118134CD3007BC8DD /* Instrument5_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Instrument5_3.caf; sourceTree = "<group>"; };
 		AE2863C21813576D007BC8DD /* Assets.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Assets.atlas; sourceTree = "<group>"; };
 		AE39078C1812ECD7001D7BBE /* dropBeats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dropBeats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE39078F1812ECD7001D7BBE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -113,6 +100,23 @@
 		AE3AEDE3181368C40041DAB3 /* DPNoteNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPNoteNode.m; sourceTree = "<group>"; };
 		AE3AEDE4181368C40041DAB3 /* DPSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSong.h; sourceTree = "<group>"; };
 		AE3AEDE5181368C40041DAB3 /* DPSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSong.m; sourceTree = "<group>"; };
+		AE3AEDEF18136B590041DAB3 /* Instrument1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Instrument1.png; sourceTree = "<group>"; };
+		AE3AEDF018136B590041DAB3 /* Instrument2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Instrument2.png; sourceTree = "<group>"; };
+		AE3AEDF318136BA70041DAB3 /* Instrument1_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument1_1.caf; path = dropBeats/sounds/Instrument1_1.caf; sourceTree = "<group>"; };
+		AE3AEDF418136BA70041DAB3 /* Instrument1_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument1_2.caf; path = dropBeats/sounds/Instrument1_2.caf; sourceTree = "<group>"; };
+		AE3AEDF518136BA70041DAB3 /* Instrument1_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument1_3.caf; path = dropBeats/sounds/Instrument1_3.caf; sourceTree = "<group>"; };
+		AE3AEDF618136BA70041DAB3 /* Instrument2_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument2_1.caf; path = dropBeats/sounds/Instrument2_1.caf; sourceTree = "<group>"; };
+		AE3AEDF718136BA70041DAB3 /* Instrument2_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument2_2.caf; path = dropBeats/sounds/Instrument2_2.caf; sourceTree = "<group>"; };
+		AE3AEDF818136BA70041DAB3 /* Instrument2_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument2_3.caf; path = dropBeats/sounds/Instrument2_3.caf; sourceTree = "<group>"; };
+		AE3AEDF918136BA70041DAB3 /* Instrument3_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument3_1.caf; path = dropBeats/sounds/Instrument3_1.caf; sourceTree = "<group>"; };
+		AE3AEDFA18136BA70041DAB3 /* Instrument3_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument3_2.caf; path = dropBeats/sounds/Instrument3_2.caf; sourceTree = "<group>"; };
+		AE3AEDFB18136BA70041DAB3 /* Instrument3_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument3_3.caf; path = dropBeats/sounds/Instrument3_3.caf; sourceTree = "<group>"; };
+		AE3AEDFC18136BA70041DAB3 /* Instrument4_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument4_1.caf; path = dropBeats/sounds/Instrument4_1.caf; sourceTree = "<group>"; };
+		AE3AEDFD18136BA70041DAB3 /* Instrument4_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument4_2.caf; path = dropBeats/sounds/Instrument4_2.caf; sourceTree = "<group>"; };
+		AE3AEDFE18136BA70041DAB3 /* Instrument4_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument4_3.caf; path = dropBeats/sounds/Instrument4_3.caf; sourceTree = "<group>"; };
+		AE3AEDFF18136BA70041DAB3 /* Instrument5_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument5_1.caf; path = dropBeats/sounds/Instrument5_1.caf; sourceTree = "<group>"; };
+		AE3AEE0018136BA70041DAB3 /* Instrument5_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument5_2.caf; path = dropBeats/sounds/Instrument5_2.caf; sourceTree = "<group>"; };
+		AE3AEE0118136BA70041DAB3 /* Instrument5_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument5_3.caf; path = dropBeats/sounds/Instrument5_3.caf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,21 +147,6 @@
 		AE2863C118134CD9007BC8DD /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				AE2863A318134CD3007BC8DD /* Instrument1_1.caf */,
-				AE2863A418134CD3007BC8DD /* Instrument1_2.caf */,
-				AE2863A518134CD3007BC8DD /* Instrument1_3.caf */,
-				AE2863A618134CD3007BC8DD /* Instrument2_1.caf */,
-				AE2863A718134CD3007BC8DD /* Instrument2_2.caf */,
-				AE2863A818134CD3007BC8DD /* Instrument2_3.caf */,
-				AE2863A918134CD3007BC8DD /* Instrument3_1.caf */,
-				AE2863AA18134CD3007BC8DD /* Instrument3_2.caf */,
-				AE2863AB18134CD3007BC8DD /* Instrument3_3.caf */,
-				AE2863AC18134CD3007BC8DD /* Instrument4_1.caf */,
-				AE2863AD18134CD3007BC8DD /* Instrument4_2.caf */,
-				AE2863AE18134CD3007BC8DD /* Instrument4_3.caf */,
-				AE2863AF18134CD3007BC8DD /* Instrument5_1.caf */,
-				AE2863B018134CD3007BC8DD /* Instrument5_2.caf */,
-				AE2863B118134CD3007BC8DD /* Instrument5_3.caf */,
 			);
 			name = Sounds;
 			path = ..;
@@ -223,7 +212,10 @@
 		AE3907981812ECD7001D7BBE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AE3AEE1118136BAE0041DAB3 /* Sounds */,
 				AE3907B11812ECD8001D7BBE /* Images.xcassets */,
+				AE3AEDEF18136B590041DAB3 /* Instrument1.png */,
+				AE3AEDF018136B590041DAB3 /* Instrument2.png */,
 				AE3AEDDA1813617A0041DAB3 /* Box1.png */,
 				AE3AEDDB1813617A0041DAB3 /* Box2.png */,
 				AE3AEDDC1813617A0041DAB3 /* Box3.png */,
@@ -253,6 +245,29 @@
 				AE3907C11812ECD8001D7BBE /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AE3AEE1118136BAE0041DAB3 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				AE3AEDF318136BA70041DAB3 /* Instrument1_1.caf */,
+				AE3AEDF418136BA70041DAB3 /* Instrument1_2.caf */,
+				AE3AEDF518136BA70041DAB3 /* Instrument1_3.caf */,
+				AE3AEDF618136BA70041DAB3 /* Instrument2_1.caf */,
+				AE3AEDF718136BA70041DAB3 /* Instrument2_2.caf */,
+				AE3AEDF818136BA70041DAB3 /* Instrument2_3.caf */,
+				AE3AEDF918136BA70041DAB3 /* Instrument3_1.caf */,
+				AE3AEDFA18136BA70041DAB3 /* Instrument3_2.caf */,
+				AE3AEDFB18136BA70041DAB3 /* Instrument3_3.caf */,
+				AE3AEDFC18136BA70041DAB3 /* Instrument4_1.caf */,
+				AE3AEDFD18136BA70041DAB3 /* Instrument4_2.caf */,
+				AE3AEDFE18136BA70041DAB3 /* Instrument4_3.caf */,
+				AE3AEDFF18136BA70041DAB3 /* Instrument5_1.caf */,
+				AE3AEE0018136BA70041DAB3 /* Instrument5_2.caf */,
+				AE3AEE0118136BA70041DAB3 /* Instrument5_3.caf */,
+			);
+			name = Sounds;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,27 +347,29 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE3AEE0F18136BA70041DAB3 /* Instrument5_2.caf in Resources */,
+				AE3AEE0318136BA70041DAB3 /* Instrument1_2.caf in Resources */,
+				AE3AEE0418136BA70041DAB3 /* Instrument1_3.caf in Resources */,
 				AE3AEDDD1813617A0041DAB3 /* Box1.png in Resources */,
-				AE2863BE18134CD3007BC8DD /* Instrument5_1.caf in Resources */,
 				AE3AEDDF1813617A0041DAB3 /* Box3.png in Resources */,
-				AE2863BB18134CD3007BC8DD /* Instrument4_1.caf in Resources */,
+				AE3AEDF118136B590041DAB3 /* Instrument1.png in Resources */,
+				AE3AEE0218136BA70041DAB3 /* Instrument1_1.caf in Resources */,
+				AE3AEE1018136BA70041DAB3 /* Instrument5_3.caf in Resources */,
+				AE3AEE0B18136BA70041DAB3 /* Instrument4_1.caf in Resources */,
+				AE3AEE0918136BA70041DAB3 /* Instrument3_2.caf in Resources */,
+				AE3AEE0D18136BA70041DAB3 /* Instrument4_3.caf in Resources */,
+				AE3AEE0E18136BA70041DAB3 /* Instrument5_1.caf in Resources */,
+				AE3AEE0818136BA70041DAB3 /* Instrument3_1.caf in Resources */,
+				AE3AEE0718136BA70041DAB3 /* Instrument2_3.caf in Resources */,
 				AE2863C31813576D007BC8DD /* Assets.atlas in Resources */,
-				AE2863BA18134CD3007BC8DD /* Instrument3_3.caf in Resources */,
-				AE2863B718134CD3007BC8DD /* Instrument2_3.caf in Resources */,
 				AE3AEDDE1813617A0041DAB3 /* Box2.png in Resources */,
-				AE2863B518134CD3007BC8DD /* Instrument2_1.caf in Resources */,
-				AE2863B218134CD3007BC8DD /* Instrument1_1.caf in Resources */,
-				AE2863BC18134CD3007BC8DD /* Instrument4_2.caf in Resources */,
-				AE2863C018134CD3007BC8DD /* Instrument5_3.caf in Resources */,
-				AE2863BF18134CD3007BC8DD /* Instrument5_2.caf in Resources */,
-				AE2863B918134CD3007BC8DD /* Instrument3_2.caf in Resources */,
-				AE2863B818134CD3007BC8DD /* Instrument3_1.caf in Resources */,
-				AE2863B618134CD3007BC8DD /* Instrument2_2.caf in Resources */,
-				AE2863BD18134CD3007BC8DD /* Instrument4_3.caf in Resources */,
-				AE2863B318134CD3007BC8DD /* Instrument1_2.caf in Resources */,
+				AE3AEE0518136BA70041DAB3 /* Instrument2_1.caf in Resources */,
+				AE3AEE0618136BA70041DAB3 /* Instrument2_2.caf in Resources */,
+				AE3AEDF218136B590041DAB3 /* Instrument2.png in Resources */,
+				AE3AEE0C18136BA70041DAB3 /* Instrument4_2.caf in Resources */,
 				AE3907B21812ECD8001D7BBE /* Images.xcassets in Resources */,
+				AE3AEE0A18136BA70041DAB3 /* Instrument3_3.caf in Resources */,
 				AE3907A81812ECD8001D7BBE /* Main_iPad.storyboard in Resources */,
-				AE2863B418134CD3007BC8DD /* Instrument1_3.caf in Resources */,
 				AE3907A51812ECD8001D7BBE /* Main_iPhone.storyboard in Resources */,
 				AE39079C1812ECD7001D7BBE /* InfoPlist.strings in Resources */,
 			);

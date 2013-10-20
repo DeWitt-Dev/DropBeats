@@ -10,8 +10,8 @@
 
 @interface InstrumentNode : SKSpriteNode
 {
-    #define MAX_SCALE 2.5
-    #define MIN_SCALE 0.7
+    #define MAX_SCALE 1.0
+    #define MIN_SCALE 0.15
     #define kInstrumentNode @"movable"
 }
 
