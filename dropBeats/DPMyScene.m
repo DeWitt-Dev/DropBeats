@@ -15,6 +15,7 @@
 {
     #define ZFLOOR 10
     #define MIN_COLLISIONIMPULSE 15
+    #define DELETE_VELOCITY 800
 }
 @property (nonatomic, strong) SKSpriteNode *selectedNode;
 
@@ -27,6 +28,7 @@
 
 @implementation DPMyScene
 
+static NSString * const kBallNode = @"BallNode";
 static const uint32_t ballCategory = 0x1 << 0;
 static const uint32_t floorCategory = 0x1 << 1;
 
@@ -40,13 +42,13 @@ static const uint32_t floorCategory = 0x1 << 1;
 -(void)commonInit
 {
     /* Setup your scene here */
-    self.backgroundColor = [SKColor whiteColor]; //[SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
+    self.backgroundColor = [SKColor whiteColor];
     
-    SKSpriteNode* background = [[SKSpriteNode alloc] initWithImageNamed:@"Backdrop1"];
+//    SKSpriteNode* background = [[SKSpriteNode alloc] initWithImageNamed:@"Backdrop1"];
 //    background.size = self.view.bounds.size;
 //    [background setScale:0.7];
-    background.zPosition = -1; 
-    [self addChild:background];
+//    background.zPosition = -1; 
+//    [self addChild:background];
     
     //Resister for Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -61,7 +63,6 @@ static const uint32_t floorCategory = 0x1 << 1;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
                    ^{
                        [InstrumentNode loadActions];
-                       
                        dispatch_sync(dispatch_get_main_queue(), handler);
                    });
 }
@@ -111,8 +112,6 @@ static const uint32_t floorCategory = 0x1 << 1;
 //    SKAction *releaseBalls = [SKAction sequence:@[[SKAction performSelector:@selector(createBallNodeAtLocation:) onTarget:self], [SKAction waitForDuration:4]]];
 //    [self runAction: [SKAction repeatActionForever:releaseBalls]]; //[SKAction repeatAction:releaseBalls count:self.ballCount]];
 //}
-
-
 
 #pragma mark - Background Music
 - (void) drawDivider
@@ -223,12 +222,26 @@ int i = 0;
 - (void)didEndContact:(SKPhysicsContact *)contact
 {}
 
+-(void) createInstrument: (int) index AtLocation: (CGPoint) location
+{
+    SKSpriteNode *tonePad = [[InstrumentNode alloc]initWIthInstrumentIndex:index];
+    
+    tonePad.name = kInstrumentNode;
+    tonePad.position = location;
+    tonePad.physicsBody.categoryBitMask = floorCategory;
+    tonePad.physicsBody.contactTestBitMask = ballCategory;
+    tonePad.physicsBody.collisionBitMask = ballCategory | floorCategory;
+    tonePad.zPosition = ZFLOOR +1;
+    
+    [self addChild:tonePad];
+}
+
 -(void) createBallNodeAtLocation: (CGPoint) location
 {
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Assets"];
     SKSpriteNode *ball = [[SKSpriteNode alloc] initWithTexture:[atlas textureNamed:@"Ball"]];
     
-    ball.name = @"ballNode";
+    ball.name = kBallNode;
     ball.position = CGPointMake(self.size.width/2, self.size.height);
     
     ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:(ball.size.width/2)-8];
@@ -254,28 +267,17 @@ int i = 0;
 }
 -(void)gameEnded: (NSNotification *) notification
 {
-    [self enumerateChildNodesWithName:@"ballNode" usingBlock:
+    [self enumerateChildNodesWithName:kBallNode usingBlock:
      ^(SKNode *node,BOOL *stop) {
          [node removeFromParent];
      }];
 }
 
--(void) createInstrument: (int) index AtLocation: (CGPoint) location
-{
-    SKSpriteNode *tonePad = [[InstrumentNode alloc]initWIthInstrumentIndex:index];
-    
-    tonePad.position = location;
-    tonePad.physicsBody.categoryBitMask = floorCategory;
-    tonePad.physicsBody.contactTestBitMask = ballCategory;
-    tonePad.physicsBody.collisionBitMask = ballCategory | floorCategory;
-    tonePad.zPosition = ZFLOOR +1;
-    
-    [self addChild:tonePad];
-}
+
 
 -(void)didSimulatePhysics
 {
-    [self enumerateChildNodesWithName:@"ballNode" usingBlock:
+    [self enumerateChildNodesWithName:kBallNode usingBlock:
      ^(SKNode *node,BOOL *stop) {
          if (node.position.y < 0){
              if ([self.game isInProgress]) {
@@ -285,6 +287,14 @@ int i = 0;
             [node removeFromParent];
          }
     }];
+    [self enumerateChildNodesWithName:kInstrumentNode usingBlock:
+     ^(SKNode *node,BOOL *stop) {
+         if (node.position.x < 0 || node.position.y < 0
+             || node.position.x > self.view.bounds.size.width
+             || node.position.y > self.view.bounds.size.height){
+             [node removeFromParent];
+         }
+     }];
 }
 
 - (void) endStrikes
@@ -306,26 +316,40 @@ int i = 0;
 
 #pragma mark - Gesture Recognizers
 
-#define WIGGLE 2.0
+#define WIGGLE 2
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    CGPoint touchLocation = [[touches anyObject] locationInView:self.view];
+    touchLocation = [self convertPointFromView:touchLocation];
+    SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint: touchLocation];
+    
+    if([[touchedNode name] isEqualToString:kInstrumentNode]) {
+        [touchedNode removeAllActions];
+        [self wiggleNode:touchedNode];
+    }
+}
 - (void)selectNodeForTouch:(CGPoint)touchLocation {
     SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
     
-    if (![touchedNode isKindOfClass:[InstrumentNode class]]) {
+    if (![touchedNode isKindOfClass:[InstrumentNode class]])
         return;
-    }
     
 	if(![self.selectedNode isEqual:touchedNode]) {
-		[self.selectedNode removeAllActions];
         
         self.selectedNode = touchedNode;
         
 		if([[touchedNode name] isEqualToString:kInstrumentNode]) {
-			SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(-4.0f) duration:0.1],
-													  [SKAction rotateByAngle:0.0 duration:0.1],
-													  [SKAction rotateByAngle:degToRad(4.0f) duration:0.1]]];
-			[self.selectedNode runAction:[SKAction repeatAction:sequence count:WIGGLE]];
-		}
+            [self wiggleNode:touchedNode];
+        }
 	}
+}
+
+-(void)wiggleNode: (SKSpriteNode*) node
+{
+    SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(-4.0f) duration:0.1],
+                                              [SKAction rotateByAngle:0.0 duration:0.1],
+                                              [SKAction rotateByAngle:degToRad(4.0f) duration:0.1]]];
+    [node runAction:[SKAction repeatAction:sequence count:WIGGLE]];
 }
 
 -(void)handlePan:(UIPanGestureRecognizer*)recognizer{
@@ -353,18 +377,19 @@ int i = 0;
     } else if (recognizer.state == UIGestureRecognizerStateEnded) {
         
         self.validTouch = NO;
-        if (![[self.selectedNode name] isEqualToString:kInstrumentNode]) {
-            float scrollDuration = 0.2;
+        if ([[self.selectedNode name] isEqualToString:kInstrumentNode]) {
             CGPoint velocity = [recognizer velocityInView:recognizer.view];
-            CGPoint pos = [self.selectedNode position];
-            CGPoint p = mult(velocity, scrollDuration);
             
-            CGPoint newPos = CGPointMake(pos.x + p.x, pos.y + p.y);
-            [self.selectedNode removeAllActions];
-            
-            SKAction *moveTo = [SKAction moveTo:newPos duration:scrollDuration];
-            [moveTo setTimingMode:SKActionTimingEaseOut];
-            [self.selectedNode runAction:moveTo];
+            if (abs(velocity.x) > DELETE_VELOCITY || abs(velocity.y) > DELETE_VELOCITY) {
+                float scrollDuration = 1.0;
+                
+                [self.selectedNode removeAllActions];
+                
+                SKAction *moveTo = [SKAction moveByX:velocity.x y:-velocity.y duration:scrollDuration];
+                [moveTo setTimingMode:SKActionTimingLinear];
+                [self.selectedNode runAction:moveTo];
+
+            }
         }
     }
 }

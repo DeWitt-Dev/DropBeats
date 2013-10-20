@@ -201,11 +201,11 @@
 				AE3907A11812ECD8001D7BBE /* DPAppDelegate.m */,
 				AE3907A91812ECD8001D7BBE /* DPViewController.h */,
 				AE3907AA1812ECD8001D7BBE /* DPViewController.m */,
-				AE3AEE1618137AEC0041DAB3 /* Game Logic */,
 				AE28638118132AE6007BC8DD /* InstrumentNode.h */,
 				AE28638218132AE6007BC8DD /* InstrumentNode.m */,
 				AE3907D71812F0CF001D7BBE /* InstrumentCell.h */,
 				AE3907D81812F0CF001D7BBE /* InstrumentCell.m */,
+				AE3AEE1618137AEC0041DAB3 /* Game Logic */,
 				AE3AEE1518137AE30041DAB3 /* Background Notes */,
 				AE3907981812ECD7001D7BBE /* Supporting Files */,
 			);
