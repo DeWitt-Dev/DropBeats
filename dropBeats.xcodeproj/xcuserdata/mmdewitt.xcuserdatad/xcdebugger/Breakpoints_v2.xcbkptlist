@@ -6,13 +6,18 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
+<<<<<<< HEAD
             shouldBeEnabled = "No"
+=======
+            shouldBeEnabled = "Yes"
+>>>>>>> 16740772671afce37aaf11d9e4c2f8cda7287a0a
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             scope = "0"
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+<<<<<<< HEAD
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
@@ -29,5 +34,7 @@
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
+=======
+>>>>>>> 16740772671afce37aaf11d9e4c2f8cda7287a0a
    </Breakpoints>
 </Bucket>
