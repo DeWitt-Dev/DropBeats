@@ -10,8 +10,6 @@
 #import "DPNoteNode.h"
 #import "DPNote.h"
 #import "DPSong.h"
-#import "DPStrike.h"
-#import "DPStrikeNode.h"
 
 @interface DPMyScene() <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
 {
@@ -204,16 +202,28 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 #pragma mark - Collision Dection
 
-
-- (void) drawDPStrike: (DPStrike*) strike atTime: (NSTimeInterval) time
+- (float) calculateTimeFloatFrom: (NSDate*) from to: (NSDate*) to
 {
-    NSLog(@"drawDPStrike");
-    if (time <= 10.0) {
-#warning Fix to non-constant duration
-        NSLog(@"drawing");
-        DPStrikeNode* node = [DPStrikeNode strike: strike];
+    NSLog([from description]);
+    NSLog([to description]);
+    
+    NSLog(@"calculateTimeFloat: %0.f", [to timeIntervalSinceDate: from]);
+    NSLog(@"divided: %0.f", ([to timeIntervalSinceDate: from] / 10.0));
+    return 1.0 - ([to timeIntervalSinceDate: from] / 10.0);
+}
+
+- (void) drawDPStrike: (DPNote*) note
+{
+    float time = [self calculateTimeFloatFrom:self.game.startDate to:[note played]];
+    NSLog(@"time: %0.f", time);
+    
+    if (time <= 1.0) {
+        #warning Fix to non-constant duration
+        
+        DPNoteNode* node = [DPNoteNode noteNodeWithNote: note];
+        NSLog(@"drawDPStrike: %0.f", time);
         float x = 0 ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
-        float y = ((1 - (time / 10.0)) * (0.85 * self.frame.size.height)) + (.05 * self.frame.size.height);
+        float y = (time * (0.85 * self.frame.size.height)) + (.05 * self.frame.size.height);
         
         
         [node setPosition: CGPointMake(x, y)];
@@ -244,7 +254,12 @@ static const uint32_t floorCategory = 0x1 << 1;
     if (contact.collisionImpulse >= MIN_COLLISIONIMPULSE) {
         [instrumentNode playInstrument];
         
-        DPNote* note = [[DPNote alloc] initWithTime:0 freq:[[instrumentNode note] freq] type:[instrumentNode index] tolerance:0.0];
+        
+        DPNote* note = [DPNote DPNoteWithPlayed:[NSDate date]
+                                             freq:[[instrumentNode note] freq]
+                                             type:[instrumentNode index]
+                                        tolerance:0.0];
+        
         [self onStrikeFrom: note];
     }
 
@@ -267,15 +282,7 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 - (void) onStrikeFrom: (DPNote*) note
 {
-    NSLog(@"onStrike");
-    NSDate* now = [[NSDate alloc] init];
-    DPStrike* strike = [DPStrike strikeAtTime:[NSDate date] withNote: note];
-    
-
-    NSTimeInterval nowInt = [now timeIntervalSinceDate:self.game.startDate];
-    float timePercent = nowInt / 10.0;
-    
-    [self drawDPStrike:strike atTime:timePercent];
+    [self drawDPStrike:note];
 }
 
 - (void)didEndContact:(SKPhysicsContact *)contact

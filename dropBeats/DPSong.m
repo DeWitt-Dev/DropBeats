@@ -50,8 +50,8 @@ NSMutableArray* notes;
 
 - (float) duration
 {
-    int index = [notes count] - 1;
-    DPNote* note = [notes objectAtIndex:index];
+    //int index = [notes count] - 1;
+    //DPNote* note = [notes objectAtIndex:index];
     return 5.0;
 }
 

@@ -10,18 +10,24 @@
 
 @implementation DPNote
 
-+ (instancetype) DPNoteWithTime: (float) time freq: (NSInteger) freq type: (NoteType) type tolerance: (float) tolerance
++ (instancetype) DPNoteWithTime: (float) time freq: (FrequencyRange) freq type: (NoteType) type tolerance: (float) tolerance;
 {
-    return [[self alloc] initWithTime: time freq:freq type:type tolerance:tolerance];
+    return [[self alloc] initWithTime: time freq:freq type:type tolerance:tolerance played: Nil];
 }
 
-- (id) initWithTime: (float) time freq: (NSInteger) freq type: (NoteType) type tolerance: (float) tolerance
++ (instancetype) DPNoteWithPlayed: (NSDate*) played freq: (FrequencyRange) freq type: (NoteType) type tolerance: (float) tolerance
+{
+    return [[self alloc] initWithTime:0.0 freq:freq type:type tolerance:tolerance played: played];
+}
+
+- (id) initWithTime: (float) time freq: (FrequencyRange) freq type: (NoteType) type tolerance: (float) tolerance played:(NSDate *)played
 {
     self = [super init];
     self.time = time;
     self.freq = freq;
     self.type = type;
     self.tolerance = tolerance;
+    self.played = played;
     
     return self;
 }
