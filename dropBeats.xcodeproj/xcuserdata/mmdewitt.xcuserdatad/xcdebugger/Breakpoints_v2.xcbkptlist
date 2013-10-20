@@ -20,11 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "dropBeats/DPMyScene.m"
-            timestampString = "403925412.100435"
+            timestampString = "403933251.827896"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "259"
-            endingLineNumber = "259"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
             landmarkName = "-handlePan:"
             landmarkType = "5">
          </BreakpointContent>

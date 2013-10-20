@@ -50,6 +50,7 @@
 		AE3AEE0E18136BA70041DAB3 /* Instrument5_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDFF18136BA70041DAB3 /* Instrument5_1.caf */; };
 		AE3AEE0F18136BA70041DAB3 /* Instrument5_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEE0018136BA70041DAB3 /* Instrument5_2.caf */; };
 		AE3AEE1018136BA70041DAB3 /* Instrument5_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEE0118136BA70041DAB3 /* Instrument5_3.caf */; };
+		AE3AEE14181378400041DAB3 /* DPGame.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEE13181378400041DAB3 /* DPGame.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,8 @@
 		AE3AEDFF18136BA70041DAB3 /* Instrument5_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument5_1.caf; path = dropBeats/sounds/Instrument5_1.caf; sourceTree = "<group>"; };
 		AE3AEE0018136BA70041DAB3 /* Instrument5_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument5_2.caf; path = dropBeats/sounds/Instrument5_2.caf; sourceTree = "<group>"; };
 		AE3AEE0118136BA70041DAB3 /* Instrument5_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument5_3.caf; path = dropBeats/sounds/Instrument5_3.caf; sourceTree = "<group>"; };
+		AE3AEE12181378400041DAB3 /* DPGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPGame.h; sourceTree = "<group>"; };
+		AE3AEE13181378400041DAB3 /* DPGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPGame.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,18 +195,12 @@
 				AE3907A11812ECD8001D7BBE /* DPAppDelegate.m */,
 				AE3907A91812ECD8001D7BBE /* DPViewController.h */,
 				AE3907AA1812ECD8001D7BBE /* DPViewController.m */,
-				AE3907AC1812ECD8001D7BBE /* DPMyScene.h */,
-				AE3907AD1812ECD8001D7BBE /* DPMyScene.m */,
+				AE3AEE1618137AEC0041DAB3 /* Game Logic */,
 				AE28638118132AE6007BC8DD /* InstrumentNode.h */,
 				AE28638218132AE6007BC8DD /* InstrumentNode.m */,
 				AE3907D71812F0CF001D7BBE /* InstrumentCell.h */,
 				AE3907D81812F0CF001D7BBE /* InstrumentCell.m */,
-				AE3AEDE0181368C40041DAB3 /* DPNote.h */,
-				AE3AEDE1181368C40041DAB3 /* DPNote.m */,
-				AE3AEDE2181368C40041DAB3 /* DPNoteNode.h */,
-				AE3AEDE3181368C40041DAB3 /* DPNoteNode.m */,
-				AE3AEDE4181368C40041DAB3 /* DPSong.h */,
-				AE3AEDE5181368C40041DAB3 /* DPSong.m */,
+				AE3AEE1518137AE30041DAB3 /* Background Notes */,
 				AE3907981812ECD7001D7BBE /* Supporting Files */,
 			);
 			path = dropBeats;
@@ -268,6 +265,30 @@
 			);
 			name = Sounds;
 			path = ..;
+			sourceTree = "<group>";
+		};
+		AE3AEE1518137AE30041DAB3 /* Background Notes */ = {
+			isa = PBXGroup;
+			children = (
+				AE3AEDE0181368C40041DAB3 /* DPNote.h */,
+				AE3AEDE1181368C40041DAB3 /* DPNote.m */,
+				AE3AEDE2181368C40041DAB3 /* DPNoteNode.h */,
+				AE3AEDE3181368C40041DAB3 /* DPNoteNode.m */,
+				AE3AEDE4181368C40041DAB3 /* DPSong.h */,
+				AE3AEDE5181368C40041DAB3 /* DPSong.m */,
+			);
+			name = "Background Notes";
+			sourceTree = "<group>";
+		};
+		AE3AEE1618137AEC0041DAB3 /* Game Logic */ = {
+			isa = PBXGroup;
+			children = (
+				AE3907AC1812ECD8001D7BBE /* DPMyScene.h */,
+				AE3907AD1812ECD8001D7BBE /* DPMyScene.m */,
+				AE3AEE12181378400041DAB3 /* DPGame.h */,
+				AE3AEE13181378400041DAB3 /* DPGame.m */,
+			);
+			name = "Game Logic";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -393,6 +414,7 @@
 				AE3AEDE8181368C40041DAB3 /* DPSong.m in Sources */,
 				AE28638318132AE6007BC8DD /* InstrumentNode.m in Sources */,
 				AE3907D91812F0CF001D7BBE /* InstrumentCell.m in Sources */,
+				AE3AEE14181378400041DAB3 /* DPGame.m in Sources */,
 				AE3907A21812ECD8001D7BBE /* DPAppDelegate.m in Sources */,
 				AE3907AB1812ECD8001D7BBE /* DPViewController.m in Sources */,
 				AE3907AE1812ECD8001D7BBE /* DPMyScene.m in Sources */,
