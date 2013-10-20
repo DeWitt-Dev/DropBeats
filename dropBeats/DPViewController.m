@@ -13,8 +13,8 @@
 @interface DPViewController() <UICollectionViewDataSource, UICollectionViewDelegate>
 {
     #define ANIMATION_DURATION 0.5
-    #define COLLECTIONVIEW_CELL_SIZE CGSizeMake(190,190)
-
+    #define COLLECTIONVIEW_CELL_SIZE CGSizeMake(180,100)
+    #define DEFAULT_LOCATION CGPointMake(300, 300)
 }
 
 @property (weak, nonatomic) IBOutlet SKView *skView;
@@ -74,7 +74,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.scene createInstrument:indexPath.row AtLocation:CGPointMake(300, 300)];
+    [self.scene createInstrument:indexPath.row AtLocation: DEFAULT_LOCATION];
 }
 - (void)dragInstrument:(UIPanGestureRecognizer *)sender {
 
