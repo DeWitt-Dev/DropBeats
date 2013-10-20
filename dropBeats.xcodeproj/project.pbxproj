@@ -153,14 +153,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		AE2863C118134CD9007BC8DD /* Sounds */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Sounds;
-			path = ..;
-			sourceTree = "<group>";
-		};
 		AE3907831812ECD7001D7BBE = {
 			isa = PBXGroup;
 			children = (
@@ -223,7 +215,6 @@
 				AE3AEDDB1813617A0041DAB3 /* Box2.png */,
 				AE3AEDDC1813617A0041DAB3 /* Box3.png */,
 				AE2863C21813576D007BC8DD /* Assets.atlas */,
-				AE2863C118134CD9007BC8DD /* Sounds */,
 				AE3907991812ECD7001D7BBE /* dropBeats-Info.plist */,
 				AE39079A1812ECD7001D7BBE /* InfoPlist.strings */,
 				AE39079D1812ECD8001D7BBE /* main.m */,

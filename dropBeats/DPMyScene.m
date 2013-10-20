@@ -17,7 +17,7 @@
 {
     #define ZFLOOR 10
     #define MIN_COLLISIONIMPULSE 15
-    #define DELETE_VELOCITY 800
+    #define DELETE_VELOCITY 850
 }
 
 @property (nonatomic, strong) SKSpriteNode *selectedNode;

@@ -18,7 +18,7 @@ NSMutableArray* notes;
     [self song];
     notes = notesArray;
     
-    return self;
+    return [self alloc];
 }
 
 + (instancetype) song
@@ -72,7 +72,6 @@ NSMutableArray* notes;
     [song addObject: [DPNote DPNoteWithTime:0.7 freq:0 type:kCymbol tolerance:0.5]];
     [song addObject: [DPNote DPNoteWithTime:0.8 freq:0 type:kCymbol tolerance:0.6]];
 
-    
     return song;
 }
 
