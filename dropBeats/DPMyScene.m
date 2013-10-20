@@ -10,6 +10,8 @@
 #import "DPNoteNode.h"
 #import "DPNote.h"
 #import "DPSong.h"
+#import "DPStrike.h"
+#import "DPStrikeNode.h"
 
 @interface DPMyScene() <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
 {
@@ -17,12 +19,14 @@
     #define MIN_COLLISIONIMPULSE 15
     #define DELETE_VELOCITY 800
 }
+
 @property (nonatomic, strong) SKSpriteNode *selectedNode;
 
 @property (strong, nonatomic) DPSong* song;
 @property BOOL sceneCreated;
 @property BOOL validTouch;
 @property NSDate* timeDrop;
+@property DPSong* played;
 
 @end
 
@@ -43,13 +47,14 @@ static const uint32_t floorCategory = 0x1 << 1;
 {
     /* Setup your scene here */
     self.backgroundColor = [SKColor whiteColor];
-    
+
 //    SKSpriteNode* background = [[SKSpriteNode alloc] initWithImageNamed:@"Backdrop1"];
 //    background.size = self.view.bounds.size;
 //    [background setScale:0.7];
 //    background.zPosition = -1; 
 //    [self addChild:background];
     
+
     //Resister for Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(gameEnded:) name:@"gameEnded" object:nil];
@@ -136,12 +141,15 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 - (void) drawDPNote: (DPNote*) note onSide: (NSInteger) side
 {
+    NSLog(@"drawDPNote");
     DPNoteNode* node = [DPNoteNode noteNodeWithNote:note];
 
     float x = !side ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
     int space = (self.frame.size.height / [self.song duration]);
 
-    float y = self.frame.size.height - [[node note] time] * space;
+    float y = self.frame.size.height * (1 -[[node note] time]);
+    
+    NSLog(@"x: %0.f, y: %0.f", x, y);
     
     [node setPosition: CGPointMake(x, y)];
     [self addChild:node];
@@ -150,24 +158,24 @@ static const uint32_t floorCategory = 0x1 << 1;
 #pragma mark - Collision Dection
 
 
-- (void) drawDPNote: (DPNote*) note atTime: (float) time
+- (void) drawDPStrike: (DPStrike*) strike atTime: (float) time
 {
-    NSLog(@"drawDPNote");
+    NSLog(@"drawDPStrike");
     if (time <= 1.0) {
-        DPNoteNode* node = [DPNoteNode noteNodeWithNote:note];
+        NSLog(@"drawing");
+        DPStrikeNode* node = [DPStrikeNode strike: strike];
         float x = 0 ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
-        float y = (1 - time) * self.frame.size.height;
-    
+        float y = (1.0 - time) * self.frame.size.height;
+        
         [node setPosition: CGPointMake(x, y)];
         [self addChild:node];
     }
     else
     {
+        NSLog(@"hiding");
         [self endStrikes];
     }
 }
-
-int i = 0;
 
 - (void) didBeginContact:(SKPhysicsContact *)contact
 {
@@ -187,7 +195,6 @@ int i = 0;
 
     if (contact.collisionImpulse >= MIN_COLLISIONIMPULSE) {
         [instrumentNode playInstrument];
-        [self onStrikeFrom:kStrike];
     }
 
 //    if ((contact.bodyA.categoryBitMask == floorCategory)
@@ -205,22 +212,28 @@ int i = 0;
 //            NSLog(@"Collision");
 //        }
 //    }
+   
+    
+    [self onStrikeFrom:kStrike];
+    // TODO: set this correctly!
 }
 
 - (void) onStrikeFrom: (NoteType) type
 {
-    NSLog(@"hit");
-    DPNote* note = [DPNote DPNoteWithTime:++i freq:0 type:kStrike];
+    NSLog(@"onStrike");
+    NSDate* now = [[NSDate alloc] init];
+    DPStrike* strike = [DPStrike strikeAtTime:[[NSDate alloc] init] fromType:kStrike];
+    
+    NSTimeInterval nowInt = [now timeIntervalSinceDate:self.timeDrop];
+    float timePercent = nowInt / 10.0;
+    
+    [self drawDPStrike:strike atTime:timePercent];
 
-    NSTimeInterval now = [[[NSDate alloc]init] timeIntervalSinceDate:self.timeDrop];
-    float timePercent = now / 10.0;
-    NSLog(@"now: %.0f", now);
-    NSLog(@"timePercent: %f", timePercent);
-    [self drawDPNote:note atTime:timePercent];
 }
 
 - (void)didEndContact:(SKPhysicsContact *)contact
-{}
+{
+}
 
 -(void) createInstrument: (int) index AtLocation: (CGPoint) location
 {
@@ -254,6 +267,7 @@ int i = 0;
     ball.zPosition = ZFLOOR +1; 
     
     self.timeDrop = [[NSDate alloc] init];
+    self.played = [DPSong song];
     
     [self addChild:ball];
 }
@@ -299,14 +313,9 @@ int i = 0;
 
 - (void) endStrikes
 {
-    NSLog(@"endStrike");
-    [self enumerateChildNodesWithName:@"notenode" usingBlock:
+    [self enumerateChildNodesWithName:@"strikenode" usingBlock:
      ^(SKNode *node,BOOL *stop) {
-         DPNoteNode* notenode = (DPNoteNode*) node;
-         if ([[notenode note] type] == kStrike){
-             
-             [node removeFromParent];
-         }
+         [node removeFromParent];
      }];
 }
 

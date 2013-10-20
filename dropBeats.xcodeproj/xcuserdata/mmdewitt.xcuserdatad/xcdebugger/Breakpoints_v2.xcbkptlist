@@ -6,12 +6,35 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
          <BreakpointContent
+<<<<<<< HEAD
+            shouldBeEnabled = "No"
+=======
             shouldBeEnabled = "Yes"
+>>>>>>> 16740772671afce37aaf11d9e4c2f8cda7287a0a
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             scope = "0"
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+<<<<<<< HEAD
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "dropBeats/DPMyScene.m"
+            timestampString = "403933251.827896"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
+            landmarkName = "-handlePan:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+=======
+>>>>>>> 16740772671afce37aaf11d9e4c2f8cda7287a0a
    </Breakpoints>
 </Bucket>

@@ -10,17 +10,18 @@
 
 @implementation DPNote
 
-+ (instancetype) DPNoteWithTime: (NSInteger) time freq: (NSInteger) freq type: (NoteType) type
++ (instancetype) DPNoteWithTime: (float) time freq: (NSInteger) freq type: (NoteType) type tolerance: (float) tolerance
 {
-    return [[self alloc] initWithTime: time freq: freq type: type];
+    return [[self alloc] initWithTime: time freq:freq type:type tolerance:tolerance];
 }
 
-- (id) initWithTime: (NSInteger) time freq: (NSInteger) freq type: (NoteType) type
+- (id) initWithTime: (float) time freq: (NSInteger) freq type: (NoteType) type tolerance: (float) tolerance
 {
     self = [super init];
     self.time = time;
     self.freq = freq;
     self.type = type;
+    self.tolerance = tolerance;
     
     return self;
 }

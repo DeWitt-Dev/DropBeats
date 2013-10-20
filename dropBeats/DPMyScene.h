@@ -21,7 +21,6 @@ typedef void (^DPSceneCompletionHandler)(void);
 -(void) createInstrument: (int) index AtLocation: (CGPoint) location;
 
 -(void)handlePan:(UIPanGestureRecognizer*)recognizer;
-
 +(void)loadEverythingYouCanWithCompletionHandeler: (DPSceneCompletionHandler) handler;
 
 @end

@@ -5,19 +5,19 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>68B78056-A70D-4AED-BDC0-33538FB7C84B</string>
+	<string>2E6A33AA-AF5C-4030-82EE-3F976119B257</string>
 	<key>IDESourceControlProjectName</key>
 	<string>dropBeats</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>EAE16BAA-9116-4F41-BBBE-8B88BE81EC15</key>
+		<key>01736BED-4A75-4AB0-B4C4-2861D86D6BE6</key>
 		<string>https://github.com/DeWitt-Dev/DropBeats.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>dropBeats.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>EAE16BAA-9116-4F41-BBBE-8B88BE81EC15</key>
+		<key>01736BED-4A75-4AB0-B4C4-2861D86D6BE6</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,16 +25,16 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>EAE16BAA-9116-4F41-BBBE-8B88BE81EC15</string>
+	<string>01736BED-4A75-4AB0-B4C4-2861D86D6BE6</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>EAE16BAA-9116-4F41-BBBE-8B88BE81EC15</string>
+			<string>01736BED-4A75-4AB0-B4C4-2861D86D6BE6</string>
 			<key>IDESourceControlWCCName</key>
-			<string>dropBeats</string>
+			<string>DropBeats</string>
 		</dict>
 	</array>
 </dict>

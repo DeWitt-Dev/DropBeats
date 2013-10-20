@@ -44,10 +44,8 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     self.scene.startingInstrumentSize = COLLECTIONVIEW_CELL_SIZE; //self.collectionView.collectionViewLayout.z;
     
-    [DPMyScene loadEverythingYouCanWithCompletionHandeler:^{
-        // Present the scene.
-        [self.skView presentScene:self.scene];
-    } ];
+    // Present the scene.
+    [self.skView presentScene:self.scene];
 }
 
 #pragma mark - CollectionView
