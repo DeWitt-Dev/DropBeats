@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "InstrumentNode.h"
 
 @interface DPNote : NSObject
 
@@ -18,6 +17,12 @@ typedef enum {
     kGuitar,
     kStrike
 } NoteType;
+
+typedef enum {
+    kLowFrequency,
+    kMidFrequency,
+    kHighFrequency
+} FrequencyRange;
 
 @property (nonatomic) float time;
 @property (nonatomic) float tolerance;

@@ -45,7 +45,6 @@
                 NSLog(@"high freq");
                 width = W_HIGH;
                 break;
-            case kNone:
             default:
                 NSLog(@"no freq");
                 width = 0;

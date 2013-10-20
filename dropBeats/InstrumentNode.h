@@ -7,6 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "DPNote.h"
 
 @interface InstrumentNode : SKSpriteNode
 {
@@ -15,15 +16,9 @@
     #define kInstrumentNode @"movable"
 }
 
-typedef enum {
-    kNone,
-    kLowFrequency,
-    kMidFrequency,
-    kHighFrequency
-} FrequencyRange;
-
 @property (nonatomic) FrequencyRange frequency;
 @property (nonatomic) NSInteger index;
+@property (nonatomic) DPNote* note; 
 
 -(id)initWithInstrumentIndex: (int) index andSize: (CGSize) size;
 +(void)loadActions;
