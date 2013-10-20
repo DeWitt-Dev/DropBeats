@@ -149,27 +149,12 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 }
 - (IBAction)resetGame:(UIButton *)sender {
     [self.scene.game endGame];
-    [UIView animateWithDuration:0.2F animations:
-     ^{
-         sender.transform = CGAffineTransformRotate(sender.transform, 2*M_PI/3.0);
-     } completion:
-     ^(BOOL finished) {
-         if (finished) {
-             [UIView animateWithDuration:0.2F animations:
-              ^{
-                  sender.transform = CGAffineTransformRotate(sender.transform, 2*M_PI/3.0);
-              } completion:
-              ^(BOOL finished) {
-                  if (finished) {
-                      [UIView animateWithDuration:0.2f animations:
-                       ^{
-                           sender.transform = CGAffineTransformRotate(sender.transform, 2*M_PI);
-                       }];
-                  }
-              }];
-         }
-         
-     }];
+    CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    animation.fromValue = @0.0f;
+    animation.toValue = @(2*M_PI);
+    animation.duration = 0.5f;
+    animation.repeatCount = 1;
+    [sender.layer addAnimation:animation forKey:@"rotation"];
 
     [self.scene.game startGame];
 }

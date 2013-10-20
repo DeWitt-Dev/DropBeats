@@ -77,7 +77,6 @@
     self.size = size;
     self.anchorPoint = CGPointZero;
     self.name = @"notenode";
-
 }
 
 @end

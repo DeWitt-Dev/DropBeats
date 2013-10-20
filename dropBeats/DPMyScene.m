@@ -24,6 +24,7 @@
 
 @property (nonatomic, strong) SKSpriteNode *selectedNode;
 @property (nonatomic, strong) SKSpriteNode *ballNode;
+@property (nonatomic, strong) SKSpriteNode *stanzaNode;
 @property (nonatomic) CGPoint ballStart;
 
 @property (strong, nonatomic) DPSong* song;
@@ -131,16 +132,16 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 - (void) drawStanzaAndCreateBall
 {
-    SKSpriteNode* stanza = [[SKSpriteNode alloc] initWithImageNamed:@"Stanza"];
-    stanza.size = CGSizeMake(self.view.frame.size.width*(2/3.0),stanza.size.height);
-    stanza.anchorPoint = CGPointZero;
-    stanza.zPosition = ZFLOOR-1;
+    self.stanzaNode = [[SKSpriteNode alloc] initWithImageNamed:@"Stanza"];
+    self.stanzaNode.size = CGSizeMake(self.view.frame.size.width*(2/3.0),self.stanzaNode.size.height);
+    self.stanzaNode.anchorPoint = CGPointZero;
+    self.stanzaNode.zPosition = ZFLOOR-1;
     
-    CGPoint position = CGPointMake((self.frame.size.width - stanza.size.width)/2, .90 * self.frame.size.height);
-    stanza.position = position;
+    CGPoint position = CGPointMake((self.frame.size.width - self.stanzaNode.size.width)/2, .90 * self.frame.size.height);
+    self.stanzaNode.position = position;
     
-    [self addChild:stanza];
-    self.ballStart = CGPointMake(self.view.frame.size.width/2, stanza.position.y);
+    [self addChild:self.stanzaNode];
+    self.ballStart = CGPointMake(self.view.frame.size.width/2, self.stanzaNode.position.y);
     [self createBall];
 }
 
@@ -160,8 +161,6 @@ static const uint32_t floorCategory = 0x1 << 1;
     DPNoteNode* node = [DPNoteNode noteNodeWithNote:note];
 
     float x = !side ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
-    int space = (self.frame.size.height / [self.song duration]);
-
     float y = self.frame.size.height * (1 -[[node note] time]);
     
     NSLog(@"x: %0.f, y: %0.f", x, y);
@@ -174,9 +173,7 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 - (void) drawDPStrike: (DPStrike*) strike atTime: (float) time
 {
-    NSLog(@"drawDPStrike");
     if (time <= 1.0) {
-        NSLog(@"drawing");
         DPStrikeNode* node = [DPStrikeNode strike: strike];
         float x = 0 ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
         float y = (1.0 - time) * self.frame.size.height;
@@ -186,7 +183,6 @@ static const uint32_t floorCategory = 0x1 << 1;
     }
     else
     {
-        NSLog(@"hiding");
         [self endStrikes];
     }
 }
@@ -209,6 +205,7 @@ static const uint32_t floorCategory = 0x1 << 1;
 
     if (contact.collisionImpulse >= MIN_COLLISIONIMPULSE) {
         [instrumentNode playInstrument];
+        [self onStrikeFrom:kStrike];
     }
 
 //    if ((contact.bodyA.categoryBitMask == floorCategory)
@@ -226,10 +223,6 @@ static const uint32_t floorCategory = 0x1 << 1;
 //            NSLog(@"Collision");
 //        }
 //    }
-   
-    
-    [self onStrikeFrom:kStrike];
-    // TODO: set this correctly!
 }
 
 - (void) onStrikeFrom: (NoteType) type
@@ -411,7 +404,7 @@ static const uint32_t floorCategory = 0x1 << 1;
         if (self.validTouch) {
             if ([self.selectedNode.name isEqualToString:kBallNode]) {
                 translation = CGPointMake(position.x + translation.x, position.y);
-                translation.x = MAX(MIN(self.view.bounds.size.width, translation.x), 0);
+                translation.x = MAX(MIN(self.view.bounds.size.width - self.stanzaNode.size.width/4, translation.x), self.stanzaNode.size.width/4);
                 [self.selectedNode setPosition:translation];
                 self.ballStart = self.selectedNode.position;
             }
