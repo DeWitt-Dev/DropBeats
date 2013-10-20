@@ -65,9 +65,11 @@ static NSString * const kInstrumentPrefix = @"Instrument";
         [cell addGestureRecognizer:cell.panGesture];
     }
     
-    NSString* imageId = [NSString stringWithFormat:@"%@%d", kInstrumentPrefix, indexPath.row+1];
+    NSString* imageID = [NSString stringWithFormat:@"%@%d", kInstrumentPrefix, indexPath.row+1];
+    NSString *textureName = [NSString stringWithFormat:@"%@_0", imageID];
+
     cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
-    UIImage* image = [UIImage imageNamed:imageId];
+    UIImage* image = [UIImage imageNamed:textureName];
     [cell.imageView setImage: image];
     
     return cell;

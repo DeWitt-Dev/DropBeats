@@ -29,14 +29,9 @@
 		AE3907C31812ECD8001D7BBE /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AE3907C11812ECD8001D7BBE /* InfoPlist.strings */; };
 		AE3907C51812ECD8001D7BBE /* dropBeatsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3907C41812ECD8001D7BBE /* dropBeatsTests.m */; };
 		AE3907D91812F0CF001D7BBE /* InstrumentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3907D81812F0CF001D7BBE /* InstrumentCell.m */; };
-		AE3AEDDD1813617A0041DAB3 /* Box1.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDDA1813617A0041DAB3 /* Box1.png */; };
-		AE3AEDDE1813617A0041DAB3 /* Box2.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDDB1813617A0041DAB3 /* Box2.png */; };
-		AE3AEDDF1813617A0041DAB3 /* Box3.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDDC1813617A0041DAB3 /* Box3.png */; };
 		AE3AEDE6181368C40041DAB3 /* DPNote.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEDE1181368C40041DAB3 /* DPNote.m */; };
 		AE3AEDE7181368C40041DAB3 /* DPNoteNode.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEDE3181368C40041DAB3 /* DPNoteNode.m */; };
 		AE3AEDE8181368C40041DAB3 /* DPSong.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEDE5181368C40041DAB3 /* DPSong.m */; };
-		AE3AEDF118136B590041DAB3 /* Instrument1.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDEF18136B590041DAB3 /* Instrument1.png */; };
-		AE3AEDF218136B590041DAB3 /* Instrument2.png in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDF018136B590041DAB3 /* Instrument2.png */; };
 		AE3AEE0218136BA70041DAB3 /* Instrument1_1.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDF318136BA70041DAB3 /* Instrument1_1.caf */; };
 		AE3AEE0318136BA70041DAB3 /* Instrument1_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDF418136BA70041DAB3 /* Instrument1_2.caf */; };
 		AE3AEE0418136BA70041DAB3 /* Instrument1_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEDF518136BA70041DAB3 /* Instrument1_3.caf */; };
@@ -53,6 +48,15 @@
 		AE3AEE0F18136BA70041DAB3 /* Instrument5_2.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEE0018136BA70041DAB3 /* Instrument5_2.caf */; };
 		AE3AEE1018136BA70041DAB3 /* Instrument5_3.caf in Resources */ = {isa = PBXBuildFile; fileRef = AE3AEE0118136BA70041DAB3 /* Instrument5_3.caf */; };
 		AE3AEE14181378400041DAB3 /* DPGame.m in Sources */ = {isa = PBXBuildFile; fileRef = AE3AEE13181378400041DAB3 /* DPGame.m */; };
+		AE4B3B3E181461930089EE3F /* Retry@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4B3B37181461930089EE3F /* Retry@2x.png */; };
+		AE4B3B3F181461930089EE3F /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4B3B38181461930089EE3F /* Ball.png */; };
+		AE4B3B40181461930089EE3F /* Stanza.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4B3B39181461930089EE3F /* Stanza.png */; };
+		AE4B3B41181461930089EE3F /* Ball@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4B3B3A181461930089EE3F /* Ball@2x.png */; };
+		AE4B3B42181461930089EE3F /* Retry.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4B3B3B181461930089EE3F /* Retry.png */; };
+		AE4B3B43181461930089EE3F /* Instrument1.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AE4B3B3C181461930089EE3F /* Instrument1.atlas */; };
+		AE4B3B44181461930089EE3F /* Instrument2.atlas in Resources */ = {isa = PBXBuildFile; fileRef = AE4B3B3D181461930089EE3F /* Instrument2.atlas */; };
+		AE4B3B46181462770089EE3F /* Instrument1_0.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4B3B45181462770089EE3F /* Instrument1_0.png */; };
+		AE4B3B48181462810089EE3F /* Instrument2_0.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4B3B47181462810089EE3F /* Instrument2_0.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,17 +102,12 @@
 		AE3907C41812ECD8001D7BBE /* dropBeatsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = dropBeatsTests.m; sourceTree = "<group>"; };
 		AE3907D71812F0CF001D7BBE /* InstrumentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstrumentCell.h; sourceTree = "<group>"; };
 		AE3907D81812F0CF001D7BBE /* InstrumentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstrumentCell.m; sourceTree = "<group>"; };
-		AE3AEDDA1813617A0041DAB3 /* Box1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Box1.png; path = Assets.atlas/Box1.png; sourceTree = "<group>"; };
-		AE3AEDDB1813617A0041DAB3 /* Box2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Box2.png; path = Assets.atlas/Box2.png; sourceTree = "<group>"; };
-		AE3AEDDC1813617A0041DAB3 /* Box3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Box3.png; path = Assets.atlas/Box3.png; sourceTree = "<group>"; };
 		AE3AEDE0181368C40041DAB3 /* DPNote.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPNote.h; sourceTree = "<group>"; };
 		AE3AEDE1181368C40041DAB3 /* DPNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPNote.m; sourceTree = "<group>"; };
 		AE3AEDE2181368C40041DAB3 /* DPNoteNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPNoteNode.h; sourceTree = "<group>"; };
 		AE3AEDE3181368C40041DAB3 /* DPNoteNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPNoteNode.m; sourceTree = "<group>"; };
 		AE3AEDE4181368C40041DAB3 /* DPSong.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPSong.h; sourceTree = "<group>"; };
 		AE3AEDE5181368C40041DAB3 /* DPSong.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPSong.m; sourceTree = "<group>"; };
-		AE3AEDEF18136B590041DAB3 /* Instrument1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Instrument1.png; sourceTree = "<group>"; };
-		AE3AEDF018136B590041DAB3 /* Instrument2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Instrument2.png; sourceTree = "<group>"; };
 		AE3AEDF318136BA70041DAB3 /* Instrument1_1.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument1_1.caf; path = dropBeats/sounds/Instrument1_1.caf; sourceTree = "<group>"; };
 		AE3AEDF418136BA70041DAB3 /* Instrument1_2.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument1_2.caf; path = dropBeats/sounds/Instrument1_2.caf; sourceTree = "<group>"; };
 		AE3AEDF518136BA70041DAB3 /* Instrument1_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument1_3.caf; path = dropBeats/sounds/Instrument1_3.caf; sourceTree = "<group>"; };
@@ -126,6 +125,15 @@
 		AE3AEE0118136BA70041DAB3 /* Instrument5_3.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Instrument5_3.caf; path = dropBeats/sounds/Instrument5_3.caf; sourceTree = "<group>"; };
 		AE3AEE12181378400041DAB3 /* DPGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPGame.h; sourceTree = "<group>"; };
 		AE3AEE13181378400041DAB3 /* DPGame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPGame.m; sourceTree = "<group>"; };
+		AE4B3B37181461930089EE3F /* Retry@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Retry@2x.png"; sourceTree = "<group>"; };
+		AE4B3B38181461930089EE3F /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
+		AE4B3B39181461930089EE3F /* Stanza.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Stanza.png; sourceTree = "<group>"; };
+		AE4B3B3A181461930089EE3F /* Ball@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ball@2x.png"; sourceTree = "<group>"; };
+		AE4B3B3B181461930089EE3F /* Retry.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Retry.png; sourceTree = "<group>"; };
+		AE4B3B3C181461930089EE3F /* Instrument1.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Instrument1.atlas; sourceTree = "<group>"; };
+		AE4B3B3D181461930089EE3F /* Instrument2.atlas */ = {isa = PBXFileReference; lastKnownFileType = folder.skatlas; path = Instrument2.atlas; sourceTree = "<group>"; };
+		AE4B3B45181462770089EE3F /* Instrument1_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Instrument1_0.png; path = Instrument1.atlas/Instrument1_0.png; sourceTree = "<group>"; };
+		AE4B3B47181462810089EE3F /* Instrument2_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Instrument2_0.png; path = Instrument2.atlas/Instrument2_0.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,13 +215,13 @@
 		AE3907981812ECD7001D7BBE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				AE4B3B45181462770089EE3F /* Instrument1_0.png */,
+				AE4B3B47181462810089EE3F /* Instrument2_0.png */,
+				AE4B3B36181461930089EE3F /* Icon Images */,
+				AE4B3B3C181461930089EE3F /* Instrument1.atlas */,
+				AE4B3B3D181461930089EE3F /* Instrument2.atlas */,
 				AE3AEE1118136BAE0041DAB3 /* Sounds */,
 				AE3907B11812ECD8001D7BBE /* Images.xcassets */,
-				AE3AEDEF18136B590041DAB3 /* Instrument1.png */,
-				AE3AEDF018136B590041DAB3 /* Instrument2.png */,
-				AE3AEDDA1813617A0041DAB3 /* Box1.png */,
-				AE3AEDDB1813617A0041DAB3 /* Box2.png */,
-				AE3AEDDC1813617A0041DAB3 /* Box3.png */,
 				AE2863C21813576D007BC8DD /* Assets.atlas */,
 				AE3907991812ECD7001D7BBE /* dropBeats-Info.plist */,
 				AE39079A1812ECD7001D7BBE /* InfoPlist.strings */,
@@ -290,6 +298,18 @@
 				AE3AEE13181378400041DAB3 /* DPGame.m */,
 			);
 			name = "Game Logic";
+			sourceTree = "<group>";
+		};
+		AE4B3B36181461930089EE3F /* Icon Images */ = {
+			isa = PBXGroup;
+			children = (
+				AE4B3B37181461930089EE3F /* Retry@2x.png */,
+				AE4B3B38181461930089EE3F /* Ball.png */,
+				AE4B3B39181461930089EE3F /* Stanza.png */,
+				AE4B3B3A181461930089EE3F /* Ball@2x.png */,
+				AE4B3B3B181461930089EE3F /* Retry.png */,
+			);
+			path = "Icon Images";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -370,13 +390,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				AE3AEE0F18136BA70041DAB3 /* Instrument5_2.caf in Resources */,
+				AE4B3B41181461930089EE3F /* Ball@2x.png in Resources */,
 				AE3AEE0318136BA70041DAB3 /* Instrument1_2.caf in Resources */,
+				AE4B3B43181461930089EE3F /* Instrument1.atlas in Resources */,
 				AE3AEE0418136BA70041DAB3 /* Instrument1_3.caf in Resources */,
-				AE3AEDDD1813617A0041DAB3 /* Box1.png in Resources */,
-				AE3AEDDF1813617A0041DAB3 /* Box3.png in Resources */,
-				AE3AEDF118136B590041DAB3 /* Instrument1.png in Resources */,
+				AE4B3B48181462810089EE3F /* Instrument2_0.png in Resources */,
+				AE4B3B46181462770089EE3F /* Instrument1_0.png in Resources */,
+				AE4B3B42181461930089EE3F /* Retry.png in Resources */,
 				AE3AEE0218136BA70041DAB3 /* Instrument1_1.caf in Resources */,
+				AE4B3B40181461930089EE3F /* Stanza.png in Resources */,
 				AE3AEE1018136BA70041DAB3 /* Instrument5_3.caf in Resources */,
+				AE4B3B3F181461930089EE3F /* Ball.png in Resources */,
 				AE3AEE0B18136BA70041DAB3 /* Instrument4_1.caf in Resources */,
 				AE3AEE0918136BA70041DAB3 /* Instrument3_2.caf in Resources */,
 				AE3AEE0D18136BA70041DAB3 /* Instrument4_3.caf in Resources */,
@@ -384,16 +408,16 @@
 				AE3AEE0818136BA70041DAB3 /* Instrument3_1.caf in Resources */,
 				AE3AEE0718136BA70041DAB3 /* Instrument2_3.caf in Resources */,
 				AE2863C31813576D007BC8DD /* Assets.atlas in Resources */,
-				AE3AEDDE1813617A0041DAB3 /* Box2.png in Resources */,
 				AE3AEE0518136BA70041DAB3 /* Instrument2_1.caf in Resources */,
 				AE3AEE0618136BA70041DAB3 /* Instrument2_2.caf in Resources */,
-				AE3AEDF218136B590041DAB3 /* Instrument2.png in Resources */,
 				AE3AEE0C18136BA70041DAB3 /* Instrument4_2.caf in Resources */,
 				AE3907B21812ECD8001D7BBE /* Images.xcassets in Resources */,
 				AE3AEE0A18136BA70041DAB3 /* Instrument3_3.caf in Resources */,
 				AE3907A81812ECD8001D7BBE /* Main_iPad.storyboard in Resources */,
 				AE3907A51812ECD8001D7BBE /* Main_iPhone.storyboard in Resources */,
+				AE4B3B44181461930089EE3F /* Instrument2.atlas in Resources */,
 				AE39079C1812ECD7001D7BBE /* InfoPlist.strings in Resources */,
+				AE4B3B3E181461930089EE3F /* Retry@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
