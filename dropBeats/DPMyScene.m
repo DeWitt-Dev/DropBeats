@@ -13,14 +13,13 @@
 
 @interface DPMyScene() <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
 {
-    DPSong* song;
     #define ZFLOOR 10
 }
 @property (nonatomic, strong) SKSpriteNode *selectedNode;
 
+@property (strong, nonatomic) DPSong* song;
 @property BOOL sceneCreated;
 @property BOOL validTouch;
-@property int ballCount;
 
 @end
 
@@ -29,7 +28,7 @@
 static const uint32_t ballCategory = 0x1 << 0;
 static const uint32_t floorCategory = 0x1 << 1;
 
--(id)initWithSize:(CGSize)size {    
+-(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         [self commonInit];
     }
@@ -41,27 +40,25 @@ static const uint32_t floorCategory = 0x1 << 1;
     /* Setup your scene here */
     self.backgroundColor = [SKColor whiteColor]; //[SKColor colorWithRed:0.15 green:0.15 blue:0.3 alpha:1.0];
     
-    SKLabelNode *myLabel = [SKLabelNode labelNodeWithFontNamed:@"Chalkduster"];
+    //Resister for Notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(gameEnded:) name:@"gameEnded" object:nil];
     
-    myLabel.text = @"Hello, World!";
-    myLabel.fontSize = 30;
-    myLabel.position = CGPointMake(CGRectGetMidX(self.frame),
-                                   CGRectGetMidY(self.frame));
-    
-    [self addChild:myLabel];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+     selector:@selector(gameStarted:) name:@"gameStarted" object:nil];
 }
 
 -(void)didMoveToView:(SKView *)view
 {
     if(!self.sceneCreated)
     {
-        self.ballCount = 3;
         self.physicsWorld.gravity = CGVectorMake(0, -3);
         self.physicsWorld.contactDelegate = self;
         self.sceneCreated = YES;
         
         [self initGestures];
         
+        //Background Notes
         [self drawDivider];
         [self displaySong: [[DPSong song] getSampleSong:0]];
     }
@@ -81,13 +78,23 @@ static const uint32_t floorCategory = 0x1 << 1;
     [self.view addGestureRecognizer:pinchRecognizer];
 }
 
--(void)initBallDrop
+-(DPGame*)game
 {
-    self.scaleMode = SKSceneScaleModeAspectFill;
-    
-    SKAction *releaseBalls = [SKAction sequence:@[[SKAction performSelector:@selector(createBallNodeAtLocation:) onTarget:self], [SKAction waitForDuration:4]]];
-    [self runAction: [SKAction repeatActionForever:releaseBalls]]; //[SKAction repeatAction:releaseBalls count:self.ballCount]];
+    if (!_game) {
+        _game = [[DPGame alloc]init];
+    }
+    return _game;
 }
+
+//-(void)initBallDrop
+//{
+//    self.scaleMode = SKSceneScaleModeAspectFill;
+//    
+//    SKAction *releaseBalls = [SKAction sequence:@[[SKAction performSelector:@selector(createBallNodeAtLocation:) onTarget:self], [SKAction waitForDuration:4]]];
+//    [self runAction: [SKAction repeatActionForever:releaseBalls]]; //[SKAction repeatAction:releaseBalls count:self.ballCount]];
+//}
+
+
 
 #pragma mark - Background Music
 - (void) drawDivider
@@ -100,9 +107,9 @@ static const uint32_t floorCategory = 0x1 << 1;
     [self addChild:divider];
 }
 
-- (void) displaySong: (DPSong*) s
+- (void) displaySong: (DPSong*) song
 {
-    song = s;
+    self.song = song;
     
     for (DPNote* dpnote in [song getNotes])
     {
@@ -114,13 +121,15 @@ static const uint32_t floorCategory = 0x1 << 1;
 {
     DPNoteNode* node = [DPNoteNode noteNodeWithNote:note];
     float x = side ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
-    int space = (self.frame.size.height / [song duration]);
+    int space = (self.frame.size.height / [self.song duration]);
     float y = self.frame.size.height - [[node note] time] * space;
     
     [node setPosition: CGPointMake(x, y)];
     [self addChild:node];
 }
 
+#pragma mark - Collision Dection
+#define MIN_COLLISIONIMPULSE 10
 - (void) didBeginContact:(SKPhysicsContact *)contact
 {
     SKSpriteNode *ballNode;
@@ -137,23 +146,27 @@ static const uint32_t floorCategory = 0x1 << 1;
         ballNode = (SKSpriteNode *) contact.bodyA.node;
     }
 
-    [instrumentNode playInstrument];
-
-    if ((contact.bodyA.categoryBitMask == floorCategory)
-        && (contact.bodyB.categoryBitMask == ballCategory))
-    {
-        CGPoint contactPoint = contact.contactPoint;
-        
-        float contact_y = contactPoint.y;
-        float target_y = instrumentNode.position.y;
-        float margin = ballNode.frame.size.height/2 - 25;
-        
-        if ((contact_y > (target_y - margin)) &&
-            (contact_y < (target_y + margin)))
-        {
-            NSLog(@"Collision");
-        }
+    NSLog(@"Impulse %f", contact.collisionImpulse);
+    if (contact.collisionImpulse >= MIN_COLLISIONIMPULSE) {
+        [instrumentNode playInstrument];
     }
+    
+
+//    if ((contact.bodyA.categoryBitMask == floorCategory)
+//        && (contact.bodyB.categoryBitMask == ballCategory))
+//    {
+//        CGPoint contactPoint = contact.contactPoint;
+//        
+//        float contact_y = contactPoint.y;
+//        float target_y = instrumentNode.position.y;
+//        float margin = ballNode.frame.size.height/2 - 25;
+//        
+//        if ((contact_y > (target_y - margin)) &&
+//            (contact_y < (target_y + margin)))
+//        {
+//            NSLog(@"Collision");
+//        }
+//    }
 }
 
 - (void)didEndContact:(SKPhysicsContact *)contact
@@ -161,7 +174,6 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 -(void) createBallNodeAtLocation: (CGPoint) location
 {
-    self.play = YES;
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Assets"];
     SKSpriteNode *ball = [[SKSpriteNode alloc] initWithTexture:[atlas textureNamed:@"Ball"]];
     
@@ -180,16 +192,21 @@ static const uint32_t floorCategory = 0x1 << 1;
     [self addChild:ball];
 }
 
--(void) setPlay:(BOOL)play
+#pragma mark - Game notifications
+-(void)gameStarted: (NSNotification*) notification
 {
-    _play = play;
-    if (!play) {
-        [self enumerateChildNodesWithName:@"ballNode" usingBlock:
-         ^(SKNode *node,BOOL *stop) {
-                 [node removeFromParent];
-         }];
+    if (![self.game isInProgress]) {
+        [self createBallNodeAtLocation:CGPointZero];
     }
 }
+-(void)gameEnded: (NSNotification *) notification
+{
+    [self enumerateChildNodesWithName:@"ballNode" usingBlock:
+     ^(SKNode *node,BOOL *stop) {
+         [node removeFromParent];
+     }];
+}
+
 -(void) createInstrument: (int) index AtLocation: (CGPoint) location
 {
     SKSpriteNode *tonePad = [[InstrumentNode alloc]initWIthInstrumentIndex:index];
@@ -208,7 +225,7 @@ static const uint32_t floorCategory = 0x1 << 1;
     [self enumerateChildNodesWithName:@"ballNode" usingBlock:
      ^(SKNode *node,BOOL *stop) {
          if (node.position.y < 0){
-             if (self.play) {
+             if ([self.game isInProgress]) {
                  [self createBallNodeAtLocation:CGPointZero];
              }
             [node removeFromParent];
@@ -302,16 +319,11 @@ static const uint32_t floorCategory = 0x1 << 1;
     if (recognizer.state == UIGestureRecognizerStateBegan) {
         CGPoint touchLocation = [recognizer locationInView:recognizer.view];
         touchLocation = [self convertPointFromView:touchLocation];
-//        self.selectedNode = (SKSpriteNode *)[self nodeAtPoint:touchLocation];
         [self selectNodeForTouch:touchLocation];
     }
     
-    self.selectedNode.xScale = recognizer.scale;
-    self.selectedNode.yScale = recognizer.scale;
-    
-    if (recognizer.state == UIGestureRecognizerStateEnded) {
-        recognizer.scale = 1.0f;
-    }
+    [self.selectedNode setScale: self.selectedNode.xScale * recognizer.scale];
+    recognizer.scale = 1.0f;
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer

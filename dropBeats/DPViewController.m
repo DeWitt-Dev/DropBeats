@@ -101,7 +101,8 @@ static NSString * const kInstrumentPrefix = @"Instrument";
          } completion:nil];
         
         [sender setTitle:@">" forState:UIControlStateNormal];
-        [self.scene createBallNodeAtLocation:CGPointZero];
+        
+        [self.scene.game startGame];
     }
     else{
         [UIView animateWithDuration:ANIMATION_DURATION animations:
@@ -113,7 +114,8 @@ static NSString * const kInstrumentPrefix = @"Instrument";
          } completion:nil];
         
         [sender setTitle:@"<" forState:UIControlStateNormal];
-        self.scene.play = NO;
+        
+        [self.scene.game endGame];
     }
     self.displayBanner = !self.displayBanner;
 }

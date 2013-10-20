@@ -8,10 +8,12 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "InstrumentNode.h"
+#import "DPGame.h"
 
 @interface DPMyScene : SKScene
 
-@property (nonatomic) BOOL play; 
+@property (strong, nonatomic) DPGame* game;
+
 
 -(void) createBallNodeAtLocation: (CGPoint) location;
 -(void) createInstrument: (int) index AtLocation: (CGPoint) location;

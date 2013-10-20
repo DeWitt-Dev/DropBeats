@@ -35,26 +35,12 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 
 
 #pragma mark - Setters/getters
--(void)setXScale:(CGFloat)xScale
+-(void)setScale:(CGFloat)scale
 {
-    if (xScale < MAX_SCALE && xScale > MIN_SCALE) {
-        [super setXScale:xScale];
+    if (scale < MAX_SCALE && scale > MIN_SCALE) {
+        [super setScale:scale];
         [self frequencyChanged];
         [self updatePhysicsBody];
-    }
-}
--(void)setYScale:(CGFloat)yScale
-{
-    if (yScale < MAX_SCALE && yScale > MIN_SCALE) {
-        
-        if (yScale < MIN_SCALE) {
-            [self removeFromParent];
-        }
-        else{
-            [super setYScale:yScale];
-            [self frequencyChanged];
-            [self updatePhysicsBody];
-        }
     }
 }
 
@@ -63,13 +49,13 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     float scaleRange = MAX_SCALE - MIN_SCALE;
     
     if (self.xScale > scaleRange * (2/3.0)) {
-        self.frequency = kHighFrequency;
+        self.frequency = kLowFrequency;
     }
     else if (self.xScale > scaleRange * (1/3.0)) {
         self.frequency = kMidFrequency;
     }
     else{
-        self.frequency = kLowFrequency;
+        self.frequency = kHighFrequency;
     }
     
     NSLog(@"Frequency %d", self.frequency);
@@ -89,7 +75,9 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 -(void)updatePhysicsBody
 {
     //handleing Physics body
-    self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:self.size];
+    CGSize contactSize = CGSizeMake(self.size.width, self.size.height/2);
+
+    self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:contactSize];
     self.physicsBody.usesPreciseCollisionDetection = YES;
     self.physicsBody.affectedByGravity = NO;
     self.physicsBody.dynamic = NO;
