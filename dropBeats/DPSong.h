@@ -16,7 +16,7 @@
 - (void) addNote: (DPNote*) note;
 - (DPNote*) getNote: (NSInteger) index;
 - (NSMutableArray*) getNotes;
-- (NSInteger) duration;
+- (float) duration;
 - (DPSong*) getSampleSong: (NSInteger) song;
 
 

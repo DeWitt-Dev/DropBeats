@@ -18,13 +18,19 @@ typedef enum {
     kStrike
 } NoteType;
 
+typedef enum {
+    kLowFrequency,
+    kMidFrequency,
+    kHighFrequency
+} FrequencyRange;
+
 @property (nonatomic) float time;
 @property (nonatomic) float tolerance;
-@property (nonatomic) NSInteger freq;
+@property (nonatomic) FrequencyRange freq;
 @property (nonatomic) NoteType type;
 
-+ (instancetype) DPNoteWithTime: (float) time freq: (NSInteger) freq type: (NoteType) type tolerance: (float) tolerance;
-- (id) initWithTime: (float) time freq: (NSInteger) freq type: (NoteType) type tolerance: (float) tolerance;
++ (instancetype) DPNoteWithTime: (float) time freq: (FrequencyRange) freq type: (NoteType) type tolerance: (float) tolerance;
+- (id) initWithTime: (float) time freq: (FrequencyRange) freq type: (NoteType) type tolerance: (float) tolerance;
 
 
 @end

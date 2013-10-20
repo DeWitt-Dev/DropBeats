@@ -31,6 +31,7 @@
 @property BOOL sceneCreated;
 @property BOOL validTouch;
 @property DPSong* played;
+@property SKSpriteNode* tick;
 
 @end
 
@@ -83,6 +84,7 @@ static const uint32_t floorCategory = 0x1 << 1;
         
         //Background Notes
         [self drawDivider];
+        //[self drawTick];
         [self displaySong: [[DPSong song] getSampleSong:0]];
 
         [self drawStanzaAndCreateBall];
@@ -122,12 +124,41 @@ static const uint32_t floorCategory = 0x1 << 1;
 #pragma mark - Background Music
 - (void) drawDivider
 {
-    CGSize size = CGSizeMake(3, self.frame.size.height);
+    float adjustedHeight = 0.85 * self.frame.size.height;
+    CGSize size = CGSizeMake(3, adjustedHeight);
     SKSpriteNode* divider = [[SKSpriteNode alloc] initWithColor:[UIColor blueColor] size: size];
     divider.anchorPoint = CGPointMake(0, 0);
-    divider.position = CGPointMake(self.frame.size.width / 2, 0);
+    divider.position = CGPointMake(self.frame.size.width / 2, .05 * self.frame.size.height);
     divider.zPosition = ZFLOOR;
     [self addChild:divider];
+}
+
+- (void) drawTick
+{
+    NSLog(@"drawTick");
+    float adjustedHeight = 0.85 * self.frame.size.height;
+    float bottomOffset = 0.05 * self.frame.size.height;
+    
+    CGSize size = CGSizeMake(20, 3);
+    self.tick = [[SKSpriteNode alloc] initWithColor: [UIColor greenColor] size: size];
+    self.tick.position = CGPointMake(self.frame.size.width / 2, adjustedHeight + bottomOffset);
+    self.tick.zPosition = ZFLOOR + 1;
+    self.tick.name = @"ticknode";
+    [self addChild: self.tick];
+}
+
+- (void) startTick
+{
+    [self drawTick];
+    NSLog(@"start tick");
+    //float adjustedHeight = 0.85 * self.frame.size.height;
+    float bottomOffset = 0.05 * self.frame.size.height;
+    
+    CGPoint point2 = CGPointMake(self.frame.size.width/2, bottomOffset);
+    SKAction* moveTo = [SKAction moveTo:point2 duration:10.0];
+    //NSLog(@"song duration: %0.f", [self.song duration]);
+    [moveTo setTimingMode:SKActionTimingLinear];
+    [self.tick runAction:moveTo];
 }
 
 - (void) drawStanzaAndCreateBall
@@ -157,26 +188,33 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 - (void) drawDPNote: (DPNote*) note onSide: (NSInteger) side
 {
+    float adjustedHeight = .85 * self.frame.size.height;
     NSLog(@"drawDPNote");
     DPNoteNode* node = [DPNoteNode noteNodeWithNote:note];
 
     float x = !side ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
-    float y = self.frame.size.height * (1 -[[node note] time]);
+    float y = adjustedHeight * (1 -[[node note] time]);
+
     
     NSLog(@"x: %0.f, y: %0.f", x, y);
     
-    [node setPosition: CGPointMake(x, y)];
+    [node setPosition: CGPointMake(x, y + (0.05 * self.frame.size.height))];
     [self addChild:node];
 }
 
 #pragma mark - Collision Dection
 
-- (void) drawDPStrike: (DPStrike*) strike atTime: (float) time
+
+- (void) drawDPStrike: (DPStrike*) strike atTime: (NSTimeInterval) time
 {
-    if (time <= 1.0) {
+    NSLog(@"drawDPStrike");
+    if (time <= 10.0) {
+#warning Fix to non-constant duration
+        NSLog(@"drawing");
         DPStrikeNode* node = [DPStrikeNode strike: strike];
         float x = 0 ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
-        float y = (1.0 - time) * self.frame.size.height;
+        float y = ((1 - (time / 10.0)) * (0.85 * self.frame.size.height)) + (.05 * self.frame.size.height);
+        
         
         [node setPosition: CGPointMake(x, y)];
         [self addChild:node];
@@ -205,7 +243,9 @@ static const uint32_t floorCategory = 0x1 << 1;
 
     if (contact.collisionImpulse >= MIN_COLLISIONIMPULSE) {
         [instrumentNode playInstrument];
-        [self onStrikeFrom:kStrike];
+        
+        DPNote* note = [[DPNote alloc] initWithTime:0 freq:[[instrumentNode note] freq] type:[instrumentNode index] tolerance:0.0];
+        [self onStrikeFrom: note];
     }
 
 //    if ((contact.bodyA.categoryBitMask == floorCategory)
@@ -225,12 +265,13 @@ static const uint32_t floorCategory = 0x1 << 1;
 //    }
 }
 
-- (void) onStrikeFrom: (NoteType) type
+- (void) onStrikeFrom: (DPNote*) note
 {
     NSLog(@"onStrike");
     NSDate* now = [[NSDate alloc] init];
-    DPStrike* strike = [DPStrike strikeAtTime:[[NSDate alloc] init] fromType:kStrike];
+    DPStrike* strike = [DPStrike strikeAtTime:[NSDate date] withNote: note];
     
+
     NSTimeInterval nowInt = [now timeIntervalSinceDate:self.game.startDate];
     float timePercent = nowInt / 10.0;
     
@@ -263,7 +304,6 @@ static const uint32_t floorCategory = 0x1 << 1;
      }];
     
     self.ballNode = [[SKSpriteNode alloc] initWithImageNamed:@"Ball"];
-    
     self.ballNode.name = kBallNode;
     self.ballNode.size = CGSizeMake(50, 50);
     self.ballNode.position = self.ballStart;
@@ -277,7 +317,6 @@ static const uint32_t floorCategory = 0x1 << 1;
     self.ballNode.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:(self.ballNode.size.width/2)-8];
     self.ballNode.physicsBody.usesPreciseCollisionDetection = YES;
     self.ballNode.physicsBody.restitution = BALL_RESTITUTION; //energy conservation
-    
     self.ballNode.physicsBody.categoryBitMask = ballCategory;
     self.ballNode.physicsBody.contactTestBitMask = floorCategory;
     self.ballNode.physicsBody.collisionBitMask = ballCategory | floorCategory;
@@ -287,8 +326,10 @@ static const uint32_t floorCategory = 0x1 << 1;
 -(void)gameStarted: (NSNotification*) notification
 {
     if (![self.game isInProgress]) {
+
         [self createBall];
         [self dropBall];
+        [self startTick];
     }
 }
 -(void)gameEnded: (NSNotification *) notification
@@ -328,6 +369,11 @@ static const uint32_t floorCategory = 0x1 << 1;
     [self enumerateChildNodesWithName:@"strikenode" usingBlock:
      ^(SKNode *node,BOOL *stop) {
          [node removeFromParent];
+     }];
+    [self enumerateChildNodesWithName:@"ticknode" usingBlock:
+     ^(SKNode *node,BOOL *stop) {
+         [node removeFromParent];
+         NSLog(@"removing tick");
      }];
 }
 

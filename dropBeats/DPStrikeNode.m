@@ -8,6 +8,10 @@
 
 #import "DPStrikeNode.h"
 
+#define W_LOW 100
+#define W_MID 175
+#define W_HIGH 250
+
 @implementation DPStrikeNode
 
 + (instancetype) strike: (DPStrike*) strike
@@ -17,14 +21,55 @@
 
 - (id) initWithStrike: (DPStrike*) strike
 {
+    NSInteger height = 25;
+    NSInteger width = 0;
+    
+    
     self = [super initWithColor:[UIColor redColor] size: CGSizeZero];
     
+    NSLog(@"--- initWithStrike");
     if (self)
     {
+        NSLog(@"-- switch:");
+        switch ([[strike note] freq])
+        {
+            case kLowFrequency:
+                NSLog(@"low freq");
+                width = W_LOW;
+                break;
+            case kMidFrequency:
+                NSLog(@"mid freq");
+                width = W_MID;
+                break;
+            case kHighFrequency:
+                NSLog(@"high freq");
+                width = W_HIGH;
+                break;
+            default:
+                NSLog(@"no freq");
+                width = 0;
+        }
+        
+        switch ([[strike note] type]) {
+            case kBass:
+                self.color = [UIColor blueColor];
+                break;
+            case kSnare:
+                self.color = [UIColor orangeColor];
+                break;
+            case kCymbol:
+                self.color = [UIColor yellowColor];
+                break;
+            case kGuitar:
+                self.color = [UIColor purpleColor];
+                break;
+        }
+        
+
         self.strike = strike;
-        self.anchorPoint = CGPointZero;
+        self.anchorPoint = CGPointMake(0, self.frame.size.height/2);
         self.name = @"strikenode";
-        CGSize size = CGSizeMake(160, 2);
+        CGSize size = CGSizeMake(width, height);
         self.size = size;
     }
     
