@@ -237,7 +237,7 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 -(void) createInstrument: (int) index AtLocation: (CGPoint) location
 {
-    SKSpriteNode *tonePad = [[InstrumentNode alloc]initWIthInstrumentIndex:index];
+    SKSpriteNode *tonePad = [[InstrumentNode alloc]initWithInstrumentIndex:index andSize:self.startingInstrumentSize];
     
     tonePad.name = kInstrumentNode;
     tonePad.position = location;

@@ -15,7 +15,7 @@
 
 static NSString * const kInstrumentPrefix = @"Instrument";
 
--(id)initWIthInstrumentIndex: (int) index
+-(id)initWithInstrumentIndex: (int) index andSize: (CGSize) size
 {
     self.imageID = [NSString stringWithFormat:@"%@%d",kInstrumentPrefix, index+1];
     SKTextureAtlas *atlas = [SKTextureAtlas atlasNamed:@"Assets"];
@@ -26,7 +26,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
         self.name = kInstrumentNode;
         self.frequency = kMidFrequency;
         [self setScale:0.18];
-        
+        [self setSize:size];
         [self updatePhysicsBody];
     }
     
