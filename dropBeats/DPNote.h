@@ -14,7 +14,8 @@ typedef enum {
     kSnare,
     kCymbol,
     kBass,
-    kGuitar
+    kGuitar,
+    kStrike
 } NoteType;
 
 @property (nonatomic) NSInteger time;

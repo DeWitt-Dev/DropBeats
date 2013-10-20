@@ -21,6 +21,7 @@
 @property BOOL sceneCreated;
 @property BOOL validTouch;
 @property int ballCount;
+@property NSDate* timeDrop;
 
 @end
 
@@ -113,7 +114,7 @@ static const uint32_t floorCategory = 0x1 << 1;
 - (void) drawDPNote: (DPNote*) note onSide: (NSInteger) side
 {
     DPNoteNode* node = [DPNoteNode noteNodeWithNote:note];
-    float x = side ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
+    float x = !side ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
     int space = (self.frame.size.height / [song duration]);
     float y = self.frame.size.height - [[node note] time] * space;
     
@@ -121,6 +122,24 @@ static const uint32_t floorCategory = 0x1 << 1;
     [self addChild:node];
 }
 
+- (void) drawDPNote: (DPNote*) note atTime: (float) time
+{
+    NSLog(@"drawDPNote");
+    if (time <= 1.0) {
+        DPNoteNode* node = [DPNoteNode noteNodeWithNote:note];
+        float x = 0 ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
+        float y = (1 - time) * self.frame.size.height;
+    
+        [node setPosition: CGPointMake(x, y)];
+        [self addChild:node];
+    }
+    else
+    {
+        [self endStrikes];
+    }
+}
+
+int i = 0;
 - (void) didBeginContact:(SKPhysicsContact *)contact
 {
     SKSpriteNode *ballNode;
@@ -139,6 +158,7 @@ static const uint32_t floorCategory = 0x1 << 1;
 
     [instrumentNode playInstrument];
 
+
     if ((contact.bodyA.categoryBitMask == floorCategory)
         && (contact.bodyB.categoryBitMask == ballCategory))
     {
@@ -154,6 +174,21 @@ static const uint32_t floorCategory = 0x1 << 1;
             NSLog(@"Collision");
         }
     }
+    
+    [self onStrikeFrom:kStrike];
+    // TODO: set this correctly!
+}
+
+- (void) onStrikeFrom: (NoteType) type
+{
+    NSLog(@"hit");
+    DPNote* note = [DPNote DPNoteWithTime:++i freq:0 type:kStrike];
+
+    NSTimeInterval now = [[[NSDate alloc]init] timeIntervalSinceDate:self.timeDrop];
+    float timePercent = now / 10.0;
+    NSLog(@"now: %.0f", now);
+    NSLog(@"timePercent: %f", timePercent);
+    [self drawDPNote:note atTime:timePercent];
 }
 
 - (void)didEndContact:(SKPhysicsContact *)contact
@@ -176,6 +211,8 @@ static const uint32_t floorCategory = 0x1 << 1;
     ball.physicsBody.contactTestBitMask = floorCategory;
     ball.physicsBody.collisionBitMask = ballCategory | floorCategory;
     ball.zPosition = ZFLOOR +1; 
+    
+    self.timeDrop = [[NSDate alloc] init];
     
     [self addChild:ball];
 }
@@ -205,15 +242,30 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 -(void)didSimulatePhysics
 {
+    NSLog(@"didSimulatePhysics");
     [self enumerateChildNodesWithName:@"ballNode" usingBlock:
      ^(SKNode *node,BOOL *stop) {
          if (node.position.y < 0){
              if (self.play) {
                  [self createBallNodeAtLocation:CGPointZero];
+                 [self endStrikes];
              }
             [node removeFromParent];
          }
     }];
+}
+
+- (void) endStrikes
+{
+    NSLog(@"endStrike");
+    [self enumerateChildNodesWithName:@"notenode" usingBlock:
+     ^(SKNode *node,BOOL *stop) {
+         DPNoteNode* notenode = (DPNoteNode*) node;
+         if ([[notenode note] type] == kStrike){
+             
+             [node removeFromParent];
+         }
+     }];
 }
 
 -(void)update:(CFTimeInterval)currentTime {
