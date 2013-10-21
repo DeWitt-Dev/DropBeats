@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DPSong.h"
 
 @interface DPGame : NSObject
 
@@ -17,4 +18,5 @@
 -(void)resetGame;
 -(void)endGame;
 
+-(float)percentCompleteWith:(DPSong*) song comparingToSong: (DPSong*) usersSong;
 @end

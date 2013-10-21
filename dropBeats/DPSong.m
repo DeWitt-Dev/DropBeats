@@ -52,6 +52,21 @@
     return self.notes;
 }
 
+-(void)clearNotes
+{
+    self.notes = nil;
+}
+
+-(NSMutableArray*)notes
+{
+    if (!_notes) {
+        _notes = [[NSMutableArray alloc]initWithCapacity:10];
+    }
+    return _notes;
+}
+
+
+#pragma mark - class Methods
 + (DPSong*) getSong: (int) index WithTolerance: (float) tolerance andDuration: (float) duration
 {
     DPSong *song = [[DPSong alloc]init];
@@ -62,6 +77,9 @@
             break;
         case 2:
             song.notes = [DPSong getSong2WithTolerance:tolerance];
+            break;
+        case 3:
+            song.notes = [DPSong getSong3WithTolerance:tolerance];
             break;
 
             
@@ -94,6 +112,15 @@
     [song addObject: [DPNote DPNoteWithTime:0.1 freq:0 type:kCymbol tolerance:tolerance]];
     [song addObject: [DPNote DPNoteWithTime:0.5 freq:1 type:kSnare tolerance:tolerance]];
     [song addObject: [DPNote DPNoteWithTime:0.8 freq:2 type:kSnare tolerance:tolerance]];
+    
+    return song;
+}
+
++ (NSMutableArray*) getSong3WithTolerance: (float) tolerance
+{
+    NSMutableArray* song = [[NSMutableArray alloc] initWithCapacity:10];
+    
+    [song addObject: [DPNote DPNoteWithTime:0.3 freq:0 type:kCymbol tolerance:tolerance]];
     
     return song;
 }

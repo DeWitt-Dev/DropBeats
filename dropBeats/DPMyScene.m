@@ -11,14 +11,15 @@
 #import "DPNote.h"
 #import "DPSong.h"
 
-@interface DPMyScene() <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
+@interface DPMyScene() <SKPhysicsContactDelegate, UIGestureRecognizerDelegate, UIAlertViewDelegate>
 {
     #define ALPHA_BACKGROUND 0.6f
     #define ZFLOOR 10
+    #define PERCENT_TO_WIN 0.6
     
     #define GRAVITY -2.5
     #define BALL_RESTITUTION 1.0f
-    #define MIN_COLLISIONIMPULSE 12
+    #define MIN_COLLISIONIMPULSE 10
     #define DELETE_VELOCITY 1000
 }
 
@@ -28,7 +29,7 @@
 @property (nonatomic) CGPoint ballStart;
 
 @property (strong, nonatomic) DPSong* song;
-@property (strong, nonatomic) DPSong* played;
+@property (strong, nonatomic) DPSong* playedSong;
 
 @property BOOL sceneCreated;
 @property BOOL validTouch;
@@ -88,7 +89,7 @@ static const uint32_t floorCategory = 0x1 << 1;
         //Background Notes
         [self drawDivider];
         //[self drawTick];
-        [self displaySong: [DPSong getSong:1 WithTolerance:0.2 andDuration:6.0f]];
+        [self displaySong: [DPSong getSong:3 WithTolerance:0.3 andDuration:6.0f]];
 
         [self drawStanzaAndCreateBall];
         
@@ -185,6 +186,8 @@ static const uint32_t floorCategory = 0x1 << 1;
 - (void) drawDPStrike: (DPNote*) note
 {
     float time = [self calculateTimeFloatFrom:self.game.startDate to:[note played]];
+    note.time = time;
+    [self.playedSong addNote:note];
     
     if (time <= 1.0) {
         
@@ -238,6 +241,8 @@ static const uint32_t floorCategory = 0x1 << 1;
             
         });
     }
+    
+    self.playedSong = [[DPSong alloc]init];
 }
 
 - (void) drawDPNote: (DPNote*) note onSide: (NSInteger) side
@@ -375,7 +380,15 @@ static const uint32_t floorCategory = 0x1 << 1;
             [node removeFromParent];
             [self createBall];
              if ([self.game isInProgress]) {
-                 [self.game resetGame];
+                 if (PERCENT_TO_WIN > [self.game percentCompleteWith:self.song comparingToSong:self.playedSong]) {
+                     [self.game resetGame];
+                 }
+                 else{
+                     UIAlertView* alert = [[UIAlertView alloc]initWithTitle:nil message:@"Congatulations!\n Next Level?" delegate:self cancelButtonTitle:@"Try Again?" otherButtonTitles:@"Next Level", nil];
+                 alert.delegate = self;
+                 [alert show];
+                 [self.game endGame];
+                 }
              }
          }
     }];
@@ -545,6 +558,20 @@ float degToRad(float degree) {
 }
 CGPoint mult(const CGPoint v, const CGFloat s) {
 	return CGPointMake(v.x*s, v.y*s);
+}
+
+#pragma mark - AlertView
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex > 0) {
+        self.physicsWorld.gravity = CGVectorMake(0, -10.0);
+        [self enumerateChildNodesWithName:kInstrumentNode usingBlock:
+         ^(SKNode *node,BOOL *stop) {
+             node.physicsBody.affectedByGravity = YES;
+             node.physicsBody.dynamic = YES;
+         }];
+        self.physicsWorld.gravity = CGVectorMake(0, GRAVITY);
+    }
 }
 
 @end

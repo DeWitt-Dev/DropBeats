@@ -21,5 +21,6 @@
 //+ (instancetype) songFromNotes: (NSMutableArray*) notesArray;
 - (void) addNote: (DPNote*) note;
 - (DPNote*) getNote: (NSInteger) index;
+-(void)clearNotes;
 
 @end
