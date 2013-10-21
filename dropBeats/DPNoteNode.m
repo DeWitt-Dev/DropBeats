@@ -21,12 +21,12 @@
 
 @implementation DPNoteNode : SKSpriteNode
 
-+ (instancetype) noteNodeWithNote: (DPNote*) note animate: (BOOL) animate
++ (instancetype) noteNodeWithNote: (DPNote*) note onSide:(Side) side animate: (BOOL) animate
 {
-    return [[self alloc] initWithNote:note animate:animate];
+    return [[self alloc] initWithNote:note onSide:side animate:animate];
 }
 
-- (id) initWithNote: (DPNote*) note animate: (BOOL) animate
+- (id) initWithNote: (DPNote*) note onSide:(Side) side animate: (BOOL) animate
 {
     UIColor* instrumentColor;
     switch (note.type) {
@@ -48,6 +48,7 @@
     
     if (self)
     {
+        self.side = side;
         self.note = note;
         self.animate = animate;
         [self setupNode];
@@ -78,11 +79,14 @@
     
     CGSize size = CGSizeMake(width, height);
     self.size = CGSizeMake(0, size.height);
-    self.anchorPoint = CGPointZero;
+    self.anchorPoint = CGPointMake(0, 0.5);
     self.name = @"notenode";
     self.alpha = BACKGROUND_ALPHA;
     
     if (self.animate) {
+        if (self.side == SideLeft) {
+            size = CGSizeMake(-size.width, size.height);
+        }
         SKAction* zeroMorph = [SKAction resizeToWidth:0 duration:0.0f];
         SKAction* correctSizeW = [SKAction resizeToWidth:size.width duration:RESIZE_INTERVAL];
         SKAction* overSizeW = [SKAction resizeToWidth:size.width*1.2 duration:RESIZE_INTERVAL];
@@ -98,11 +102,6 @@
     else{
         self.size = size;
     }
-}
-
-- (NSInteger) nodeSide
-{
-    return self.animate ? 1 : 0;
 }
 
 @end

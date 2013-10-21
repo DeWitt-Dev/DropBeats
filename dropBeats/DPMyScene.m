@@ -18,7 +18,7 @@
     #define ALPHA_BACKGROUND 0.6f
     #define ZFLOOR 10
     #define MIN_COLLISIONIMPULSE 15
-    #define DELETE_VELOCITY 850
+    #define DELETE_VELOCITY 1000
 }
 
 @property (nonatomic, strong) SKSpriteNode *selectedNode;
@@ -146,15 +146,26 @@ static const uint32_t floorCategory = 0x1 << 1;
     float adjustedHeight = 0.85 * self.frame.size.height;
     float bottomOffset = 0.05 * self.frame.size.height;
     
-    CGSize size = CGSizeMake(30, 5);
+    CGSize size = CGSizeMake(35, 5);
+
     UIColor* color = [[UIColor blackColor] colorWithAlphaComponent: ALPHA_BACKGROUND];
     self.tick.alpha = ALPHA_BACKGROUND;
-    
-    self.tick = [[SKSpriteNode alloc] initWithColor: color size: size];
+    self.tick = [[SKSpriteNode alloc] initWithColor: color size: size];//CGSizeMake(0, size.height)];
     self.tick.position = CGPointMake(self.frame.size.width / 2, adjustedHeight + bottomOffset);
     self.tick.zPosition = ZFLOOR - 1;
     self.tick.name = @"ticknode";
     [self addChild: self.tick];
+
+    
+//    float animationTime = 0.25f;
+//    SKAction* zeroMorph = [SKAction resizeToWidth:0 duration:0.0f];
+//    SKAction* correctSizeW = [SKAction resizeToWidth:size.width duration:animationTime];
+//    
+//    SKAction* sequence = [SKAction sequence:@[zeroMorph, correctSizeW]];
+//    
+//    [self runAction:sequence completion:^{
+//        self.tick.size = size;
+//    }];
 }
 
 - (void) startTick
@@ -164,10 +175,35 @@ static const uint32_t floorCategory = 0x1 << 1;
     float bottomOffset = 0.05 * self.frame.size.height;
     
     CGPoint point2 = CGPointMake(self.frame.size.width/2, bottomOffset);
-    SKAction* moveTo = [SKAction moveTo:point2 duration:10.0];
+    SKAction* moveTo = [SKAction moveTo:point2 duration:self.song.duration];
 
     [moveTo setTimingMode:SKActionTimingLinear];
     [self.tick runAction:moveTo];
+}
+
+- (void) drawDPStrike: (DPNote*) note
+{
+    float time = [self calculateTimeFloatFrom:self.game.startDate to:[note played]];
+    
+    if (time <= 1.0) {
+        
+        DPNoteNode* node = [DPNoteNode noteNodeWithNote:note onSide:SideRight animate:YES];
+        
+        //Placing logic
+        //float x = 0 ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
+        float x = CGRectGetMidX(self.frame) + 3;
+        float y = (time * (0.85 * self.frame.size.height)) + (.05 * self.frame.size.height);
+        
+        if (y > self.view.bounds.size.height*.05f) {
+            [node setPosition: CGPointMake(x, y)];
+            [self addChild:node];
+        }
+       
+    }
+    else
+    {
+        [self endStrikes]; //After the song is over
+    }
 }
 
 - (void) drawStanzaAndCreateBall
@@ -189,19 +225,27 @@ static const uint32_t floorCategory = 0x1 << 1;
 {
     self.song = song;
     
+    int i = 0;
     for (DPNote* dpnote in [song getNotes])
     {
-        [self drawDPNote:dpnote onSide: 0];
+        double delayInSeconds = 0.1f * ++i;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            
+            [self drawDPNote:dpnote onSide:SideLeft];
+            
+        });
     }
 }
 
 - (void) drawDPNote: (DPNote*) note onSide: (NSInteger) side
 {
     float adjustedHeight = .85 * self.frame.size.height;
-    DPNoteNode* node = [DPNoteNode noteNodeWithNote:note animate:NO];
+    DPNoteNode* node = [DPNoteNode noteNodeWithNote:note onSide:SideLeft animate:YES];
 
     float x = !side ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
-    float y = adjustedHeight * (1 -[[node note] time]);
+    float y = adjustedHeight * (1 -[[node note] time]) + (.05 * self.frame.size.height);
 
     [node setPosition: CGPointMake(x, y + (0.05 * self.frame.size.height))];
     [self addChild:node];
@@ -258,27 +302,7 @@ static const uint32_t floorCategory = 0x1 << 1;
     return 1.0 - ([to timeIntervalSinceDate: from] / self.song.duration);
 }
 
-- (void) drawDPStrike: (DPNote*) note
-{
-    float time = [self calculateTimeFloatFrom:self.game.startDate to:[note played]];
-    
-    if (time <= 1.0) {
-        
-        DPNoteNode* node = [DPNoteNode noteNodeWithNote:note animate:YES];
-        
-        //Placing logic
-        //float x = 0 ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
-        float x = CGRectGetMidX(self.frame) + 3;
-        float y = (time * (0.85 * self.frame.size.height)) + (.05 * self.frame.size.height);
-        
-        [node setPosition: CGPointMake(x, y)];
-        [self addChild:node];
-    }
-    else
-    {
-        [self endStrikes]; //After the song is over
-    }
-}
+
 
 -(void) createInstrument: (int) index AtLocation: (CGPoint) location
 {
@@ -371,7 +395,7 @@ static const uint32_t floorCategory = 0x1 << 1;
     [self enumerateChildNodesWithName:@"notenode" usingBlock:
      ^(SKNode *node,BOOL *stop) {
          DPNoteNode* noteNode = (DPNoteNode*)node;
-         if ([noteNode nodeSide]) {
+         if (noteNode.side == SideRight) {
              [node removeFromParent];
          }
      }];
@@ -479,7 +503,6 @@ static const uint32_t floorCategory = 0x1 << 1;
                 SKAction *moveTo = [SKAction moveByX:velocity.x y:-velocity.y duration:scrollDuration];
                 [moveTo setTimingMode:SKActionTimingLinear];
                 [self.selectedNode runAction:moveTo];
-
             }
         }
     }

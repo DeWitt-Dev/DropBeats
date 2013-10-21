@@ -12,11 +12,16 @@
 
 @interface DPNoteNode : SKSpriteNode
 
+typedef enum{
+    SideLeft,
+    SideRight
+}Side;
+
 @property (nonatomic) CGRect crd;
 @property (nonatomic) DPNote* note;
+@property (nonatomic) Side side; 
 @property (nonatomic) BOOL animate; 
 
-+ (instancetype) noteNodeWithNote: (DPNote*) note animate: (BOOL) animate;
-- (NSInteger) nodeSide;
++ (instancetype) noteNodeWithNote: (DPNote*) note onSide:(Side) side animate: (BOOL) animate;
 
 @end
