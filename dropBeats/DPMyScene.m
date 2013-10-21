@@ -417,7 +417,7 @@ static const uint32_t floorCategory = 0x1 << 1;
     touchLocation = [self convertPointFromView:touchLocation];
     SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint: touchLocation];
     
-    if([[touchedNode name] isEqualToString:kInstrumentNode]) {
+    if([touches count] < 2 && [[touchedNode name] isEqualToString:kInstrumentNode]) {
         [self wiggleNode:touchedNode];
     }
 }
@@ -432,14 +432,12 @@ static const uint32_t floorCategory = 0x1 << 1;
         return;
     }
     
-    if (![touchedNode isKindOfClass:[InstrumentNode class]])
-        return;
-    
-	if(![self.selectedNode isEqual:touchedNode]) {
+	if([touchedNode isKindOfClass:[InstrumentNode class]]
+       && ![self.selectedNode isEqual:touchedNode]) {
         
         self.selectedNode = touchedNode;
         
-		if([[touchedNode name] isEqualToString:kInstrumentNode]) {
+        if([[touchedNode name] isEqualToString:kInstrumentNode]) {
             [self wiggleNode:touchedNode];
         }
 	}
@@ -448,10 +446,11 @@ static const uint32_t floorCategory = 0x1 << 1;
 -(void)wiggleNode: (SKSpriteNode*) node
 {
     [node removeAllActions];
-    SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(-2.0f) duration:0.1],
-                                              [SKAction rotateToAngle:0.0 duration:0.1],
-                                              [SKAction rotateByAngle:degToRad(2.0f) duration:0.1],
-                                              [SKAction rotateToAngle:0.0 duration:0.1]]];
+    float zRotation = node.zRotation;
+    SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(zRotation-2.0f) duration:0.1],
+                                              [SKAction rotateToAngle:zRotation duration:0.1],
+                                              [SKAction rotateByAngle:degToRad(zRotation + 2.0f) duration:0.1],
+                                              [SKAction rotateToAngle:zRotation duration:0.1]]];
     [node runAction:[SKAction repeatAction:sequence count:WIGGLE]];
 }
 

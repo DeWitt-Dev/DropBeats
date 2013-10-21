@@ -37,9 +37,9 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     [super viewDidLoad];
 
     // Configure the view.
-    self.skView.showsFPS = YES;
-    self.skView.showsNodeCount = YES;
-    self.skView.showsDrawCount = YES;
+//    self.skView.showsFPS = YES;
+//    self.skView.showsNodeCount = YES;
+//    self.skView.showsDrawCount = YES;
     
     // Create and configure the scene.
     self.scene = [DPMyScene sceneWithSize:self.skView.bounds.size];
