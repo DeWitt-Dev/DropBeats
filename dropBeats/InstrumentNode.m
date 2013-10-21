@@ -111,8 +111,6 @@ static bool loaded;
     else{
         self.note.freq = kHighFrequency;
     }
-    
-    NSLog(@"Frequency %d, Scale %f", self.note.freq, self.xScale);
 }
 
 - (BOOL) isNum: (float) num between: (float) first and: (float) second

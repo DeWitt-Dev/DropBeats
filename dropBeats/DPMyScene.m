@@ -13,11 +13,12 @@
 
 @interface DPMyScene() <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
 {
-    #define GRAVITY -3
-    #define BALL_RESTITUTION 0.9f
     #define ALPHA_BACKGROUND 0.6f
     #define ZFLOOR 10
-    #define MIN_COLLISIONIMPULSE 15
+    
+    #define GRAVITY -2.5
+    #define BALL_RESTITUTION 1.0f
+    #define MIN_COLLISIONIMPULSE 12
     #define DELETE_VELOCITY 1000
 }
 
@@ -87,7 +88,7 @@ static const uint32_t floorCategory = 0x1 << 1;
         //Background Notes
         [self drawDivider];
         //[self drawTick];
-        [self displaySong: [DPSong getSong:1 WithTolerance:0.2 andDuration:12.0f]];
+        [self displaySong: [DPSong getSong:1 WithTolerance:0.2 andDuration:6.0f]];
 
         [self drawStanzaAndCreateBall];
         
@@ -512,6 +513,7 @@ static const uint32_t floorCategory = 0x1 << 1;
         CGPoint touchLocation = [recognizer locationInView:recognizer.view];
         touchLocation = [self convertPointFromView:touchLocation];
         [self selectNodeForTouch:touchLocation];
+        [self.selectedNode removeAllActions];
     }
     
     self.selectedNode.zRotation += -recognizer.rotation;
@@ -524,6 +526,7 @@ static const uint32_t floorCategory = 0x1 << 1;
         CGPoint touchLocation = [recognizer locationInView:recognizer.view];
         touchLocation = [self convertPointFromView:touchLocation];
         [self selectNodeForTouch:touchLocation];
+        [self.selectedNode removeAllActions];
     }
     
     [self.selectedNode setScale: self.selectedNode.xScale * recognizer.scale];

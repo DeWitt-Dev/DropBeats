@@ -78,11 +78,11 @@
 {
     NSMutableArray* array = [[NSMutableArray alloc] initWithCapacity:10];
     
-    [array addObject: [DPNote DPNoteWithTime:0.1 freq:0 type:kCymbol tolerance:tolerance]];
-    [array addObject: [DPNote DPNoteWithTime:0.3 freq:1 type:kSnare tolerance:tolerance]];
-    [array addObject: [DPNote DPNoteWithTime:0.4 freq:0 type:kCymbol tolerance:tolerance]];
-    [array addObject: [DPNote DPNoteWithTime:0.7 freq:2 type:kBass tolerance:tolerance]];
-    [array addObject: [DPNote DPNoteWithTime:0.8 freq:2 type:kSnare tolerance:tolerance]];
+    [array addObject: [DPNote DPNoteWithTime:0.2 freq:0 type:kCymbol tolerance:tolerance]];
+    [array addObject: [DPNote DPNoteWithTime:0.4 freq:1 type:kSnare tolerance:tolerance]];
+    [array addObject: [DPNote DPNoteWithTime:0.5 freq:0 type:kCymbol tolerance:tolerance]];
+    [array addObject: [DPNote DPNoteWithTime:0.6 freq:2 type:kBass tolerance:tolerance]];
+    [array addObject: [DPNote DPNoteWithTime:0.7 freq:2 type:kSnare tolerance:tolerance]];
     
     return array;
 }

@@ -150,10 +150,10 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     
     if (sender.state == UIGestureRecognizerStateEnded) {
         
-        if (!self.displayBanner && -self.bannerView.frame.origin.x < self.collectionView.bounds.size.width/2 ) {
+        if (!self.displayBanner && (-self.bannerView.frame.origin.x - [sender velocityInView:sender.view].x) < self.collectionView.bounds.size.width/2 ) {
             self.displayBanner = YES;
         }
-        else if (self.displayBanner && -self.bannerView.frame.origin.x > self.collectionView.bounds.size.width/2)
+        else if (self.displayBanner && -self.bannerView.frame.origin.x - [sender velocityInView:sender.view].x > self.collectionView.bounds.size.width/2)
         {
             self.displayBanner = NO;
         }
