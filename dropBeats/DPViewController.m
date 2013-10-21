@@ -13,7 +13,7 @@
 @interface DPViewController() <UICollectionViewDataSource, UICollectionViewDelegate>
 {
     #define ANIMATION_DURATION 0.5
-    #define COLLECTIONVIEW_CELL_SIZE CGSizeMake(180,100)
+    #define COLLECTIONVIEW_CELL_SIZE CGSizeMake(140,140)
     #define DEFAULT_LOCATION CGPointMake(300, 300)
 }
 

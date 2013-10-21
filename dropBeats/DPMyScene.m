@@ -271,12 +271,10 @@ static const uint32_t floorCategory = 0x1 << 1;
     if (contact.collisionImpulse >= MIN_COLLISIONIMPULSE) {
         [instrumentNode playInstrument];
         
-        
         DPNote* note = [DPNote DPNoteWithPlayed:[NSDate date]
                                            freq:[[instrumentNode note] freq]
                                            type:[instrumentNode index]
                                       tolerance:0.0];
-        
         [self drawDPStrike:note];
     }
     
@@ -420,7 +418,6 @@ static const uint32_t floorCategory = 0x1 << 1;
     SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint: touchLocation];
     
     if([[touchedNode name] isEqualToString:kInstrumentNode]) {
-        [touchedNode removeAllActions];
         [self wiggleNode:touchedNode];
     }
 }
@@ -450,9 +447,11 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 -(void)wiggleNode: (SKSpriteNode*) node
 {
-    SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(-4.0f) duration:0.1],
-                                              [SKAction rotateByAngle:0.0 duration:0.1],
-                                              [SKAction rotateByAngle:degToRad(4.0f) duration:0.1]]];
+    [node removeAllActions];
+    SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(-2.0f) duration:0.1],
+                                              [SKAction rotateToAngle:0.0 duration:0.1],
+                                              [SKAction rotateByAngle:degToRad(2.0f) duration:0.1],
+                                              [SKAction rotateToAngle:0.0 duration:0.1]]];
     [node runAction:[SKAction repeatAction:sequence count:WIGGLE]];
 }
 

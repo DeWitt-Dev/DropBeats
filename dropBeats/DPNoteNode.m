@@ -31,13 +31,13 @@
     UIColor* instrumentColor;
     switch (note.type) {
         case kSnare:
-            instrumentColor = [UIColor blueColor];
+            instrumentColor = [UIColor redColor];
             break;
         case kCymbol:
             instrumentColor = [UIColor yellowColor];
             break;
         case kBass:
-            instrumentColor = [UIColor redColor];
+            instrumentColor = [UIColor blueColor];
             break;
             
         default:

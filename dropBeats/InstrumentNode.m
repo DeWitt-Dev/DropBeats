@@ -13,7 +13,7 @@
     #define NUMBER_OF_INSTRUMENTS 3
     #define NUMBER_OF_SOUNDS 3
     #define DEFAULT_ANIMATION_FRAMES 10
-    #define ANIMATION_INTERVAL 0.008
+    #define ANIMATION_INTERVAL 0.01
     #define WIGGLE_DURATION 0.06
 }
 
@@ -128,7 +128,7 @@ static bool loaded;
     [self runAction:soundAction];
     
     NSArray* animationFrames = [instrumentAnimations objectForKey:self.instrumentID];
-    SKAction *hitAction = [SKAction repeatAction:[SKAction animateWithTextures:animationFrames timePerFrame:ANIMATION_INTERVAL resize:NO restore:YES] count:2];
+    SKAction *hitAction = [SKAction repeatAction:[SKAction animateWithTextures:animationFrames timePerFrame:ANIMATION_INTERVAL resize:NO restore:YES] count:1];
     [self runAction:hitAction];
     
     SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:-4.0f/180.0f * M_PI duration:WIGGLE_DURATION],
