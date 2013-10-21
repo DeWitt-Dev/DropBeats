@@ -11,8 +11,8 @@
 @interface DPNote : NSObject
 
 typedef enum {
-    kSnare,
     kCymbol,
+    kSnare,
     kBass,
     kGuitar,
     kStrike
@@ -28,9 +28,10 @@ typedef enum {
 @property (nonatomic) float tolerance;
 @property (nonatomic) FrequencyRange freq;
 @property (nonatomic) NoteType type;
+@property (nonatomic) NSDate* played;
 
 + (instancetype) DPNoteWithTime: (float) time freq: (FrequencyRange) freq type: (NoteType) type tolerance: (float) tolerance;
-- (id) initWithTime: (float) time freq: (FrequencyRange) freq type: (NoteType) type tolerance: (float) tolerance;
-
++ (instancetype) DPNoteWithPlayed: (NSDate*) played freq: (FrequencyRange) freq type: (NoteType) type tolerance: (float) tolerance;
+- (id) initWithTime: (float) time freq: (FrequencyRange) freq type: (NoteType) type tolerance: (float) tolerance played: (NSDate*) played;
 
 @end

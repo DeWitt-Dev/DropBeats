@@ -91,8 +91,8 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     [self.scene handlePan:sender];
 }
 
-- (IBAction)hideShowBanner:(UIButton *)sender {
-    
+- (IBAction)hideShowBanner:(UIButton *)sender
+{
     if (!self.displayBanner) {
         
         //Hiding banner

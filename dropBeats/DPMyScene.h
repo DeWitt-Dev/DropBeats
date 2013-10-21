@@ -21,6 +21,8 @@ typedef void (^DPSceneCompletionHandler)(void);
 -(void) dropBall; 
 -(void) createInstrument: (int) index AtLocation: (CGPoint) location;
 
+- (float) calculateTimeFloatFrom: (NSDate*) from to: (NSDate*) to;
+
 -(void)handlePan:(UIPanGestureRecognizer*)recognizer;
 +(void)loadEverythingYouCanWithCompletionHandeler: (DPSceneCompletionHandler) handler;
 

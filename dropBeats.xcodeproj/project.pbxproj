@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1699466B18138EEC007CE56F /* DPStrike.m in Sources */ = {isa = PBXBuildFile; fileRef = 1699466A18138EEC007CE56F /* DPStrike.m */; };
-		1699466E181390BF007CE56F /* DPStrikeNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 1699466D181390BF007CE56F /* DPStrikeNode.m */; };
 		AE28638318132AE6007BC8DD /* InstrumentNode.m in Sources */ = {isa = PBXBuildFile; fileRef = AE28638218132AE6007BC8DD /* InstrumentNode.m */; };
 		AE3907901812ECD7001D7BBE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE39078F1812ECD7001D7BBE /* Foundation.framework */; };
 		AE3907921812ECD7001D7BBE /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AE3907911812ECD7001D7BBE /* CoreGraphics.framework */; };
@@ -72,10 +70,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1699466918138EEC007CE56F /* DPStrike.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPStrike.h; sourceTree = "<group>"; };
-		1699466A18138EEC007CE56F /* DPStrike.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPStrike.m; sourceTree = "<group>"; };
-		1699466C181390BF007CE56F /* DPStrikeNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPStrikeNode.h; sourceTree = "<group>"; };
-		1699466D181390BF007CE56F /* DPStrikeNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPStrikeNode.m; sourceTree = "<group>"; };
 		AE28638118132AE6007BC8DD /* InstrumentNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InstrumentNode.h; sourceTree = "<group>"; };
 		AE28638218132AE6007BC8DD /* InstrumentNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InstrumentNode.m; sourceTree = "<group>"; };
 		AE39078C1812ECD7001D7BBE /* dropBeats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = dropBeats.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -280,14 +274,10 @@
 			children = (
 				AE3AEDE0181368C40041DAB3 /* DPNote.h */,
 				AE3AEDE1181368C40041DAB3 /* DPNote.m */,
-				1699466918138EEC007CE56F /* DPStrike.h */,
-				1699466A18138EEC007CE56F /* DPStrike.m */,
 				AE3AEDE2181368C40041DAB3 /* DPNoteNode.h */,
 				AE3AEDE3181368C40041DAB3 /* DPNoteNode.m */,
 				AE3AEDE4181368C40041DAB3 /* DPSong.h */,
 				AE3AEDE5181368C40041DAB3 /* DPSong.m */,
-				1699466C181390BF007CE56F /* DPStrikeNode.h */,
-				1699466D181390BF007CE56F /* DPStrikeNode.m */,
 			);
 			name = "Background Notes";
 			sourceTree = "<group>";
@@ -449,11 +439,9 @@
 				AE3907D91812F0CF001D7BBE /* InstrumentCell.m in Sources */,
 				AE3AEE14181378400041DAB3 /* DPGame.m in Sources */,
 				AE3907A21812ECD8001D7BBE /* DPAppDelegate.m in Sources */,
-				1699466E181390BF007CE56F /* DPStrikeNode.m in Sources */,
 				AE3907AB1812ECD8001D7BBE /* DPViewController.m in Sources */,
 				AE3907AE1812ECD8001D7BBE /* DPMyScene.m in Sources */,
 				AE3AEDE6181368C40041DAB3 /* DPNote.m in Sources */,
-				1699466B18138EEC007CE56F /* DPStrike.m in Sources */,
 				AE39079E1812ECD8001D7BBE /* main.m in Sources */,
 				AE3AEDE7181368C40041DAB3 /* DPNoteNode.m in Sources */,
 			);

@@ -14,12 +14,22 @@
 
 @implementation DPGame
 
--(void)startGame;
+-(void)startGame
 {
     self.startDate = [NSDate date];
     
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"gameStarted"
+     object:nil ];
+    
+    self.inProgress = YES;
+}
+
+-(void)resetGame
+{
+    self.startDate = [NSDate date];
+    [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"gameReset"
      object:nil ];
     
     self.inProgress = YES;

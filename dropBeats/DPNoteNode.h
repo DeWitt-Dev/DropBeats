@@ -16,6 +16,7 @@
 @property (nonatomic) DPNote* note;
 @property (nonatomic) BOOL animate; 
 
-+ (instancetype) noteNodeWithNote: (DPNote*) note;
++ (instancetype) noteNodeWithNote: (DPNote*) note animate: (BOOL) animate;
+- (NSInteger) nodeSide;
 
 @end

@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSDate* startDate;
 
 -(void)startGame;
+-(void)resetGame;
 -(void)endGame;
 
 @end

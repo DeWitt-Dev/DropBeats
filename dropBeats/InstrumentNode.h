@@ -16,7 +16,6 @@
     #define kInstrumentNode @"movable"
 }
 
-@property (nonatomic) FrequencyRange frequency;
 @property (nonatomic) NSInteger index;
 @property (nonatomic) DPNote* note; 
 

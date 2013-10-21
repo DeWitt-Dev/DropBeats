@@ -10,41 +10,47 @@
 
 
 #define RESIZE_INTERVAL 0.2
+#define BACKGROUND_ALPHA 0.6f
 
 #define HEIGHT 25
 
-#define W_LOW 100
+#define W_LOW 250
 #define W_MID 175
-#define W_HIGH 250
+#define W_HIGH 100
 
 
 @implementation DPNoteNode : SKSpriteNode
 
-+ (instancetype) noteNodeWithNote: (DPNote*) note
++ (instancetype) noteNodeWithNote: (DPNote*) note animate: (BOOL) animate
 {
-    return [[self alloc] initWithNote:note];
+    return [[self alloc] initWithNote:note animate:animate];
 }
 
-- (id) initWithNote: (DPNote*) note
+- (id) initWithNote: (DPNote*) note animate: (BOOL) animate
 {
-    self = [super initWithColor:[UIColor redColor] size: CGSizeZero];
+    UIColor* instrumentColor;
+    switch (note.type) {
+        case kSnare:
+            instrumentColor = [UIColor blueColor];
+            break;
+        case kCymbol:
+            instrumentColor = [UIColor yellowColor];
+            break;
+        case kBass:
+            instrumentColor = [UIColor redColor];
+            break;
+            
+        default:
+            instrumentColor = [UIColor blackColor];
+            break;
+    }
+    self = [super initWithColor:instrumentColor size: CGSizeZero];
     
     if (self)
     {
         self.note = note;
+        self.animate = animate;
         [self setupNode];
-        
-        if (self.animate) {
-            SKAction* zeroMorph = [SKAction resizeToWidth:0 duration:0.0f];
-            SKAction* correctSizeW = [SKAction resizeToWidth:self.size.width duration:RESIZE_INTERVAL];
-            SKAction* overSizeW = [SKAction resizeToWidth:self.size.width*1.2 duration:RESIZE_INTERVAL];
-            SKAction* underSize = [SKAction resizeToWidth:self.size.width*0.9 duration:RESIZE_INTERVAL];
-            
-            
-            SKAction* sequence = [SKAction sequence:@[zeroMorph, correctSizeW, overSizeW, underSize, correctSizeW]];
-            
-            [self runAction:sequence];
-        }
     }
     
     return self;
@@ -55,27 +61,48 @@
     NSInteger width = 0;
     NSInteger height = 0; 
     
-    NSLog(@"setupNode");
     // Set with depending on type of instrument
     switch (self.note.freq)
     {
         case 0:
             width = W_LOW;
             break;
-        case 1:
+        case 1: 
             width = W_MID;
             break;
         case 2:
             width = W_HIGH;
             break;
     }
-
     height = (int)((1.0 + [self.note tolerance]) * HEIGHT);
     
     CGSize size = CGSizeMake(width, height);
-    self.size = size;
+    self.size = CGSizeMake(0, size.height);
     self.anchorPoint = CGPointZero;
     self.name = @"notenode";
+    self.alpha = BACKGROUND_ALPHA;
+    
+    if (self.animate) {
+        SKAction* zeroMorph = [SKAction resizeToWidth:0 duration:0.0f];
+        SKAction* correctSizeW = [SKAction resizeToWidth:size.width duration:RESIZE_INTERVAL];
+        SKAction* overSizeW = [SKAction resizeToWidth:size.width*1.2 duration:RESIZE_INTERVAL];
+        SKAction* underSize = [SKAction resizeToWidth:size.width*0.9 duration:RESIZE_INTERVAL];
+        
+        
+        SKAction* sequence = [SKAction sequence:@[zeroMorph, correctSizeW, overSizeW, underSize, correctSizeW]];
+        
+        [self runAction:sequence completion:^{
+                             self.size = size;
+                         }];
+    }
+    else{
+        self.size = size;
+    }
+}
+
+- (NSInteger) nodeSide
+{
+    return self.animate ? 1 : 0;
 }
 
 @end

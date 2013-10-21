@@ -36,10 +36,13 @@ static bool loaded;
     if (self = [super initWithTexture:texture]) {
         
         self.name = kInstrumentNode;
-        self.frequency = kMidFrequency;
         self.index = index;
         [self setSize:size];
         [self updatePhysicsBody];
+        
+        //init note
+        self.note.freq = kMidFrequency;
+        self.note.type = index;
     }
     
     return self;
@@ -78,6 +81,13 @@ static bool loaded;
 }
 
 #pragma mark - Setters/getters
+-(DPNote*)note
+{
+    if (!_note) {
+        _note = [[DPNote alloc]init];
+    }
+    return _note;
+}
 -(void)setScale:(CGFloat)scale
 {
     if (scale < MAX_SCALE && scale > MIN_SCALE) {
@@ -89,26 +99,31 @@ static bool loaded;
 
 -(void)frequencyChanged
 {
-    float scaleRange = MAX_SCALE - MIN_SCALE;
+    double scaleRange = MAX_SCALE - MIN_SCALE;
     
-    if (self.xScale > scaleRange * (2/3.0)) {
-        self.frequency = kLowFrequency;
+    if (self.xScale > scaleRange * (2/3.0) +MIN_SCALE) {
+        self.note.freq = kLowFrequency;
     }
-    else if (self.xScale > scaleRange * (1/3.0)) {
-        self.frequency = kMidFrequency;
+    else if (self.xScale > scaleRange * (1/3.0) +MIN_SCALE) {
+        self.note.freq = kMidFrequency;
     }
     else{
-        self.frequency = kHighFrequency;
+        self.note.freq = kHighFrequency;
     }
     
-    NSLog(@"Frequency %d", self.frequency);
+    NSLog(@"Frequency %d, Scale %f", self.note.freq, self.xScale);
+}
+
+- (BOOL) isNum: (float) num between: (float) first and: (float) second
+{
+    return num >= first && num <= second;
 }
 
 -(void)playInstrument
 {
     [self removeAllActions];
     
-    SKAction *soundAction = [instrumentSounds objectForKey:self.instrumentID][self.frequency];
+    SKAction *soundAction = [instrumentSounds objectForKey:self.instrumentID][self.note.freq];
     [self runAction:soundAction];
     
     NSArray* animationFrames = [instrumentAnimations objectForKey:self.instrumentID];
@@ -134,6 +149,5 @@ static bool loaded;
     
     self.physicsBody.restitution = 0.0;
 }
-
 
 @end
