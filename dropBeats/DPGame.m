@@ -17,12 +17,11 @@
 -(void)startGame
 {
     self.startDate = [NSDate date];
-    
+    self.inProgress = YES;
+
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"gameStarted"
      object:nil ];
-    
-    self.inProgress = YES;
 }
 
 -(void)resetGame

@@ -62,7 +62,6 @@ static const uint32_t floorCategory = 0x1 << 1;
 {
     self.backgroundColor = [SKColor whiteColor];
 
-
     //Resister for Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(gameEnded:) name:@"gameEnded" object:nil];
@@ -91,6 +90,8 @@ static const uint32_t floorCategory = 0x1 << 1;
         [self displaySong: [DPSong getSong:1 WithTolerance:0.2 andDuration:12.0f]];
 
         [self drawStanzaAndCreateBall];
+        
+        
     }
 }
 -(void)initGestures
@@ -159,13 +160,12 @@ static const uint32_t floorCategory = 0x1 << 1;
 - (void) startTick
 {
     [self drawTick];
-    NSLog(@"start tick");
     //float adjustedHeight = 0.85 * self.frame.size.height;
     float bottomOffset = 0.05 * self.frame.size.height;
     
     CGPoint point2 = CGPointMake(self.frame.size.width/2, bottomOffset);
     SKAction* moveTo = [SKAction moveTo:point2 duration:10.0];
-    //NSLog(@"song duration: %0.f", [self.song duration]);
+
     [moveTo setTimingMode:SKActionTimingLinear];
     [self.tick runAction:moveTo];
 }
@@ -177,11 +177,11 @@ static const uint32_t floorCategory = 0x1 << 1;
     self.stanzaNode.anchorPoint = CGPointZero;
     self.stanzaNode.zPosition = ZFLOOR-1;
     
-    CGPoint position = CGPointMake((self.frame.size.width - self.stanzaNode.size.width)/2, .90 * self.frame.size.height);
+    CGPoint position = CGPointMake((self.frame.size.width - self.stanzaNode.size.width)/2, .935 * self.frame.size.height);
     self.stanzaNode.position = position;
     
     [self addChild:self.stanzaNode];
-    self.ballStart = CGPointMake(self.view.frame.size.width/2, self.stanzaNode.position.y);
+    self.ballStart = CGPointMake(self.view.frame.size.width/2, self.stanzaNode.position.y+self.stanzaNode.size.height/2);
     [self createBall];
 }
 
@@ -267,7 +267,8 @@ static const uint32_t floorCategory = 0x1 << 1;
         DPNoteNode* node = [DPNoteNode noteNodeWithNote:note animate:YES];
         
         //Placing logic
-        float x = 0 ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
+        //float x = 0 ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
+        float x = CGRectGetMidX(self.frame) + 3;
         float y = (time * (0.85 * self.frame.size.height)) + (.05 * self.frame.size.height);
         
         [node setPosition: CGPointMake(x, y)];
@@ -304,7 +305,7 @@ static const uint32_t floorCategory = 0x1 << 1;
     self.ballNode.name = kBallNode;
     self.ballNode.size = CGSizeMake(50, 50);
     self.ballNode.position = self.ballStart;
-    self.ballNode.zPosition = ZFLOOR+1;
+    self.ballNode.zPosition = UINT32_MAX; //always on top
     
     [self addChild:self.ballNode];
 }
@@ -322,9 +323,7 @@ static const uint32_t floorCategory = 0x1 << 1;
 #pragma mark - Game notifications
 -(void)gameStarted: (NSNotification*) notification
 {
-    if (![self.game isInProgress]) {
-        [self gameReset:nil];
-    }
+    [self gameReset:nil];
 }
 -(void)gameReset: (NSNotification*) notification //when the ball leaves the screen
 {

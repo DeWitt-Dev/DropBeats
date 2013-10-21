@@ -22,7 +22,9 @@
 
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
+
 @property (weak, nonatomic) IBOutlet UIButton *hideShowButton;
+@property (weak, nonatomic) IBOutlet UIButton *playPause;
 
 @end
 
@@ -43,6 +45,13 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     self.scene = [DPMyScene sceneWithSize:self.skView.bounds.size];
     self.scene.scaleMode = SKSceneScaleModeAspectFill;
     self.scene.startingInstrumentSize = COLLECTIONVIEW_CELL_SIZE; //self.collectionView.collectionViewLayout.z;
+    
+    //Resister for Notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(gameStateChanged:) name:@"gameStarted" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(gameStateChanged:) name:@"gameEnded" object:nil];
+
     
     // Present the scene.
     [DPMyScene loadEverythingYouCanWithCompletionHandeler:^{
@@ -99,12 +108,13 @@ static NSString * const kInstrumentPrefix = @"Instrument";
         [UIView animateWithDuration:ANIMATION_DURATION animations:
          ^{
              CGRect frame = self.bannerView.frame;
-             frame.origin.x = -self.bannerView.bounds.size.width + 50; // to display button
+             frame.origin.x = -self.bannerView.bounds.size.width + 80; // to display button
              self.bannerView.frame = frame;
              
          } completion:nil];
         
-        [self.scene.game startGame];
+        [sender setImage:[UIImage imageNamed:@"PullTab.png"] forState:UIControlStateNormal];
+//        [self.scene.game startGame];
     }
     else{
         [UIView animateWithDuration:ANIMATION_DURATION animations:
@@ -114,8 +124,12 @@ static NSString * const kInstrumentPrefix = @"Instrument";
              self.bannerView.frame = frame;
              
          } completion:nil];
-                
-        [self.scene.game endGame];
+        
+        [sender setImage:[UIImage imageNamed:@"PullTab_back.png"] forState:UIControlStateNormal];
+        
+        if ([self.scene.game isInProgress]) {
+            [self.scene.game endGame];
+        }
     }
     self.displayBanner = !self.displayBanner;
 }
@@ -158,6 +172,30 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 
     [self.scene.game startGame];
 }
+- (IBAction)PlayPause:(UIButton *)sender {
+    if (![self.scene.game isInProgress]) {
+        [self.scene.game startGame];
+        [sender setImage:[UIImage imageNamed:@"Pause.png"] forState:UIControlStateNormal];
+    }
+    else{
+        [self.scene.game endGame];
+        [sender setImage:[UIImage imageNamed:@"Play.png"] forState:UIControlStateNormal];
+    }
+}
+
+-(void)gameStateChanged: (NSNotification *) notification
+{
+    if ([self.scene.game isInProgress]) {
+        [self.playPause setImage:[UIImage imageNamed:@"Pause.png"] forState:UIControlStateNormal];
+        if (!self.displayBanner) {
+            [self hideShowBanner:self.hideShowButton];
+        }
+    }
+    else{
+        [self.playPause setImage:[UIImage imageNamed:@"Play.png"] forState:UIControlStateNormal];
+    }
+}
+
 
 - (BOOL)shouldAutorotate
 {

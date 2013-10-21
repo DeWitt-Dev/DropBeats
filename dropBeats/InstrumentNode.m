@@ -10,6 +10,7 @@
 
 @interface InstrumentNode()
 {
+    #define NUMBER_OF_INSTRUMENTS 3
     #define NUMBER_OF_SOUNDS 3
     #define DEFAULT_ANIMATION_FRAMES 10
     #define ANIMATION_INTERVAL 0.008
@@ -53,7 +54,7 @@ static bool loaded;
     instrumentSounds = [[NSMutableDictionary alloc]init];
     instrumentAnimations = [[NSMutableDictionary alloc]init];
     
-    for (int i = kSnare ; i <= 1; i++) {
+    for (int i = 0 ; i <= NUMBER_OF_INSTRUMENTS-1; i++) {
         NSString* imageIDKEY = [NSString stringWithFormat:@"%@%d",kInstrumentPrefix, (i+1)];
         
         NSMutableArray* sounds = [[NSMutableArray alloc]initWithCapacity:NUMBER_OF_SOUNDS];
