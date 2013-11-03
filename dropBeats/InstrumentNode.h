@@ -11,13 +11,13 @@
 
 @interface InstrumentNode : SKSpriteNode
 {
+    #define kInstrumentNode @"instrumentNode"
     #define MAX_SCALE 2.0
     #define MIN_SCALE 0.8
-    #define kInstrumentNode @"movable"
 }
 
-@property (nonatomic) NSInteger index;
-@property (nonatomic) DPNote* note; 
+@property (nonatomic) DPNote* note;
+@property (nonatomic) NSInteger instrumentIndex;
 
 -(id)initWithInstrumentIndex: (int) index andSize: (CGSize) size;
 +(void)loadActions;

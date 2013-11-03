@@ -6,24 +6,20 @@
 //  Copyright (c) 2013 Michael Dewitt. All rights reserved.
 //
 
-#import <SpriteKit/SpriteKit.h>
-#import "InstrumentNode.h"
-#import "DPGame.h"
-
+#import "DPTrackScene.h"
 typedef void (^DPSceneCompletionHandler)(void);
 
-@interface DPMyScene : SKScene
+@interface DPMyScene : DPTrackScene
 
-@property (strong, nonatomic) DPGame* game;
-@property (nonatomic) CGSize startingInstrumentSize;
+//designated initilizer
+-(id)initWithSize:(CGSize)size game: (DPGame*) game andInstrumentSize: (CGSize) instrumentSize;
++(void)loadEverythingYouCanWithCompletionHandeler: (DPSceneCompletionHandler) handler;
 
 -(void) createBall;
 -(void) dropBall; 
 -(void) createInstrument: (int) index AtLocation: (CGPoint) location;
+-(void)clearGame;
 
-- (float) calculateTimeFloatFrom: (NSDate*) from to: (NSDate*) to;
-
--(void)handlePan:(UIPanGestureRecognizer*)recognizer;
-+(void)loadEverythingYouCanWithCompletionHandeler: (DPSceneCompletionHandler) handler;
+-(void)handlePan:(UIPanGestureRecognizer*)recognizer; //recieved from collectionVeiw
 
 @end

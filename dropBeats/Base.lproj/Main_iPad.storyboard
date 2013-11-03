@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4510" systemVersion="12F45" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="BV1-FR-VrT">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3742"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,55 +16,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Q4W-6q-7x7" userLabel="SpriteScene" customClass="SKView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q4W-6q-7x7" userLabel="TrackView" customClass="SKView">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lek-eu-rmy">
-                                        <rect key="frame" x="20" y="20" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="90" id="4VF-4b-9gb"/>
-                                            <constraint firstAttribute="height" constant="50" id="xW1-Sd-jVO"/>
-                                        </constraints>
-                                        <state key="normal" image="Retry.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="resetGame:" destination="BV1-FR-VrT" eventType="touchDown" id="rJI-aJ-sz5"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZMa-a6-LVI">
-                                        <rect key="frame" x="698" y="20" width="50" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="7UF-iX-8Ab"/>
-                                            <constraint firstAttribute="width" constant="90" id="elU-eY-6L8"/>
-                                        </constraints>
-                                        <state key="normal" image="Play.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="PlayPause:" destination="BV1-FR-VrT" eventType="touchUpInside" id="zSa-Ae-AcR"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstItem="ZMa-a6-LVI" firstAttribute="top" secondItem="Q4W-6q-7x7" secondAttribute="top" constant="20" id="6ip-Pf-Jy5"/>
-                                    <constraint firstItem="ZMa-a6-LVI" firstAttribute="width" secondItem="lek-eu-rmy" secondAttribute="width" id="IGV-Q8-XbQ"/>
-                                    <constraint firstItem="lek-eu-rmy" firstAttribute="leading" secondItem="Q4W-6q-7x7" secondAttribute="leading" constant="20" id="Spy-JS-Itc"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZMa-a6-LVI" secondAttribute="trailing" constant="20" id="fXg-aX-QX3"/>
-                                    <constraint firstItem="lek-eu-rmy" firstAttribute="top" secondItem="Q4W-6q-7x7" secondAttribute="top" constant="20" id="oXQ-2n-sqF"/>
-                                    <constraint firstItem="ZMa-a6-LVI" firstAttribute="height" secondItem="lek-eu-rmy" secondAttribute="height" id="sb7-ko-Ohz"/>
-                                </constraints>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4jr-ul-c46" userLabel="Banner">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4jr-ul-c46" userLabel="Banner">
                                 <rect key="frame" x="0.0" y="820" width="768" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="F2V-we-gWp">
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="F2V-we-gWp">
                                         <rect key="frame" x="0.0" y="30" width="688" height="150"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -100,10 +62,13 @@
                                             <outlet property="delegate" destination="BV1-FR-VrT" id="Dv9-5B-Xld"/>
                                         </connections>
                                     </collectionView>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i5V-JB-gO6">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i5V-JB-gO6">
                                         <rect key="frame" x="674" y="20" width="94" height="160"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <gestureRecognizers/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="94" id="ewu-5P-IZ4"/>
+                                        </constraints>
                                         <inset key="imageEdgeInsets" minX="30" minY="30" maxX="0.0" maxY="20"/>
                                         <state key="normal" image="PullTab_back.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -115,9 +80,61 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="F2V-we-gWp" secondAttribute="trailing" constant="80" id="4Xy-mI-3Qk"/>
+                                    <constraint firstAttribute="bottom" secondItem="F2V-we-gWp" secondAttribute="bottom" constant="20" symbolic="YES" id="8Zh-h5-Eah"/>
+                                    <constraint firstItem="F2V-we-gWp" firstAttribute="top" secondItem="4jr-ul-c46" secondAttribute="top" constant="30" id="DxO-DS-7ZK"/>
+                                    <constraint firstItem="F2V-we-gWp" firstAttribute="leading" secondItem="4jr-ul-c46" secondAttribute="leading" id="Sko-qG-kvP"/>
+                                    <constraint firstItem="i5V-JB-gO6" firstAttribute="top" secondItem="4jr-ul-c46" secondAttribute="top" constant="20" symbolic="YES" id="Uv6-dY-X4B"/>
+                                    <constraint firstAttribute="trailing" secondItem="i5V-JB-gO6" secondAttribute="trailing" id="Vyc-qV-TRA"/>
+                                    <constraint firstItem="i5V-JB-gO6" firstAttribute="bottom" secondItem="F2V-we-gWp" secondAttribute="bottom" id="pAw-Uj-WJn"/>
+                                </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lek-eu-rmy" userLabel="Replay">
+                                <rect key="frame" x="30" y="20" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="4VF-4b-9gb"/>
+                                    <constraint firstAttribute="height" constant="50" id="xW1-Sd-jVO"/>
+                                </constraints>
+                                <state key="normal" image="Retry.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetGame:" destination="BV1-FR-VrT" eventType="touchDown" id="rJI-aJ-sz5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZMa-a6-LVI" userLabel="Play">
+                                <rect key="frame" x="688" y="20" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="7UF-iX-8Ab"/>
+                                    <constraint firstAttribute="width" constant="50" id="elU-eY-6L8"/>
+                                </constraints>
+                                <state key="normal" image="Play.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="PlayPause:" destination="BV1-FR-VrT" eventType="touchUpInside" id="zSa-Ae-AcR"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lek-eu-rmy" firstAttribute="top" secondItem="ZMa-a6-LVI" secondAttribute="top" id="8EV-NH-GWH"/>
+                            <constraint firstItem="Q4W-6q-7x7" firstAttribute="leading" secondItem="4jr-ul-c46" secondAttribute="leading" id="9NS-fl-t1a"/>
+                            <constraint firstItem="4jr-ul-c46" firstAttribute="trailing" secondItem="Q4W-6q-7x7" secondAttribute="trailing" id="Axm-eG-42y"/>
+                            <constraint firstAttribute="trailing" secondItem="ZMa-a6-LVI" secondAttribute="trailing" constant="30" id="Ddv-rW-6n8"/>
+                            <constraint firstItem="Q4W-6q-7x7" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" id="Hs6-kd-o5V"/>
+                            <constraint firstAttribute="trailing" secondItem="4jr-ul-c46" secondAttribute="trailing" id="Kyp-Wk-KVy"/>
+                            <constraint firstItem="lek-eu-rmy" firstAttribute="leading" secondItem="3se-qz-xqx" secondAttribute="leading" constant="30" id="NIK-kZ-lnd"/>
+                            <constraint firstItem="ZBb-Pm-g6x" firstAttribute="top" secondItem="4jr-ul-c46" secondAttribute="bottom" constant="4" id="NbM-l6-P3t"/>
+                            <constraint firstItem="4jr-ul-c46" firstAttribute="top" secondItem="EYq-KQ-YUW" secondAttribute="bottom" constant="820" id="RCw-ht-n8y"/>
+                            <constraint firstItem="Q4W-6q-7x7" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" id="eXq-PZ-xR0"/>
+                            <constraint firstItem="lek-eu-rmy" firstAttribute="top" secondItem="3se-qz-xqx" secondAttribute="top" constant="20" symbolic="YES" id="hM5-gm-81X"/>
+                            <constraint firstAttribute="bottom" secondItem="Q4W-6q-7x7" secondAttribute="bottom" id="nk0-mn-40d"/>
+                            <constraint firstItem="ZMa-a6-LVI" firstAttribute="centerY" secondItem="lek-eu-rmy" secondAttribute="centerY" id="wYz-c7-wfH"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="bannerView" destination="4jr-ul-c46" id="dO7-uo-Hxc"/>

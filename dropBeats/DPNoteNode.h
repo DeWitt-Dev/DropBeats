@@ -18,10 +18,11 @@ typedef enum{
 }Side;
 
 @property (nonatomic) CGRect crd;
-@property (nonatomic) DPNote* note;
-@property (nonatomic) Side side; 
+@property (weak, nonatomic) DPNote* note;
+@property (nonatomic) CGFloat tolerance;
+@property (nonatomic) Side side;
 @property (nonatomic) BOOL animate; 
 
-+ (instancetype) noteNodeWithNote: (DPNote*) note onSide:(Side) side animate: (BOOL) animate;
++ (instancetype) noteNodeWithNote: (DPNote*) note tolerance: (CGFloat) tolerance onSide:(Side) side animate: (BOOL) animate;
 
 @end

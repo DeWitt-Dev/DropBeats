@@ -65,6 +65,7 @@
 		AE4B3B931814D4C80089EE3F /* Ball.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4B3B911814D4C80089EE3F /* Ball.png */; };
 		AE4B3B941814D4C80089EE3F /* Ball@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4B3B921814D4C80089EE3F /* Ball@2x.png */; };
 		AE4B3B961814D5360089EE3F /* Instrument3_0.png in Resources */ = {isa = PBXBuildFile; fileRef = AE4B3B951814D5360089EE3F /* Instrument3_0.png */; };
+		C872558C1825F67A00E2653C /* DPTrackScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C872558B1825F67A00E2653C /* DPTrackScene.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +149,8 @@
 		AE4B3B911814D4C80089EE3F /* Ball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Ball.png; sourceTree = "<group>"; };
 		AE4B3B921814D4C80089EE3F /* Ball@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Ball@2x.png"; sourceTree = "<group>"; };
 		AE4B3B951814D5360089EE3F /* Instrument3_0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Instrument3_0.png; path = Instrument3.atlas/Instrument3_0.png; sourceTree = "<group>"; };
+		C872558A1825F67900E2653C /* DPTrackScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPTrackScene.h; sourceTree = "<group>"; };
+		C872558B1825F67A00E2653C /* DPTrackScene.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPTrackScene.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,12 +218,10 @@
 				AE3907A11812ECD8001D7BBE /* DPAppDelegate.m */,
 				AE3907A91812ECD8001D7BBE /* DPViewController.h */,
 				AE3907AA1812ECD8001D7BBE /* DPViewController.m */,
-				AE28638118132AE6007BC8DD /* InstrumentNode.h */,
-				AE28638218132AE6007BC8DD /* InstrumentNode.m */,
-				AE3907D71812F0CF001D7BBE /* InstrumentCell.h */,
-				AE3907D81812F0CF001D7BBE /* InstrumentCell.m */,
-				AE3AEE1618137AEC0041DAB3 /* Game Logic */,
-				AE3AEE1518137AE30041DAB3 /* Background Notes */,
+				AE3AEE12181378400041DAB3 /* DPGame.h */,
+				AE3AEE13181378400041DAB3 /* DPGame.m */,
+				AE3AEE1518137AE30041DAB3 /* Track */,
+				C872558D182606BE00E2653C /* Instruments */,
 				AE3907981812ECD7001D7BBE /* Supporting Files */,
 			);
 			path = dropBeats;
@@ -287,28 +288,19 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		AE3AEE1518137AE30041DAB3 /* Background Notes */ = {
+		AE3AEE1518137AE30041DAB3 /* Track */ = {
 			isa = PBXGroup;
 			children = (
+				C872558A1825F67900E2653C /* DPTrackScene.h */,
+				C872558B1825F67A00E2653C /* DPTrackScene.m */,
+				AE3AEDE4181368C40041DAB3 /* DPSong.h */,
+				AE3AEDE5181368C40041DAB3 /* DPSong.m */,
 				AE3AEDE0181368C40041DAB3 /* DPNote.h */,
 				AE3AEDE1181368C40041DAB3 /* DPNote.m */,
 				AE3AEDE2181368C40041DAB3 /* DPNoteNode.h */,
 				AE3AEDE3181368C40041DAB3 /* DPNoteNode.m */,
-				AE3AEDE4181368C40041DAB3 /* DPSong.h */,
-				AE3AEDE5181368C40041DAB3 /* DPSong.m */,
 			);
-			name = "Background Notes";
-			sourceTree = "<group>";
-		};
-		AE3AEE1618137AEC0041DAB3 /* Game Logic */ = {
-			isa = PBXGroup;
-			children = (
-				AE3907AC1812ECD8001D7BBE /* DPMyScene.h */,
-				AE3907AD1812ECD8001D7BBE /* DPMyScene.m */,
-				AE3AEE12181378400041DAB3 /* DPGame.h */,
-				AE3AEE13181378400041DAB3 /* DPGame.m */,
-			);
-			name = "Game Logic";
+			name = Track;
 			sourceTree = "<group>";
 		};
 		AE4B3B36181461930089EE3F /* Icon Images */ = {
@@ -330,6 +322,19 @@
 				AE4B3B661814B73F0089EE3F /* Pause@2x.png */,
 			);
 			path = "Icon Images";
+			sourceTree = "<group>";
+		};
+		C872558D182606BE00E2653C /* Instruments */ = {
+			isa = PBXGroup;
+			children = (
+				AE3907AC1812ECD8001D7BBE /* DPMyScene.h */,
+				AE3907AD1812ECD8001D7BBE /* DPMyScene.m */,
+				AE28638118132AE6007BC8DD /* InstrumentNode.h */,
+				AE28638218132AE6007BC8DD /* InstrumentNode.m */,
+				AE3907D71812F0CF001D7BBE /* InstrumentCell.h */,
+				AE3907D81812F0CF001D7BBE /* InstrumentCell.m */,
+			);
+			name = Instruments;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,6 +471,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C872558C1825F67A00E2653C /* DPTrackScene.m in Sources */,
 				AE3AEDE8181368C40041DAB3 /* DPSong.m in Sources */,
 				AE28638318132AE6007BC8DD /* InstrumentNode.m in Sources */,
 				AE3907D91812F0CF001D7BBE /* InstrumentCell.m in Sources */,

@@ -12,9 +12,8 @@
 @interface DPSong : NSObject
 
 @property (nonatomic) float duration;
-@property (nonatomic) float tolerance;
 
-+ (DPSong*) getSong: (int) index WithTolerance: (float) tolerance andDuration: (float) duration;
++ (DPSong*) getSong: (int) index andDuration: (float) duration;
 - (NSArray*) getNotes;
 
 + (instancetype) song;

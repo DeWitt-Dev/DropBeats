@@ -8,6 +8,7 @@
 
 #import "DPViewController.h"
 #import "DPMyScene.h"
+#import "DPTrackScene.h"
 #import "InstrumentCell.h"
 
 @interface DPViewController() <UICollectionViewDataSource, UICollectionViewDelegate>
@@ -18,7 +19,7 @@
 }
 
 @property (weak, nonatomic) IBOutlet SKView *skView;
-@property (strong, nonatomic) DPMyScene * scene;
+@property (strong, nonatomic) DPMyScene * skScene;
 
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -37,27 +38,27 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     [super viewDidLoad];
 
     // Configure the view.
-//    self.skView.showsFPS = YES;
-//    self.skView.showsNodeCount = YES;
-//    self.skView.showsDrawCount = YES;
+    self.skView.showsFPS = YES;
+    self.skView.showsNodeCount = YES;
+    self.skView.showsDrawCount = YES;
     
-    // Create and configure the scene.
-    self.scene = [DPMyScene sceneWithSize:self.skView.bounds.size];
-    self.scene.scaleMode = SKSceneScaleModeAspectFill;
-    self.scene.startingInstrumentSize = COLLECTIONVIEW_CELL_SIZE; //self.collectionView.collectionViewLayout.z;
+    #warning Partial implementation - Should be in segue
+    self.game = [[DPGame alloc]initWithSong:[DPSong getSong:3 andDuration:5.0]];
     
     //Resister for Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(gameStateChanged:) name:@"gameStarted" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(gameStateChanged:) name:@"gameEnded" object:nil];
-
     
+    // Create and configure the instrumentScene
+    self.skView.backgroundColor = [UIColor whiteColor];
+    self.skScene = [[DPMyScene alloc] initWithSize:self.skView.bounds.size game:self.game andInstrumentSize:COLLECTIONVIEW_CELL_SIZE];
+    self.skScene.scaleMode = SKSceneScaleModeAspectFill;
+   
     // Present the scene.
-    [DPMyScene loadEverythingYouCanWithCompletionHandeler:^{
-        // Present the scene.
-        [self.skView presentScene:self.scene];
-    } ];
+    [self.skView presentScene:self.skScene];
+//    [DPMyScene loadEverythingYouCanWithCompletionHandeler:^{}];
 }
 
 #pragma mark - CollectionView
@@ -86,18 +87,18 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.scene createInstrument:indexPath.row AtLocation: DEFAULT_LOCATION];
+    [self.skScene createInstrument:indexPath.row AtLocation: DEFAULT_LOCATION];
 }
 - (void)dragInstrument:(UIPanGestureRecognizer *)sender {
 
     if (sender.state == UIGestureRecognizerStateBegan) {
         NSIndexPath* pathForInstrument = [self.collectionView indexPathForCell: (InstrumentCell*)sender.view];
-        CGPoint start = [sender locationInView:self.scene.view];
+        CGPoint start = [sender locationInView:self.skScene.view];
         start.y = self.view.frame.size.height - start.y; 
-        [self.scene createInstrument:pathForInstrument.row AtLocation:start];
+        [self.skScene createInstrument:pathForInstrument.row AtLocation:start];
     }
     
-    [self.scene handlePan:sender];
+    [self.skScene handlePan:sender];
 }
 
 - (IBAction)hideShowBanner:(UIButton *)sender
@@ -127,8 +128,8 @@ static NSString * const kInstrumentPrefix = @"Instrument";
         
         [sender setImage:[UIImage imageNamed:@"PullTab_back.png"] forState:UIControlStateNormal];
         
-        if ([self.scene.game isInProgress]) {
-            [self.scene.game endGame];
+        if ([self.game isInProgress]) {
+            [self.game endGame];
         }
     }
     self.displayBanner = !self.displayBanner;
@@ -162,7 +163,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     }
 }
 - (IBAction)resetGame:(UIButton *)sender {
-    [self.scene.game endGame];
+    [self.game endGame];
     CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     animation.fromValue = @0.0f;
     animation.toValue = @(2*M_PI);
@@ -170,22 +171,22 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     animation.repeatCount = 1;
     [sender.layer addAnimation:animation forKey:@"rotation"];
 
-    [self.scene.game startGame];
+    [self.game startGame];
 }
 - (IBAction)PlayPause:(UIButton *)sender {
-    if (![self.scene.game isInProgress]) {
-        [self.scene.game startGame];
+    if (![self.game isInProgress]) {
+        [self.game startGame];
         [sender setImage:[UIImage imageNamed:@"Pause.png"] forState:UIControlStateNormal];
     }
     else{
-        [self.scene.game endGame];
+        [self.game endGame];
         [sender setImage:[UIImage imageNamed:@"Play.png"] forState:UIControlStateNormal];
     }
 }
 
 -(void)gameStateChanged: (NSNotification *) notification
 {
-    if ([self.scene.game isInProgress]) {
+    if ([self.game isInProgress]) {
         [self.playPause setImage:[UIImage imageNamed:@"Pause.png"] forState:UIControlStateNormal];
         if (!self.displayBanner) {
             [self hideShowBanner:self.hideShowButton];

@@ -12,6 +12,7 @@
 {
     #define NUMBER_OF_INSTRUMENTS 3
     #define NUMBER_OF_SOUNDS 3
+    
     #define DEFAULT_ANIMATION_FRAMES 10
     #define ANIMATION_INTERVAL 0.01
     #define WIGGLE_DURATION 0.06
@@ -27,8 +28,6 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 static NSMutableDictionary * instrumentSounds;
 static NSMutableDictionary* instrumentAnimations;
 
-static bool loaded;
-
 -(id)initWithInstrumentIndex: (int) index andSize: (CGSize) size
 {
     self.instrumentID = [NSString stringWithFormat:@"%@%d",kInstrumentPrefix, index+1];
@@ -37,7 +36,7 @@ static bool loaded;
     if (self = [super initWithTexture:texture]) {
         
         self.name = kInstrumentNode;
-        self.index = index;
+        self.instrumentIndex = index;
         [self setSize:size];
         [self updatePhysicsBody];
         
@@ -77,8 +76,6 @@ static bool loaded;
         }
         [instrumentAnimations setObject:animationFrames forKey:imageIDKEY];
     }
-    
-    loaded = YES;
 }
 
 #pragma mark - Setters/getters

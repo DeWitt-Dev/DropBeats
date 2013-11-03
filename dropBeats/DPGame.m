@@ -9,10 +9,26 @@
 #import "DPGame.h"
 
 @interface DPGame()
-
 @end
 
 @implementation DPGame
+
+-(id)initWithSong:(DPSong*) song
+{
+    if (self = [super init]) {
+        self.song = song;
+        self.difficulty = kEasy;
+    }
+    return self;
+}
+
+-(id)initWithSong:(DPSong*) song andDifficulty: (Difficulty) difficulty
+{
+    if (self = [self initWithSong:song]) {
+        self.difficulty = difficulty;
+    }
+    return self;
+}
 
 -(void)startGame
 {
@@ -42,25 +58,29 @@
      object:nil ];
 }
 
--(float)percentCompleteWith:(DPSong*) song comparingToSong: (DPSong*) usersSong;
+-(float)percentCompleteWith:(DPSong*) usersSong;
 {
     float percent = 0;
 
-    if ([[song getNotes] count] == [[usersSong getNotes] count]) {
-        for (int i = 0; i < [[song getNotes] count]; i++)
+    if ([[self.song getNotes] count] == [[usersSong getNotes] count]) {
+        for (int i = 0; i < [[self.song getNotes] count]; i++)
         {
-            DPNote* sNote = [[song getNotes] objectAtIndex:i];
-            DPNote* uNote = [[song getNotes] objectAtIndex:i];
+            DPNote* songNote = [[self.song getNotes] objectAtIndex:i];
+            DPNote* userNote = [[usersSong getNotes] objectAtIndex:i];
             
-            float sTime = [sNote time];
-            float uTime = [uNote time]; //[[uNote played] timeIntervalSinceDate:self.startDate] / [song duration];
-            
-            float sTimeLow = sTime - [sNote tolerance];
-            float sTimeHigh = sTime + [sNote tolerance];
-            
-            if (sTimeLow <= uTime && uTime <= sTimeHigh && sNote.type == uNote.type)
-            {
-                percent += 1- 1/[[song getNotes]count];
+            if (songNote.type == userNote.type
+                && songNote.freq == userNote.freq) {
+             
+                float sTime = [songNote time];
+                float uTime = [userNote time];
+                
+                float sTimeLow = sTime - self.difficulty;
+                float sTimeHigh = sTime + self.difficulty;
+                
+                if (sTimeLow <= uTime && uTime <= sTimeHigh)
+                {
+                    percent += 1.0/[[self.song getNotes]count];
+                }
             }
         }
     }

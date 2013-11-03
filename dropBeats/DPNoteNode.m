@@ -21,12 +21,12 @@
 
 @implementation DPNoteNode : SKSpriteNode
 
-+ (instancetype) noteNodeWithNote: (DPNote*) note onSide:(Side) side animate: (BOOL) animate
++ (instancetype) noteNodeWithNote: (DPNote*) note tolerance: (CGFloat) tolerance onSide:(Side) side animate: (BOOL) animate
 {
-    return [[self alloc] initWithNote:note onSide:side animate:animate];
+    return [[self alloc] initWithNote:note tolerance:tolerance onSide:side animate:animate];
 }
 
-- (id) initWithNote: (DPNote*) note onSide:(Side) side animate: (BOOL) animate
+- (id) initWithNote: (DPNote*) note tolerance: (CGFloat) tolerance onSide:(Side) side animate: (BOOL) animate
 {
     UIColor* instrumentColor;
     switch (note.type) {
@@ -50,6 +50,7 @@
     {
         self.side = side;
         self.note = note;
+        self.tolerance = tolerance;
         self.animate = animate;
         [self setupNode];
     }
@@ -75,7 +76,7 @@
             width = W_HIGH;
             break;
     }
-    height = (int)((1.0 + [self.note tolerance]) * HEIGHT);
+    height = (int)((1.0 + self.tolerance) * HEIGHT);
     
     CGSize size = CGSizeMake(width, height);
     self.size = CGSizeMake(0, size.height);
