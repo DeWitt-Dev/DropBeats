@@ -6,12 +6,12 @@
 //  Copyright (c) 2013 Michael Dewitt. All rights reserved.
 //
 
-#import "DPViewController.h"
-#import "DPMyScene.h"
+#import "DPGameViewController.h"
+#import "DPInstrumentScene.h"
 #import "DPTrackScene.h"
 #import "InstrumentCell.h"
 
-@interface DPViewController() <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface DPGameViewController() <UICollectionViewDataSource, UICollectionViewDelegate>
 {
     #define ANIMATION_DURATION 0.5
     #define COLLECTIONVIEW_CELL_SIZE CGSizeMake(140,140)
@@ -19,7 +19,7 @@
 }
 
 @property (weak, nonatomic) IBOutlet SKView *skView;
-@property (strong, nonatomic) DPMyScene * skScene;
+@property (strong, nonatomic) DPInstrumentScene * skScene;
 
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
@@ -29,7 +29,7 @@
 
 @end
 
-@implementation DPViewController
+@implementation DPGameViewController
 
 static NSString * const kInstrumentPrefix = @"Instrument";
 
@@ -41,10 +41,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     self.skView.showsFPS = YES;
     self.skView.showsNodeCount = YES;
     self.skView.showsDrawCount = YES;
-    
-    #warning Partial implementation - Should be in segue
-    self.game = [[DPGame alloc]initWithSong:[DPSong getSong:3 andDuration:5.0]];
-    
+
     //Resister for Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(gameStateChanged:) name:@"gameStarted" object:nil];
@@ -52,8 +49,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
                                              selector:@selector(gameStateChanged:) name:@"gameEnded" object:nil];
     
     // Create and configure the instrumentScene
-    self.skView.backgroundColor = [UIColor whiteColor];
-    self.skScene = [[DPMyScene alloc] initWithSize:self.skView.bounds.size game:self.game andInstrumentSize:COLLECTIONVIEW_CELL_SIZE];
+    self.skScene = [[DPInstrumentScene alloc] initWithSize:self.skView.bounds.size game:self.game andInstrumentSize:COLLECTIONVIEW_CELL_SIZE];
     self.skScene.scaleMode = SKSceneScaleModeAspectFill;
    
     // Present the scene.
@@ -163,15 +159,21 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     }
 }
 - (IBAction)resetGame:(UIButton *)sender {
-    [self.game endGame];
-    CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    animation.fromValue = @0.0f;
-    animation.toValue = @(2*M_PI);
-    animation.duration = 0.5f;
-    animation.repeatCount = 1;
-    [sender.layer addAnimation:animation forKey:@"rotation"];
+    
+    if ([self.game isInProgress]) {
+        [self.game endGame];
+        CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+        animation.fromValue = @0.0f;
+        animation.toValue = @(2*M_PI);
+        animation.duration = 0.5f;
+        animation.repeatCount = 1;
+        [sender.layer addAnimation:animation forKey:@"rotation"];
 
-    [self.game startGame];
+        [self.game startGame];
+    }
+    else{
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 - (IBAction)PlayPause:(UIButton *)sender {
     if (![self.game isInProgress]) {
@@ -194,21 +196,6 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     }
     else{
         [self.playPause setImage:[UIImage imageNamed:@"Play.png"] forState:UIControlStateNormal];
-    }
-}
-
-
-- (BOOL)shouldAutorotate
-{
-    return YES;
-}
-
-- (NSUInteger)supportedInterfaceOrientations
-{
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        return UIInterfaceOrientationMaskAllButUpsideDown;
-    } else {
-        return UIInterfaceOrientationMaskAll;
     }
 }
 

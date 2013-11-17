@@ -10,7 +10,7 @@
 #import <SpriteKit/SpriteKit.h>
 @class DPGame;
 
-@interface DPViewController : UIViewController
+@interface DPGameViewController : UIViewController
 
 @property (strong, nonatomic) DPGame* game;
 @property (nonatomic) BOOL displayBanner;

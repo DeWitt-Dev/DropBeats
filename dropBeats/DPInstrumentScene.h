@@ -9,7 +9,7 @@
 #import "DPTrackScene.h"
 typedef void (^DPSceneCompletionHandler)(void);
 
-@interface DPMyScene : DPTrackScene
+@interface DPInstrumentScene : DPTrackScene
 
 //designated initilizer
 -(id)initWithSize:(CGSize)size game: (DPGame*) game andInstrumentSize: (CGSize) instrumentSize;

@@ -29,14 +29,13 @@
 -(void)didMoveToView:(SKView *)view
 {
     if (!self.sceneCreated) {
-        // Initialization code
-        self.backgroundColor = [UIColor whiteColor];
         
+        self.backgroundColor = [UIColor whiteColor];
         //Background Notes
         [self drawDivider];
-        //[self drawTick];
-        [self displaySong: self.game.song];
+        [self drawTick];
         
+        [self displaySong: self.game.song];
         self.sceneCreated = YES;
     }
 }
@@ -99,7 +98,6 @@
 
 - (void) startTick
 {
-    [self drawTick];
     //float adjustedHeight = 0.85 * self.frame.size.height;
     float bottomOffset = 0.05 * self.frame.size.height;
     
@@ -173,7 +171,7 @@
         [self.game resetGame];
     }
     else{
-        NSString* message = [NSString stringWithFormat:@"Congatulations %d percent!\n Next Level?", (int)percentComplete*100];
+        NSString* message = [NSString stringWithFormat:@"Congatulations %d percent!\n Next Level?", (int)(percentComplete*100)];
         UIAlertView* alert = [[UIAlertView alloc]initWithTitle:nil message: message delegate:self cancelButtonTitle:@"Try Again?" otherButtonTitles:@"Next Level", nil];
         alert.delegate = self;
         [alert show];
@@ -194,6 +192,7 @@
      ^(SKNode *node,BOOL *stop) {
          [node removeFromParent];
      }];
+    [self drawTick];
 }
 
 #pragma mark - Game notifications

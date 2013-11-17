@@ -15,7 +15,8 @@
     
     #define DEFAULT_ANIMATION_FRAMES 10
     #define ANIMATION_INTERVAL 0.01
-    #define WIGGLE_DURATION 0.06
+    #define WIGGLE_DURATION 0.04
+    #define INSTRUMENT_WIGGLE 0.09
 }
 
 @property (nonatomic, strong) NSString* instrumentID;
@@ -36,7 +37,7 @@ static NSMutableDictionary* instrumentAnimations;
     if (self = [super initWithTexture:texture]) {
         
         self.name = kInstrumentNode;
-        self.instrumentIndex = index;
+        self.instrumentNoteIndex = index;
         [self setSize:size];
         [self updatePhysicsBody];
         
@@ -65,7 +66,7 @@ static NSMutableDictionary* instrumentAnimations;
         SKTextureAtlas *animationAtlas = [SKTextureAtlas atlasNamed: imageIDKEY];
         NSMutableArray* animationFrames = [[NSMutableArray alloc]initWithCapacity:DEFAULT_ANIMATION_FRAMES];
         
-        int numImages = animationAtlas.textureNames.count; //divide by 2 for retina
+        NSInteger numImages = animationAtlas.textureNames.count; //divide by 2 for retina
         for (int j=0; j < numImages; j++) {
             NSString *textureName = [NSString stringWithFormat:@"%@_%d", imageIDKEY, j];
             SKTexture *temp = [animationAtlas textureNamed:textureName];
@@ -126,9 +127,9 @@ static NSMutableDictionary* instrumentAnimations;
     SKAction *hitAction = [SKAction repeatAction:[SKAction animateWithTextures:animationFrames timePerFrame:ANIMATION_INTERVAL resize:NO restore:YES] count:1];
     [self runAction:hitAction];
     
-    SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:-4.0f/180.0f * M_PI duration:WIGGLE_DURATION],
-                                              [SKAction rotateByAngle:0.0 duration:WIGGLE_DURATION],
-                                              [SKAction rotateByAngle:4.0f/180.0f * M_PI duration:WIGGLE_DURATION]]];
+    SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:INSTRUMENT_WIGGLE duration:WIGGLE_DURATION],
+                                              [SKAction rotateByAngle:-2*INSTRUMENT_WIGGLE duration:WIGGLE_DURATION],
+                                              [SKAction rotateToAngle: self.zRotation duration:WIGGLE_DURATION]]];
     [self runAction:[SKAction repeatAction:sequence count:2]];
 }
 

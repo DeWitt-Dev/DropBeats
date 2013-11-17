@@ -6,17 +6,19 @@
 //  Copyright (c) 2013 Michael Dewitt. All rights reserved.
 //
 
-#import "DPMyScene.h"
+#import "DPInstrumentScene.h"
 #import "InstrumentNode.h"
 
-@interface DPMyScene() <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
+@interface DPInstrumentScene() <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
 {
-    #define GRAVITY -2.5
+    #define GRAVITY -3.5
     #define BALL_RESTITUTION 1.0f
-    #define MIN_COLLISIONIMPULSE 10
+    #define MIN_COLLISIONIMPULSE 4
     #define DELETE_VELOCITY 1000
     
-    #define BALL_SIZE CGSizeMake(50, 50)
+    #define BALL_SIZE CGSizeMake(35, 35)
+    #define WIGGLE_REPEATS 2
+    #define WIGGLE_AMPLITUDE 0.08
 }
 
 @property (nonatomic) CGSize startingInstrumentSize;
@@ -27,7 +29,7 @@
 
 @end
 
-@implementation DPMyScene
+@implementation DPInstrumentScene
 
 static NSString * const kBallNode = @"BallNode";
 static NSString * const kStanzaNode = @"StanzaNode";
@@ -40,13 +42,17 @@ static const uint32_t floorCategory = 0x1 << 1;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
                    ^{
                        [InstrumentNode loadActions];
+                       
+                       if (handler)
                        dispatch_sync(dispatch_get_main_queue(), handler);
                    });
 }
 
 -(id)initWithSize:(CGSize)size game: (DPGame*) game andInstrumentSize: (CGSize) instrumentSize {
     if (self = [super initWithSize:size game:game]) {
+        
         self.startingInstrumentSize = instrumentSize;
+        [DPInstrumentScene loadEverythingYouCanWithCompletionHandeler:nil];
     }
     return self;
 }
@@ -64,13 +70,9 @@ static const uint32_t floorCategory = 0x1 << 1;
         
         [self initGestures];
         [self drawStanzaAndCreateBall];
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
-                       ^{
-                           [InstrumentNode loadActions];
-                       });
     }
 }
+
 -(void)initGestures
 {
     UIPanGestureRecognizer* panRecognizer = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(handlePan:)];
@@ -135,7 +137,7 @@ static const uint32_t floorCategory = 0x1 << 1;
                 
         DPNote* note = [DPNote DPNoteAtTime:time
                                        freq:[instrumentNode.note freq]
-                                           type:instrumentNode.instrumentIndex];
+                                           type:instrumentNode.instrumentNoteIndex];
         [self DPNotePlayed:note];
     }
     
@@ -217,14 +219,19 @@ static const uint32_t floorCategory = 0x1 << 1;
 -(void)clearGame
 {
     [self.game endGame];
+    
+    float edge = -500; //Arbitrary distance off screen
     [self enumerateChildNodesWithName:kInstrumentNode usingBlock:
      ^(SKNode *node,BOOL *stop) {
          
-         CGPoint edge = CGPointMake(node.position.x, -500); //Arbitrary distance off screen
-         NSTimeInterval time = sqrt(abs((2*edge.y-node.position.y)/self.physicsWorld.gravity.dy)/150.0);
-         SKAction* dropOffScreen = [SKAction moveTo:edge duration:time];
+         float g = self.physicsWorld.gravity.dy;
+         NSTimeInterval time = sqrt(abs((2*edge-node.position.y)/g)/150.0);
+         SKAction* dropOffScreen = [SKAction moveToY:edge duration:time];
+         SKAction* accelerate = [SKAction speedTo:(.5*g*g) duration:time/2];
          
-         [node runAction:dropOffScreen];
+         SKAction* sequence = [SKAction sequence:@[dropOffScreen, accelerate]];
+         [self wiggleNode: node];
+         [node runAction:sequence];
      }];
 }
 
@@ -256,7 +263,6 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 #pragma mark - Gesture Recognizers
 
-#define WIGGLE 2
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     CGPoint touchLocation = [[touches anyObject] locationInView:self.view];
@@ -284,22 +290,17 @@ static const uint32_t floorCategory = 0x1 << 1;
        && ![self.selectedNode isEqual:touchedNode]) {
         
         self.selectedNode = touchedNode;
-        
-        if([[touchedNode name] isEqualToString:kInstrumentNode]) {
-            [self wiggleNode:touchedNode];
-        }
 	}
 }
 
--(void)wiggleNode: (SKSpriteNode*) node
+-(void)wiggleNode: (SKNode*) node
 {
     if (!self.hasActions) {
         float zRotation = node.zRotation;
-        SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:degToRad(zRotation-2.0f) duration:0.1],
-                                                  [SKAction rotateToAngle:zRotation duration:0.1],
-                                                  [SKAction rotateByAngle:degToRad(zRotation + 2.0f) duration:0.1],
+        SKAction *sequence = [SKAction sequence:@[[SKAction rotateByAngle:WIGGLE_AMPLITUDE duration:0.1],
+                                                  [SKAction rotateByAngle:-2*WIGGLE_AMPLITUDE duration:0.1],
                                                   [SKAction rotateToAngle:zRotation duration:0.1]]];
-        [node runAction:[SKAction repeatAction:sequence count:WIGGLE]];
+        [node runAction:[SKAction repeatAction:sequence count:WIGGLE_REPEATS]];
     }
 }
 
@@ -383,9 +384,6 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
 }
 
 //helper methods
-float degToRad(float degree) {
-	return degree / 180.0f * M_PI;
-}
 CGPoint mult(const CGPoint v, const CGFloat s) {
 	return CGPointMake(v.x*s, v.y*s);
 }

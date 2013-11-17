@@ -12,7 +12,7 @@
 #define RESIZE_INTERVAL 0.2
 #define BACKGROUND_ALPHA 0.6f
 
-#define HEIGHT 25
+#define HEIGHT_MULT 15
 
 #define W_LOW 250
 #define W_MID 175
@@ -76,7 +76,7 @@
             width = W_HIGH;
             break;
     }
-    height = (int)((1.0 + self.tolerance) * HEIGHT);
+    height = (int)((1.0 + self.tolerance) * HEIGHT_MULT);
     
     CGSize size = CGSizeMake(width, height);
     self.size = CGSizeMake(0, size.height);

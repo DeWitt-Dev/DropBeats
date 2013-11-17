@@ -14,6 +14,8 @@
 @property (nonatomic) float duration;
 
 + (DPSong*) getSong: (int) index andDuration: (float) duration;
++(int)numberOfSongs;
+
 - (NSArray*) getNotes;
 
 + (instancetype) song;
