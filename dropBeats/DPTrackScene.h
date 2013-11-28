@@ -18,7 +18,7 @@
     #define ZFLOOR 10
 }
 
-@property (weak, nonatomic) DPGame* game; //controlled by ViewController
+@property (strong, nonatomic) DPGame* game; //controlled by ViewController
 @property (strong, nonatomic) DPSong* playedSong;
 @property BOOL sceneCreated;
 

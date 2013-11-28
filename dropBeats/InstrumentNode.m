@@ -29,7 +29,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 static NSMutableDictionary * instrumentSounds;
 static NSMutableDictionary* instrumentAnimations;
 
--(id)initWithInstrumentIndex: (int) index andSize: (CGSize) size
+-(id)initWithInstrumentIndex: (NSInteger) index andSize: (CGSize) size
 {
     self.instrumentID = [NSString stringWithFormat:@"%@%d",kInstrumentPrefix, index+1];
     SKTexture *texture = [instrumentAnimations objectForKey:self.instrumentID][0];

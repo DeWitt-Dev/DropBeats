@@ -37,6 +37,8 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    
+    NSLog(@"MENU: MEM Warning");
 }
 
 #pragma mark - MenuCollectionView
@@ -50,7 +52,6 @@
     
     DPGame* game = [[DPGame alloc]initWithSong:[DPSong getSong:indexPath.row+1
                                                   andDuration:10]];
-    
     [cell prepareSceneWithGame:game];
     
     return cell;
@@ -70,8 +71,7 @@
             DPGameViewController* dpgvc = (DPGameViewController*)segue.destinationViewController;
             
             if ([sender isKindOfClass:[LevelCollectionViewCell class]]) {
-                dpgvc.game = ((LevelCollectionViewCell*)sender).game;
-
+                dpgvc.game = ((LevelCollectionViewCell*)sender).levelScene.game;
             }
         }
     }

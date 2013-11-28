@@ -12,6 +12,6 @@
 @interface LevelCollectionViewCell : UICollectionViewCell
 
 -(void)prepareSceneWithGame: (DPGame*)game;
-@property (nonatomic, strong, readonly) DPGame* game; 
+@property (strong, nonatomic, readonly) DPTrackScene* levelScene;
 
 @end

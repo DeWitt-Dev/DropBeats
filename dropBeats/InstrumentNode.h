@@ -19,7 +19,7 @@
 @property (nonatomic) DPNote* note;
 @property (nonatomic) NoteType instrumentNoteIndex;
 
--(id)initWithInstrumentIndex: (int) index andSize: (CGSize) size;
+-(id)initWithInstrumentIndex: (NSInteger) index andSize: (CGSize) size;
 +(void)loadActions;
 -(void)playInstrument;
 

@@ -10,9 +10,8 @@
 
 @interface LevelCollectionViewCell()
 
-@property (nonatomic, strong, readwrite) DPGame* game;
 @property (strong, nonatomic) IBOutlet SKView *levelView;
-@property (strong, nonatomic) SKScene* levelScene;
+@property (strong, nonatomic, readwrite) DPTrackScene* levelScene;
 
 @end
 
@@ -27,21 +26,15 @@
     return self;
 }
 
--(void)layoutSubviews
-{
-}
-
 -(void)prepareSceneWithGame: (DPGame*)game
 {
-    if (!self.levelScene || ![game isEqual:self.game]) {
+    if (!self.levelScene || ![game isEqual: self.levelScene.game]) {
         self.levelScene = [[DPTrackScene alloc] initWithSize:self.bounds.size game:game];
         self.levelScene.scaleMode = SKSceneScaleModeAspectFill;
         
         // Present the scene.
         [self.levelView presentScene:self.levelScene];
-        
-        self.game = game;
-    }
+        }
 }
 
 /*

@@ -37,7 +37,7 @@
 
     [[NSNotificationCenter defaultCenter]
      postNotificationName:@"gameStarted"
-     object:nil ];
+     object:nil];
 }
 
 -(void)resetGame

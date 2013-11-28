@@ -26,6 +26,19 @@
     return self;
 }
 
+-(void)commonInit
+{
+    //Resister for Notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(gameEnded:) name:@"gameEnded" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(gameStarted:) name:@"gameStarted" object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(gameReset:) name:@"gameReset" object:nil];
+}
+
 -(void)didMoveToView:(SKView *)view
 {
     if (!self.sceneCreated) {
@@ -40,17 +53,9 @@
     }
 }
 
--(void)commonInit
+-(void)dealloc
 {
-    //Resister for Notifications
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(gameEnded:) name:@"gameEnded" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(gameStarted:) name:@"gameStarted" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(gameReset:) name:@"gameReset" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - Background Music

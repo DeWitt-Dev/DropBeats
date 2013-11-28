@@ -57,6 +57,11 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 //    [DPMyScene loadEverythingYouCanWithCompletionHandeler:^{}];
 }
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 #pragma mark - CollectionView
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
@@ -202,7 +207,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
+    NSLog(@"GAME: MEM. Warning");
 }
 
 @end
