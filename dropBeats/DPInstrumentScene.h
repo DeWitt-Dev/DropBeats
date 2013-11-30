@@ -17,7 +17,7 @@ typedef void (^DPSceneCompletionHandler)(void);
 
 -(void) createBall;
 -(void) dropBall; 
--(void) createInstrument: (int) index AtLocation: (CGPoint) location;
+-(void) createInstrument: (NSInteger) index AtLocation: (CGPoint) location;
 -(void)clearGame;
 
 -(void)handlePan:(UIPanGestureRecognizer*)recognizer; //recieved from collectionVeiw

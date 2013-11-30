@@ -10,13 +10,16 @@
 
 @interface InstrumentNode()
 {
-    #define NUMBER_OF_INSTRUMENTS 3
     #define NUMBER_OF_SOUNDS 3
     
     #define DEFAULT_ANIMATION_FRAMES 10
     #define ANIMATION_INTERVAL 0.01
     #define WIGGLE_DURATION 0.04
     #define INSTRUMENT_WIGGLE 0.09
+    
+    
+    #define MAX_SCALE 2.0
+    #define MIN_SCALE 0.8
 }
 
 @property (nonatomic, strong) NSString* instrumentID;

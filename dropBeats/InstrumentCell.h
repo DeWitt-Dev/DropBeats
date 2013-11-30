@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InstrumentNode.h"
 
 @interface InstrumentCell : UICollectionViewCell
 

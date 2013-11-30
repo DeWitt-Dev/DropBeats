@@ -52,7 +52,7 @@ static const uint32_t floorCategory = 0x1 << 1;
     if (self = [super initWithSize:size game:game]) {
         
         self.startingInstrumentSize = instrumentSize;
-        [DPInstrumentScene loadEverythingYouCanWithCompletionHandeler:nil];
+//        [DPInstrumentScene loadEverythingYouCanWithCompletionHandeler:nil];
     }
     return self;
 }
@@ -158,7 +158,7 @@ static const uint32_t floorCategory = 0x1 << 1;
     //    }
 }
 
--(void) createInstrument: (int) index AtLocation: (CGPoint) location
+-(void) createInstrument: (NSInteger) index AtLocation: (CGPoint) location
 {
     SKSpriteNode *tonePad = [[InstrumentNode alloc]initWithInstrumentIndex:index andSize:self.startingInstrumentSize];
     

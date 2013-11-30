@@ -21,6 +21,8 @@
 {
     if (self = [super initWithSize:size]) {
         self.game = game;
+        self.backgroundColor = [UIColor whiteColor];
+
         [self commonInit];
     }
     return self;
@@ -38,27 +40,43 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(gameReset:) name:@"gameReset" object:nil];
 }
-
--(void)didMoveToView:(SKView *)view
-{
-    if (!self.sceneCreated) {
-        
-        self.backgroundColor = [UIColor whiteColor];
-        //Background Notes
-        [self drawDivider];
-        [self drawTick];
-        
-        [self displaySong: self.game.song];
-        self.sceneCreated = YES;
-    }
-}
-
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - Background Music
+-(void)didMoveToView:(SKView *)view
+{
+    if (!self.sceneCreated) {
+        
+        //Background Notes
+        [self drawDivider];
+        [self displaySong: self.game.song];
+        
+        self.playedSong = [[DPSong alloc]init];
+
+        self.sceneCreated = YES;
+    }
+}
+
+- (void) displaySong: (DPSong*) song
+{
+    self.game.song = song;
+    
+    int i = 0;
+    for (DPNote* dpnote in [song getNotes])
+    {
+        double delayInSeconds = 0.1f * ++i;
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            
+            [self drawDPNote:dpnote onSide:SideLeft];
+            
+        });
+    }
+}
+
+#pragma mark - Background Track
 - (void) drawDivider
 {
     float adjustedHeight = 0.85 * self.frame.size.height;
@@ -69,12 +87,25 @@
     divider.alpha = ALPHA_BACKGROUND;
     
     divider.anchorPoint = CGPointMake(0, 0);
-    divider.position = CGPointMake(self.frame.size.width / 2, .05 * self.frame.size.height);
+    divider.position = CGPointMake(self.frame.size.width /2, .05 * self.frame.size.height);
     divider.zPosition = ZFLOOR;
     [self addChild:divider];
 }
 
-- (void) drawTick
+- (void) startTick
+{
+    [self drawTickWithCompletionHandler:^{}];
+    //float adjustedHeight = 0.85 * self.frame.size.height;
+    float bottomOffset = 0.05 * self.frame.size.height;
+    
+    CGPoint point2 = CGPointMake(self.frame.size.width/2, bottomOffset);
+    SKAction* moveTo = [SKAction moveTo:point2 duration:self.game.song.duration];
+    
+    [moveTo setTimingMode:SKActionTimingLinear];
+    [self.tick runAction:moveTo];
+}
+
+- (void) drawTickWithCompletionHandler:(void (^) (void)) completion
 {
     float adjustedHeight = 0.85 * self.frame.size.height;
     float bottomOffset = 0.05 * self.frame.size.height;
@@ -90,27 +121,13 @@
     [self addChild: self.tick];
     
     
-    //    float animationTime = 0.25f;
-    //    SKAction* zeroMorph = [SKAction resizeToWidth:0 duration:0.0f];
-    //    SKAction* correctSizeW = [SKAction resizeToWidth:size.width duration:animationTime];
-    //
-    //    SKAction* sequence = [SKAction sequence:@[zeroMorph, correctSizeW]];
-    //
-    //    [self runAction:sequence completion:^{
-    //        self.tick.size = size;
-    //    }];
-}
-
-- (void) startTick
-{
-    //float adjustedHeight = 0.85 * self.frame.size.height;
-    float bottomOffset = 0.05 * self.frame.size.height;
-    
-    CGPoint point2 = CGPointMake(self.frame.size.width/2, bottomOffset);
-    SKAction* moveTo = [SKAction moveTo:point2 duration:self.game.song.duration];
-    
-    [moveTo setTimingMode:SKActionTimingLinear];
-    [self.tick runAction:moveTo];
+    float animationTime = 0.25f;
+    self.tick.size = CGSizeMake(0, size.height);
+    SKAction* correctSizeW = [SKAction resizeToWidth:size.width duration:animationTime];
+    [self.tick runAction:correctSizeW completion:^{
+        self.tick.size = size;
+        dispatch_async(dispatch_get_main_queue(), completion);
+    }];
 }
 
 - (void)DPNotePlayed:(DPNote*) note
@@ -130,31 +147,11 @@
             [node setPosition: CGPointMake(x, y)];
             [self addChild:node];
         }
-        
     }
     else
     {
         [self endStrikes]; //After the song is over
     }
-}
-
-- (void) displaySong: (DPSong*) song
-{
-    self.game.song = song;
-    
-    int i = 0;
-    for (DPNote* dpnote in [song getNotes])
-    {
-        double delayInSeconds = 0.1f * ++i;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-            
-            [self drawDPNote:dpnote onSide:SideLeft];
-            
-        });
-    }
-    
-    self.playedSong = [[DPSong alloc]init];
 }
 
 - (void) drawDPNote: (DPNote*) note onSide: (NSInteger) side
@@ -167,20 +164,6 @@
     
     [node setPosition: CGPointMake(x, y + (0.05 * self.frame.size.height))];
     [self addChild:node];
-}
-
--(void)checkGameStatus
-{
-    float percentComplete = [self.game percentCompleteWith: self.playedSong];
-    if (PERCENT_TO_WIN > percentComplete) {
-        [self.game resetGame];
-    }
-    else{
-        NSString* message = [NSString stringWithFormat:@"Congatulations %d percent!\n Next Level?", (int)(percentComplete*100)];
-        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:nil message: message delegate:self cancelButtonTitle:@"Try Again?" otherButtonTitles:@"Next Level", nil];
-        alert.delegate = self;
-        [alert show];
-    }
 }
 
 - (void) endStrikes
@@ -197,7 +180,6 @@
      ^(SKNode *node,BOOL *stop) {
          [node removeFromParent];
      }];
-    [self drawTick];
 }
 
 #pragma mark - Game notifications
@@ -217,7 +199,24 @@
     [self endStrikes];
 }
 
-#pragma mark - AlertView
+#pragma mark - Game Status/ AlertView
+-(void)checkGameStatus
+{
+    float percentComplete = [self.game percentCompleteWith: self.playedSong];
+    NSLog(@"PercentComplete: %f", percentComplete);
+    
+    if (PERCENT_TO_WIN > percentComplete) {
+        [self.playedSong clearNotes];
+        [self.game resetGame];
+    }
+    else{
+        NSString* message = [NSString stringWithFormat:@"Congatulations %d percent!\n Next Level?", (int)(percentComplete*100)];
+        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:nil message: message delegate:self cancelButtonTitle:@"Try Again?" otherButtonTitles:@"Next Level", nil];
+        alert.delegate = self;
+        [alert show];
+    }
+}
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex > 0) {

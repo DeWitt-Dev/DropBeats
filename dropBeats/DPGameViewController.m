@@ -52,9 +52,10 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     self.skScene = [[DPInstrumentScene alloc] initWithSize:self.skView.bounds.size game:self.game andInstrumentSize:COLLECTIONVIEW_CELL_SIZE];
     self.skScene.scaleMode = SKSceneScaleModeAspectFill;
    
-    // Present the scene.
-    [self.skView presentScene:self.skScene];
-//    [DPMyScene loadEverythingYouCanWithCompletionHandeler:^{}];
+    // Load and present the scene.
+    [DPInstrumentScene loadEverythingYouCanWithCompletionHandeler:^{
+        [self.skView presentScene:self.skScene];
+    }];
 }
 
 -(void)dealloc
@@ -65,7 +66,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 #pragma mark - CollectionView
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 3; //number of instrustments 
+    return NUMBER_OF_INSTRUMENTS; //defined in InstrumentNode
 }
 -(UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {

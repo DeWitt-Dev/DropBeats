@@ -61,32 +61,30 @@
 -(float)percentCompleteWith:(DPSong*) usersSong;
 {
     float percent = 0;
+    int count = [[self.song getNotes]count] < [[usersSong getNotes]count] ?
+    [[self.song getNotes]count] : [[usersSong getNotes]count];
 
-    if ([[self.song getNotes] count] == [[usersSong getNotes] count]) {
-        for (int i = 0; i < [[self.song getNotes] count]; i++)
-        {
-            DPNote* songNote = [[self.song getNotes] objectAtIndex:i];
-            DPNote* userNote = [[usersSong getNotes] objectAtIndex:i];
+    for (int i = 0; i < count; i++)
+    {
+        DPNote* songNote = [[self.song getNotes] objectAtIndex:i];
+        DPNote* userNote = [[usersSong getNotes] objectAtIndex:i];
+        
+        if (songNote.type == userNote.type
+            && songNote.freq == userNote.freq) {
+         
+            float sTime = [songNote time];
+            float uTime = [userNote time];
             
-            if (songNote.type == userNote.type
-                && songNote.freq == userNote.freq) {
-             
-                float sTime = [songNote time];
-                float uTime = [userNote time];
-                
-                float sTimeLow = sTime - self.difficulty;
-                float sTimeHigh = sTime + self.difficulty;
-                
-                if (sTimeLow <= uTime && uTime <= sTimeHigh)
-                {
-                    percent += 1.0/[[self.song getNotes]count];
-                }
+            float sTimeLow = sTime - self.difficulty;
+            float sTimeHigh = sTime + self.difficulty;
+            
+            if (sTimeLow <= uTime && uTime <= sTimeHigh)
+            {
+                percent += 1.0/[[self.song getNotes]count];
             }
         }
     }
-    
-    [usersSong clearNotes];
-    
+
     return percent;
 }
 @end

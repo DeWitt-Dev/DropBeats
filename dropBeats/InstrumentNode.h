@@ -12,8 +12,7 @@
 @interface InstrumentNode : SKSpriteNode
 {
     #define kInstrumentNode @"instrumentNode"
-    #define MAX_SCALE 2.0
-    #define MIN_SCALE 0.8
+    #define NUMBER_OF_INSTRUMENTS 3
 }
 
 @property (nonatomic) DPNote* note;
