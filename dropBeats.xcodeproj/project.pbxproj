@@ -68,6 +68,17 @@
 		C872558C1825F67A00E2653C /* DPTrackScene.m in Sources */ = {isa = PBXBuildFile; fileRef = C872558B1825F67A00E2653C /* DPTrackScene.m */; };
 		C8C41DA5182D7DCD00C03DD1 /* DPMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C41DA4182D7DCD00C03DD1 /* DPMenuViewController.m */; };
 		C8C41DA8182D7F7400C03DD1 /* LevelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C41DA7182D7F7400C03DD1 /* LevelCollectionViewCell.m */; };
+		C8DF60FD186FC46700A4C0EF /* MainTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = C8DF60FB186FC46700A4C0EF /* MainTitle.png */; };
+		C8DF60FE186FC46700A4C0EF /* MainTitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8DF60FC186FC46700A4C0EF /* MainTitle@2x.png */; };
+		C8DF6109186FC54E00A4C0EF /* LevelBar.png in Resources */ = {isa = PBXBuildFile; fileRef = C8DF6100186FC54E00A4C0EF /* LevelBar.png */; };
+		C8DF610A186FC54E00A4C0EF /* LevelBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8DF6101186FC54E00A4C0EF /* LevelBar@2x.png */; };
+		C8DF610B186FC54E00A4C0EF /* LevelSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C8DF6102186FC54E00A4C0EF /* LevelSelected.png */; };
+		C8DF610C186FC54E00A4C0EF /* LevelSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8DF6103186FC54E00A4C0EF /* LevelSelected@2x.png */; };
+		C8DF610D186FC54E00A4C0EF /* OptionBar.png in Resources */ = {isa = PBXBuildFile; fileRef = C8DF6104186FC54E00A4C0EF /* OptionBar.png */; };
+		C8DF610E186FC54E00A4C0EF /* OptionBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8DF6105186FC54E00A4C0EF /* OptionBar@2x.png */; };
+		C8DF610F186FC54E00A4C0EF /* OptionSelected.png in Resources */ = {isa = PBXBuildFile; fileRef = C8DF6106186FC54E00A4C0EF /* OptionSelected.png */; };
+		C8DF6110186FC54E00A4C0EF /* OptionSelected@2x copy.png in Resources */ = {isa = PBXBuildFile; fileRef = C8DF6107186FC54E00A4C0EF /* OptionSelected@2x copy.png */; };
+		C8DF6111186FC54E00A4C0EF /* OptionSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8DF6108186FC54E00A4C0EF /* OptionSelected@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +168,17 @@
 		C8C41DA4182D7DCD00C03DD1 /* DPMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPMenuViewController.m; sourceTree = "<group>"; };
 		C8C41DA6182D7F7400C03DD1 /* LevelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelCollectionViewCell.h; sourceTree = "<group>"; };
 		C8C41DA7182D7F7400C03DD1 /* LevelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelCollectionViewCell.m; sourceTree = "<group>"; };
+		C8DF60FB186FC46700A4C0EF /* MainTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainTitle.png; sourceTree = "<group>"; };
+		C8DF60FC186FC46700A4C0EF /* MainTitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainTitle@2x.png"; sourceTree = "<group>"; };
+		C8DF6100186FC54E00A4C0EF /* LevelBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LevelBar.png; sourceTree = "<group>"; };
+		C8DF6101186FC54E00A4C0EF /* LevelBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LevelBar@2x.png"; sourceTree = "<group>"; };
+		C8DF6102186FC54E00A4C0EF /* LevelSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LevelSelected.png; sourceTree = "<group>"; };
+		C8DF6103186FC54E00A4C0EF /* LevelSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LevelSelected@2x.png"; sourceTree = "<group>"; };
+		C8DF6104186FC54E00A4C0EF /* OptionBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OptionBar.png; sourceTree = "<group>"; };
+		C8DF6105186FC54E00A4C0EF /* OptionBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OptionBar@2x.png"; sourceTree = "<group>"; };
+		C8DF6106186FC54E00A4C0EF /* OptionSelected.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = OptionSelected.png; sourceTree = "<group>"; };
+		C8DF6107186FC54E00A4C0EF /* OptionSelected@2x copy.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OptionSelected@2x copy.png"; sourceTree = "<group>"; };
+		C8DF6108186FC54E00A4C0EF /* OptionSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "OptionSelected@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -235,6 +257,7 @@
 		AE3907981812ECD7001D7BBE /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				C8DF60FF186FC4E800A4C0EF /* Menu Images */,
 				AE3907A01812ECD8001D7BBE /* DPAppDelegate.h */,
 				AE3907A11812ECD8001D7BBE /* DPAppDelegate.m */,
 				AE4B3B45181462770089EE3F /* Instrument1_0.png */,
@@ -355,6 +378,24 @@
 			name = Menu;
 			sourceTree = "<group>";
 		};
+		C8DF60FF186FC4E800A4C0EF /* Menu Images */ = {
+			isa = PBXGroup;
+			children = (
+				C8DF6100186FC54E00A4C0EF /* LevelBar.png */,
+				C8DF6101186FC54E00A4C0EF /* LevelBar@2x.png */,
+				C8DF6102186FC54E00A4C0EF /* LevelSelected.png */,
+				C8DF6103186FC54E00A4C0EF /* LevelSelected@2x.png */,
+				C8DF6104186FC54E00A4C0EF /* OptionBar.png */,
+				C8DF6105186FC54E00A4C0EF /* OptionBar@2x.png */,
+				C8DF6106186FC54E00A4C0EF /* OptionSelected.png */,
+				C8DF6107186FC54E00A4C0EF /* OptionSelected@2x copy.png */,
+				C8DF6108186FC54E00A4C0EF /* OptionSelected@2x.png */,
+				C8DF60FB186FC46700A4C0EF /* MainTitle.png */,
+				C8DF60FC186FC46700A4C0EF /* MainTitle@2x.png */,
+			);
+			name = "Menu Images";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -434,9 +475,14 @@
 			files = (
 				AE4B3B8A1814D4B30089EE3F /* PullTab_back@2x.png in Resources */,
 				AE4B3B871814D4B30089EE3F /* Play.png in Resources */,
+				C8DF60FE186FC46700A4C0EF /* MainTitle@2x.png in Resources */,
 				AE3AEE0F18136BA70041DAB3 /* Instrument5_1.caf in Resources */,
+				C8DF6109186FC54E00A4C0EF /* LevelBar.png in Resources */,
 				AE4B3B881814D4B30089EE3F /* Play@2x.png in Resources */,
 				AE3AEE0318136BA70041DAB3 /* Instrument1_1.caf in Resources */,
+				C8DF610F186FC54E00A4C0EF /* OptionSelected.png in Resources */,
+				C8DF6111186FC54E00A4C0EF /* OptionSelected@2x.png in Resources */,
+				C8DF610C186FC54E00A4C0EF /* LevelSelected@2x.png in Resources */,
 				AE4B3B941814D4C80089EE3F /* Ball@2x.png in Resources */,
 				AE4B3B8D1814D4B30089EE3F /* Retry.png in Resources */,
 				AE4B3B43181461930089EE3F /* Instrument1.atlas in Resources */,
@@ -447,6 +493,7 @@
 				AE4B3B931814D4C80089EE3F /* Ball.png in Resources */,
 				AE3AEE0218136BA70041DAB3 /* Instrument1_0.caf in Resources */,
 				AE4B3B891814D4B30089EE3F /* PullTab_back.png in Resources */,
+				C8DF610B186FC54E00A4C0EF /* LevelSelected.png in Resources */,
 				AE3AEE1018136BA70041DAB3 /* Instrument5_2.caf in Resources */,
 				AE3AEE0B18136BA70041DAB3 /* Instrument4_0.caf in Resources */,
 				AE3AEE0918136BA70041DAB3 /* Instrument3_1.caf in Resources */,
@@ -454,6 +501,7 @@
 				AE4B3B671814B73F0089EE3F /* Pause.png in Resources */,
 				AE3AEE0E18136BA70041DAB3 /* Instrument5_0.caf in Resources */,
 				AE4B3B961814D5360089EE3F /* Instrument3_0.png in Resources */,
+				C8DF610A186FC54E00A4C0EF /* LevelBar@2x.png in Resources */,
 				AE3AEE0818136BA70041DAB3 /* Instrument3_0.caf in Resources */,
 				AE3AEE0718136BA70041DAB3 /* Instrument2_2.caf in Resources */,
 				AE3AEE0518136BA70041DAB3 /* Instrument2_0.caf in Resources */,
@@ -462,15 +510,19 @@
 				AE4B3B8F1814D4B30089EE3F /* Stanza.png in Resources */,
 				AE3AEE0C18136BA70041DAB3 /* Instrument4_1.caf in Resources */,
 				AE3907B21812ECD8001D7BBE /* Images.xcassets in Resources */,
+				C8DF6110186FC54E00A4C0EF /* OptionSelected@2x copy.png in Resources */,
 				AE4B3B681814B73F0089EE3F /* Pause@2x.png in Resources */,
+				C8DF610E186FC54E00A4C0EF /* OptionBar@2x.png in Resources */,
 				AE4B3B8B1814D4B30089EE3F /* PullTab.png in Resources */,
 				AE4B3B7C1814D48C0089EE3F /* Instrument3.atlas in Resources */,
 				AE3AEE0A18136BA70041DAB3 /* Instrument3_2.caf in Resources */,
 				AE3907A81812ECD8001D7BBE /* Main_iPad.storyboard in Resources */,
 				AE3907A51812ECD8001D7BBE /* Main_iPhone.storyboard in Resources */,
 				AE4B3B44181461930089EE3F /* Instrument2.atlas in Resources */,
+				C8DF610D186FC54E00A4C0EF /* OptionBar.png in Resources */,
 				AE39079C1812ECD7001D7BBE /* InfoPlist.strings in Resources */,
 				AE4B3B8C1814D4B30089EE3F /* PullTab@2x.png in Resources */,
+				C8DF60FD186FC46700A4C0EF /* MainTitle.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

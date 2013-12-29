@@ -14,8 +14,10 @@
 @interface DPGameViewController() <UICollectionViewDataSource, UICollectionViewDelegate>
 {
     #define ANIMATION_DURATION 0.5
-    #define COLLECTIONVIEW_CELL_SIZE CGSizeMake(140,140)
     #define DEFAULT_LOCATION CGPointMake(300, 300)
+    
+#define IS_IPAD   (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+
 }
 
 @property (weak, nonatomic) IBOutlet SKView *skView;
@@ -41,6 +43,8 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     self.skView.showsFPS = YES;
     self.skView.showsNodeCount = YES;
     self.skView.showsDrawCount = YES;
+    
+    self.collectionView.backgroundColor = [UIColor clearColor];
 
     //Resister for Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -49,7 +53,8 @@ static NSString * const kInstrumentPrefix = @"Instrument";
                                              selector:@selector(gameStateChanged:) name:@"gameEnded" object:nil];
     
     // Create and configure the instrumentScene
-    self.skScene = [[DPInstrumentScene alloc] initWithSize:self.skView.bounds.size game:self.game andInstrumentSize:COLLECTIONVIEW_CELL_SIZE];
+    CGSize collectionViewCellSize = IS_IPAD ? CGSizeMake(140,140) : CGSizeMake(100,100);
+    self.skScene = [[DPInstrumentScene alloc] initWithSize:self.skView.bounds.size game:self.game andInstrumentSize: collectionViewCellSize];
     self.skScene.scaleMode = SKSceneScaleModeAspectFill;
    
     // Load and present the scene.
@@ -93,14 +98,23 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 }
 - (void)dragInstrument:(UIPanGestureRecognizer *)sender {
 
+    InstrumentCell* cell = (InstrumentCell*)sender.view;
+
     if (sender.state == UIGestureRecognizerStateBegan) {
-        NSIndexPath* pathForInstrument = [self.collectionView indexPathForCell: (InstrumentCell*)sender.view];
+        cell.hidden = YES;
+        
+        NSIndexPath* pathForInstrument = [self.collectionView indexPathForCell: cell];
         CGPoint start = [sender locationInView:self.skScene.view];
-        start.y = self.view.frame.size.height - start.y; 
+        start.y = self.view.frame.size.height - start.y;
+        
         [self.skScene createInstrument:pathForInstrument.row AtLocation:start];
     }
     
     [self.skScene handlePan:sender];
+    
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        cell.hidden = NO;
+    }
 }
 
 - (IBAction)hideShowBanner:(UIButton *)sender
@@ -111,7 +125,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
         [UIView animateWithDuration:ANIMATION_DURATION animations:
          ^{
              CGRect frame = self.bannerView.frame;
-             frame.origin.x = -self.bannerView.bounds.size.width + 80; // to display button
+             frame.origin.x = -self.bannerView.bounds.size.width + (IS_IPAD ? 80 : 40); // to display button
              self.bannerView.frame = frame;
              
          } completion:nil];
@@ -153,21 +167,22 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     
     if (sender.state == UIGestureRecognizerStateEnded) {
         
-        if (!self.displayBanner && (-self.bannerView.frame.origin.x - [sender velocityInView:sender.view].x) < self.collectionView.bounds.size.width/2 ) {
+        if (!self.displayBanner && ( -self.bannerView.frame.origin.x - [sender velocityInView:sender.view].x) < self.collectionView.bounds.size.width/2 ) {
             self.displayBanner = YES;
         }
-        else if (self.displayBanner && -self.bannerView.frame.origin.x - [sender velocityInView:sender.view].x > self.collectionView.bounds.size.width/2)
-        {
+        else if (self.displayBanner && -self.bannerView.frame.origin.x - [sender velocityInView:sender.view].x > self.collectionView.bounds.size.width/2){
             self.displayBanner = NO;
         }
         [self hideShowBanner:self.hideShowButton];
-        [sender setTranslation:CGPointZero inView:sender.view];
+//        [sender setTranslation:CGPointZero inView:sender.view];
     }
 }
 - (IBAction)resetGame:(UIButton *)sender {
     
     if ([self.game isInProgress]) {
         [self.game endGame];
+        
+        //Good candidate for UIKitDynamics
         CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
         animation.fromValue = @0.0f;
         animation.toValue = @(2*M_PI);

@@ -12,14 +12,14 @@
 
 @interface DPTrackScene : SKScene
 {
-    #define PERCENT_TO_WIN 0.6
-    
     #define ALPHA_BACKGROUND 0.6f
     #define ZFLOOR 10
 }
 
 @property (strong, nonatomic) DPGame* game; //controlled by ViewController
 @property (strong, nonatomic) DPSong* playedSong;
+@property SKLabelNode* gameLabel;
+
 @property BOOL sceneCreated;
 
 //designated initilizer
@@ -27,7 +27,7 @@
 
 - (void)DPNotePlayed:(DPNote*) note;
 - (void)checkGameStatus;
--(void)clearGame; //abstract
+-(void)clearGame;
 
 -(void)gameStarted: (NSNotification*) notification;
 -(void)gameReset: (NSNotification*) notification;

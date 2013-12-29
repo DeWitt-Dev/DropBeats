@@ -15,8 +15,7 @@
     #define DEFAULT_ANIMATION_FRAMES 10
     #define ANIMATION_INTERVAL 0.01
     #define WIGGLE_DURATION 0.04
-    #define INSTRUMENT_WIGGLE 0.09
-    
+    #define INSTRUMENT_WIGGLE 0.07
     
     #define MAX_SCALE 2.0
     #define MIN_SCALE 0.8

@@ -60,8 +60,8 @@
 
 -(float)percentCompleteWith:(DPSong*) usersSong;
 {
-    float percent = 0;
-    int count = [[self.song getNotes]count] < [[usersSong getNotes]count] ?
+    float percent = 0.0f;
+    NSUInteger count = [[self.song getNotes]count] < [[usersSong getNotes]count] ?
     [[self.song getNotes]count] : [[usersSong getNotes]count];
 
     for (int i = 0; i < count; i++)
@@ -84,6 +84,8 @@
             }
         }
     }
+    
+    self.gameComplete = percent > PERCENT_TO_WIN ? YES : NO;
 
     return percent;
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="bNw-bh-hR1">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5023" systemVersion="13A603" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" useAutolayout="YES" initialViewController="bNw-bh-hR1">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
         <!--Menu View Controller-->
@@ -16,10 +16,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceHorizontal="YES" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6AU-3D-P3O">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="6AU-3D-P3O">
                                 <rect key="frame" x="0.0" y="487" width="768" height="537"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="xT4-ld-XMW">
                                     <size key="itemSize" width="340" height="520"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -35,7 +35,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Pq-ZA-zxU" customClass="SKView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="330" height="509"/>
+                                                    <rect key="frame" x="5" y="5" width="330" height="509"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                                 </view>
@@ -52,8 +52,40 @@
                                     <outlet property="delegate" destination="bNw-bh-hR1" id="1Fl-oJ-pdo"/>
                                 </connections>
                             </collectionView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="MainTitle.png" translatesAutoresizingMaskIntoConstraints="NO" id="hef-By-yOo">
+                                <rect key="frame" x="20" y="0.0" width="728" height="384"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LevelSelected.png" translatesAutoresizingMaskIntoConstraints="NO" id="1MZ-vW-XUE">
+                                <rect key="frame" x="0.0" y="392" width="768" height="69"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="69" id="Wqk-pa-pzn"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LevelBar.png" translatesAutoresizingMaskIntoConstraints="NO" id="Efd-JC-3Nr">
+                                <rect key="frame" x="0.0" y="461" width="768" height="27"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="TwD-Kj-dm7"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="hef-By-yOo" secondAttribute="trailing" constant="20" symbolic="YES" id="7kr-k1-m8D"/>
+                            <constraint firstItem="Efd-JC-3Nr" firstAttribute="trailing" secondItem="6AU-3D-P3O" secondAttribute="trailing" id="F6P-Ml-Bhy"/>
+                            <constraint firstItem="1MZ-vW-XUE" firstAttribute="top" secondItem="hef-By-yOo" secondAttribute="bottom" constant="8" symbolic="YES" id="G0b-gL-O8H"/>
+                            <constraint firstItem="FFi-Kn-9gE" firstAttribute="top" secondItem="Efd-JC-3Nr" secondAttribute="bottom" constant="536" id="HX6-SJ-geq"/>
+                            <constraint firstItem="hef-By-yOo" firstAttribute="leading" secondItem="rcC-fb-X6f" secondAttribute="leading" constant="20" symbolic="YES" id="Mbw-hN-SOz"/>
+                            <constraint firstItem="hef-By-yOo" firstAttribute="top" secondItem="rcC-fb-X6f" secondAttribute="top" id="a5X-S7-vkd"/>
+                            <constraint firstItem="6AU-3D-P3O" firstAttribute="top" secondItem="1MZ-vW-XUE" secondAttribute="bottom" constant="26" id="aXV-UY-hSo"/>
+                            <constraint firstItem="6AU-3D-P3O" firstAttribute="leading" secondItem="Efd-JC-3Nr" secondAttribute="leading" id="b66-Nu-y0k"/>
+                            <constraint firstItem="1MZ-vW-XUE" firstAttribute="centerX" secondItem="hef-By-yOo" secondAttribute="centerX" id="hLs-hW-0gy"/>
+                            <constraint firstItem="Efd-JC-3Nr" firstAttribute="top" secondItem="1MZ-vW-XUE" secondAttribute="bottom" id="jL8-V4-cFM"/>
+                            <constraint firstItem="1MZ-vW-XUE" firstAttribute="leading" secondItem="Efd-JC-3Nr" secondAttribute="leading" id="k60-aO-b4d"/>
+                            <constraint firstAttribute="bottom" secondItem="6AU-3D-P3O" secondAttribute="bottom" id="ouV-LI-Xaf"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="levelCollectionView" destination="6AU-3D-P3O" id="967-mP-Fma"/>
@@ -90,7 +122,7 @@
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="F2V-we-gWp">
                                         <rect key="frame" x="0.0" y="30" width="688" height="150"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="30" minimumInteritemSpacing="20" id="9e7-Lb-see">
                                             <size key="itemSize" width="140" height="140"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -217,6 +249,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="LevelBar.png" width="768" height="18"/>
+        <image name="LevelSelected.png" width="768" height="73"/>
+        <image name="MainTitle.png" width="768" height="490"/>
         <image name="Play.png" width="50" height="50"/>
         <image name="PullTab_back.png" width="58" height="150"/>
         <image name="Retry.png" width="50" height="50"/>

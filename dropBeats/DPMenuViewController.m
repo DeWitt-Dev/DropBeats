@@ -31,6 +31,8 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+    
+    self.levelCollectionView.backgroundColor = [UIColor clearColor]; 
 }
 
 - (void)didReceiveMemoryWarning

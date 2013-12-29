@@ -11,7 +11,11 @@
 #import "DPNote.h"
 #import "DPSong.h"
 
-@interface DPTrackScene()<UIAlertViewDelegate>
+@interface DPTrackScene()
+{
+    #define SIZE_FACTOR 0.85
+    #define VERTICAL_OFFSET_FACTOR 0.05
+}
 @property SKSpriteNode* tick;
 @end
 
@@ -71,7 +75,6 @@
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             
             [self drawDPNote:dpnote onSide:SideLeft];
-            
         });
     }
 }
@@ -79,7 +82,7 @@
 #pragma mark - Background Track
 - (void) drawDivider
 {
-    float adjustedHeight = 0.85 * self.frame.size.height;
+    float adjustedHeight = SIZE_FACTOR * self.frame.size.height;
     CGSize size = CGSizeMake(3, adjustedHeight);
     
     UIColor* color = [[UIColor blackColor] colorWithAlphaComponent: ALPHA_BACKGROUND];
@@ -87,16 +90,24 @@
     divider.alpha = ALPHA_BACKGROUND;
     
     divider.anchorPoint = CGPointMake(0, 0);
-    divider.position = CGPointMake(self.frame.size.width /2, .05 * self.frame.size.height);
+    divider.position = CGPointMake(self.frame.size.width /2, 0.05 * self.frame.size.height);
     divider.zPosition = ZFLOOR;
     [self addChild:divider];
+    
+    //Add game Perctage Tracker
+    self.gameLabel = [[SKLabelNode alloc]init];
+    self.gameLabel.fontColor = color;
+    self.gameLabel.position = CGPointMake(self.frame.size.width /2, 60);
+    self.gameLabel.zPosition = ZFLOOR;
+    
+    [self addChild:self.gameLabel];
 }
 
 - (void) startTick
 {
     [self drawTickWithCompletionHandler:^{}];
     //float adjustedHeight = 0.85 * self.frame.size.height;
-    float bottomOffset = 0.05 * self.frame.size.height;
+    float bottomOffset = VERTICAL_OFFSET_FACTOR * self.frame.size.height;
     
     CGPoint point2 = CGPointMake(self.frame.size.width/2, bottomOffset);
     SKAction* moveTo = [SKAction moveTo:point2 duration:self.game.song.duration];
@@ -107,8 +118,8 @@
 
 - (void) drawTickWithCompletionHandler:(void (^) (void)) completion
 {
-    float adjustedHeight = 0.85 * self.frame.size.height;
-    float bottomOffset = 0.05 * self.frame.size.height;
+    float adjustedHeight = SIZE_FACTOR * self.frame.size.height;
+    float bottomOffset = VERTICAL_OFFSET_FACTOR * self.frame.size.height;
     
     CGSize size = CGSizeMake(35, 5);
     
@@ -133,17 +144,22 @@
 - (void)DPNotePlayed:(DPNote*) note
 {
     [self.playedSong addNote:note];
+    
+    //update label
+    float percentComplete = [self.game percentCompleteWith: self.playedSong];
+    self.gameLabel.text = [NSString stringWithFormat: @"%10.0f%%", percentComplete];
 
     if (note.time <= 1.0) { //must be normalized
         
+        //TODO: This logic should be handeled with drawDPNOT
         DPNoteNode* node = [DPNoteNode noteNodeWithNote:note tolerance: self.game.difficulty onSide:SideRight animate:YES];
                             
         //Placing logic
         //float x = 0 ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
         float x = CGRectGetMidX(self.frame) + 3;
-        float y = (note.time * (0.85 * self.frame.size.height)) + (.05 * self.frame.size.height);
+        float y = (note.time * (SIZE_FACTOR * self.frame.size.height)) + (VERTICAL_OFFSET_FACTOR * self.frame.size.height);
         
-        if (y > self.view.bounds.size.height*.05f) {
+        if (y > self.view.bounds.size.height * 0.5f) {
             [node setPosition: CGPointMake(x, y)];
             [self addChild:node];
         }
@@ -156,13 +172,13 @@
 
 - (void) drawDPNote: (DPNote*) note onSide: (NSInteger) side
 {
-    float adjustedHeight = .85 * self.frame.size.height;
+    float adjustedHeight = SIZE_FACTOR * self.frame.size.height;
     DPNoteNode* node = [DPNoteNode noteNodeWithNote:note tolerance:self.game.difficulty onSide: SideLeft animate:YES];
                         
     float x = !side ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
-    float y = adjustedHeight * (1 -[[node note] time]) + (.05 * self.frame.size.height);
+    float y = adjustedHeight * (1 -[[node note] time]) + (VERTICAL_OFFSET_FACTOR* self.frame.size.height);
     
-    [node setPosition: CGPointMake(x, y + (0.05 * self.frame.size.height))];
+    [node setPosition: CGPointMake(x, y + (VERTICAL_OFFSET_FACTOR * self.frame.size.height))];
     [self addChild:node];
 }
 
@@ -186,6 +202,7 @@
 -(void)gameStarted: (NSNotification*) notification
 {
     [self gameReset:nil];
+    self.gameLabel.text = @"-";
 }
 
 -(void)gameReset: (NSNotification*) notification //when the ball leaves the screen
@@ -202,40 +219,28 @@
 #pragma mark - Game Status/ AlertView
 -(void)checkGameStatus
 {
-    float percentComplete = [self.game percentCompleteWith: self.playedSong];
-    NSLog(@"PercentComplete: %f", percentComplete);
-    
-    if (PERCENT_TO_WIN > percentComplete) {
+    if (!self.game.isComplete) {
         [self.playedSong clearNotes];
         [self.game resetGame];
     }
     else{
-        NSString* message = [NSString stringWithFormat:@"Congatulations %d percent!\n Next Level?", (int)(percentComplete*100)];
-        UIAlertView* alert = [[UIAlertView alloc]initWithTitle:nil message: message delegate:self cancelButtonTitle:@"Try Again?" otherButtonTitles:@"Next Level", nil];
-        alert.delegate = self;
-        [alert show];
+        self.gameLabel.text = [NSString stringWithFormat:@"%@%%! Next Level?", self.gameLabel.text];
+        [self.view addGestureRecognizer: [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(nextLevel:)]];
     }
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+- (void)nextLevel: (UITapGestureRecognizer*)recognizer
 {
-    if (buttonIndex > 0) {
-        [self.game endGame];
-        [self clearGame];
-    }
-    else{
-        [self.game resetGame];
-    }
+//    if (recognizer) {
+//        [self.game endGame];
+//        [self clearGame];
+//    }
+//    else{
+//        [self.game resetGame];
+//    }
 }
--(void)clearGame{}
-
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
-{
-    // Drawing code
+-(void)clearGame{
+    [self.playedSong clearNotes];
 }
-*/
 
 @end

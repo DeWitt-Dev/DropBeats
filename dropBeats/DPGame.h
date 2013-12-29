@@ -11,6 +11,8 @@
 
 @interface DPGame : NSObject
 
+#define PERCENT_TO_WIN 0.6
+
 typedef enum {
     kHard,
     kMedium,
@@ -21,6 +23,7 @@ typedef enum {
 @property (nonatomic) Difficulty difficulty;
 
 @property (nonatomic, getter = isInProgress) BOOL inProgress;
+@property (nonatomic, getter = isComplete) BOOL gameComplete; //Yes when game has been won
 @property (strong, nonatomic) NSDate* startDate;
 
 //designated init

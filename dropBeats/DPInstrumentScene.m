@@ -69,7 +69,8 @@ static const uint32_t floorCategory = 0x1 << 1;
         self.sceneCreated = YES;
         
         [self initGestures];
-        [self drawStanzaAndCreateBall];
+        [self drawStanza];
+        [self createBall];
     }
 }
 
@@ -97,7 +98,7 @@ static const uint32_t floorCategory = 0x1 << 1;
 //}
 
 
-- (void) drawStanzaAndCreateBall
+- (void) drawStanza
 {
     self.stanzaNode = [[SKSpriteNode alloc] initWithImageNamed:@"Stanza"];
     self.stanzaNode.size = CGSizeMake(self.view.frame.size.width*(2/3.0),self.stanzaNode.size.height);
@@ -110,7 +111,6 @@ static const uint32_t floorCategory = 0x1 << 1;
     
     [self addChild:self.stanzaNode];
     self.ballStart = CGPointMake(self.view.frame.size.width/2, self.stanzaNode.position.y+self.stanzaNode.size.height/2);
-    [self createBall];
 }
 
 #pragma mark - Collision Dection
@@ -140,22 +140,6 @@ static const uint32_t floorCategory = 0x1 << 1;
                                            type:instrumentNode.instrumentNoteIndex];
         [self DPNotePlayed:note];
     }
-    
-    //    if ((contact.bodyA.categoryBitMask == floorCategory)
-    //        && (contact.bodyB.categoryBitMask == ballCategory))
-    //    {
-    //        CGPoint contactPoint = contact.contactPoint;
-    //
-    //        float contact_y = contactPoint.y;
-    //        float target_y = instrumentNode.position.y;
-    //        float margin = ballNode.frame.size.height/2 - 25;
-    //
-    //        if ((contact_y > (target_y - margin)) &&
-    //            (contact_y < (target_y + margin)))
-    //        {
-    //            NSLog(@"Collision");
-    //        }
-    //    }
 }
 
 -(void) createInstrument: (NSInteger) index AtLocation: (CGPoint) location
@@ -167,7 +151,7 @@ static const uint32_t floorCategory = 0x1 << 1;
     tonePad.physicsBody.categoryBitMask = floorCategory;
     tonePad.physicsBody.contactTestBitMask = ballCategory;
     tonePad.physicsBody.collisionBitMask = ballCategory | floorCategory;
-    tonePad.zPosition = ZFLOOR +1;
+    tonePad.zPosition = ZFLOOR + 1;
     
     [self addChild:tonePad];
 }
@@ -218,6 +202,7 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 -(void)clearGame
 {
+    [super clearGame];
     [self.game endGame];
     
     float edge = -500; //Arbitrary distance off screen
