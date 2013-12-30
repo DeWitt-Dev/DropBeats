@@ -12,12 +12,13 @@
 
 @interface DPTrackScene : SKScene
 {
-    #define ALPHA_BACKGROUND 0.6f
+    #define IS_IPAD   (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+    
+    #define BACKGROUND_ALPHA 0.6f
     #define ZFLOOR 10
 }
 
 @property (strong, nonatomic) DPGame* game; //controlled by ViewController
-@property (strong, nonatomic) DPSong* playedSong;
 @property SKLabelNode* gameLabel;
 
 @property BOOL sceneCreated;
@@ -25,9 +26,8 @@
 //designated initilizer
 -(id)initWithSize:(CGSize)size game: (DPGame*) game;
 
-- (void)DPNotePlayed:(DPNote*) note;
+- (void)DPNotePlayed:(DPNote*) note; //user Note
 - (void)checkGameStatus;
--(void)clearGame;
 
 -(void)gameStarted: (NSNotification*) notification;
 -(void)gameReset: (NSNotification*) notification;

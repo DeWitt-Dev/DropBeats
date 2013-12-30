@@ -25,4 +25,31 @@
     return self;
 }
 
+-(BOOL)isEqualToNote:(DPNote*) note withTolerance: (float) tolerance
+{
+    if (self.type == note.type) {
+        if (self.freq == note.freq) {
+            if (tolerance)
+            {
+                float sTime = [self time];
+                float uTime = [note time];
+                
+                float sTimeLow = sTime - tolerance;
+                float sTimeHigh = sTime + tolerance;
+                
+                if (sTimeLow <= uTime && uTime <= sTimeHigh)
+                {
+                    return YES;
+                }
+
+            }
+            else{
+                return YES;
+            }
+        }
+    }
+    
+    return NO;
+}
+
 @end

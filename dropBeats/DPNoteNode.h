@@ -24,5 +24,7 @@ typedef enum{
 @property (nonatomic) BOOL animate; 
 
 + (instancetype) noteNodeWithNote: (DPNote*) note tolerance: (CGFloat) tolerance onSide:(Side) side animate: (BOOL) animate;
+- (void) drawNoteNodeWithReferenceSize: (float) viewWidth;
+-(UIColor*)resetNodeColor;
 
 @end

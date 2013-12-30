@@ -14,6 +14,7 @@
 @interface DPMenuViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 
 @property (strong, nonatomic) IBOutlet UICollectionView *levelCollectionView;
+
 @end
 
 @implementation DPMenuViewController
@@ -31,8 +32,7 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
-    self.levelCollectionView.backgroundColor = [UIColor clearColor]; 
+    self.levelCollectionView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -52,8 +52,7 @@
 {
     LevelCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LevelCell" forIndexPath:indexPath];
     
-    DPGame* game = [[DPGame alloc]initWithSong:[DPSong getSong:indexPath.row+1
-                                                  andDuration:10]];
+    DPGame* game = [[DPGame alloc]initWithSongNumber:(int) indexPath.row + 1];
     [cell prepareSceneWithGame:game];
     
     return cell;
@@ -73,7 +72,8 @@
             DPGameViewController* dpgvc = (DPGameViewController*)segue.destinationViewController;
             
             if ([sender isKindOfClass:[LevelCollectionViewCell class]]) {
-                dpgvc.game = ((LevelCollectionViewCell*)sender).levelScene.game;
+                DPGame* displayedGame = ((LevelCollectionViewCell*)sender).levelScene.game;
+                dpgvc.game =  [[DPGame alloc] initWithSong: displayedGame.song andDifficulty:displayedGame.difficulty]; //initilizing new game when scene is instantiated.
             }
         }
     }

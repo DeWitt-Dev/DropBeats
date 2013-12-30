@@ -8,16 +8,17 @@
 
 #import "DPNoteNode.h"
 
+@interface DPNoteNode(){
+    #define RESIZE_INTERVAL 0.2
+    #define BACKGROUND_ALPHA 0.6f
 
-#define RESIZE_INTERVAL 0.2
-#define BACKGROUND_ALPHA 0.6f
+    #define HEIGHT_TOLERANCE_SCALE .08
 
-#define HEIGHT_MULT 15
-
-#define W_LOW 250
-#define W_MID 175
-#define W_HIGH 100
-
+    #define WLOW_F  0.8
+    #define WMID_F  0.4
+    #define WHIGH_F 0.15
+}
+@end
 
 @implementation DPNoteNode : SKSpriteNode
 
@@ -28,8 +29,23 @@
 
 - (id) initWithNote: (DPNote*) note tolerance: (CGFloat) tolerance onSide:(Side) side animate: (BOOL) animate
 {
+    
+    if (self = [super init])
+    {
+        self.side = side;
+        self.note = note;
+        self.tolerance = tolerance;
+        self.animate = animate;
+        [self resetNodeColor];
+    }
+    
+    return self;
+}
+
+-(UIColor*)resetNodeColor
+{
     UIColor* instrumentColor;
-    switch (note.type) {
+    switch (self.note.type) {
         case kSnare:
             instrumentColor = [UIColor redColor];
             break;
@@ -44,55 +60,51 @@
             instrumentColor = [UIColor blackColor];
             break;
     }
-    self = [super initWithColor:instrumentColor size: CGSizeZero];
     
-    if (self)
-    {
-        self.side = side;
-        self.note = note;
-        self.tolerance = tolerance;
-        self.animate = animate;
-        [self setupNode];
-    }
-    
-    return self;
+    self.color =  instrumentColor;
+
+    return instrumentColor;
 }
 
-- (void) setupNode
+- (void) drawNoteNodeWithReferenceSize: (float) viewWidth
 {
-    NSInteger width = 0;
-    NSInteger height = 0; 
+    viewWidth /= 2.0; //only drawing notes on half the view
+    
+    float width = 0;
+    float height = 0;
     
     // Set with depending on type of instrument
     switch (self.note.freq)
     {
         case 0:
-            width = W_LOW;
+            width = viewWidth * WLOW_F;
             break;
         case 1: 
-            width = W_MID;
+            width = viewWidth * WMID_F;
             break;
         case 2:
-            width = W_HIGH;
+            width = viewWidth * WHIGH_F;
             break;
     }
-    height = (int)((1.0 + self.tolerance) * HEIGHT_MULT);
+    height = (int)((1.0 + self.tolerance) * (viewWidth * HEIGHT_TOLERANCE_SCALE));
+//    NSLog(@"NodeWidth %f", width);
+
+    CGSize size = CGSizeMake(width, height); //final size
+    if (self.side == SideLeft) {
+        size = CGSizeMake(-size.width, size.height);
+    }
     
-    CGSize size = CGSizeMake(width, height);
     self.size = CGSizeMake(0, size.height);
     self.anchorPoint = CGPointMake(0, 0.5);
     self.name = @"notenode";
     self.alpha = BACKGROUND_ALPHA;
     
     if (self.animate) {
-        if (self.side == SideLeft) {
-            size = CGSizeMake(-size.width, size.height);
-        }
+        
         SKAction* zeroMorph = [SKAction resizeToWidth:0 duration:0.0f];
         SKAction* correctSizeW = [SKAction resizeToWidth:size.width duration:RESIZE_INTERVAL];
         SKAction* overSizeW = [SKAction resizeToWidth:size.width*1.2 duration:RESIZE_INTERVAL];
         SKAction* underSize = [SKAction resizeToWidth:size.width*0.9 duration:RESIZE_INTERVAL];
-        
         
         SKAction* sequence = [SKAction sequence:@[zeroMorph, correctSizeW, overSizeW, underSize, correctSizeW]];
         

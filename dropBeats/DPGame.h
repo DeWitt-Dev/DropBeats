@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DPSong.h"
 
-@interface DPGame : NSObject
-
-#define PERCENT_TO_WIN 0.6
+@class DPNoteNode;
 
 typedef enum {
     kHard,
@@ -19,7 +17,20 @@ typedef enum {
     kEasy
 } Difficulty;
 
-@property (strong, nonatomic) DPSong* song;
+//Notification Strings
+static NSString* const gameStartNotification = @"gameStarted";
+static NSString* const gameResettNotification = @"gameReset";
+static NSString* const gameEndNotification = @"gameEnded";
+
+
+@interface DPGame : NSObject
+
+
+#define PERCENT_TO_WIN 0.75
+
+@property (strong, nonatomic, readonly) DPSong* song;
+@property int songNum;
+
 @property (nonatomic) Difficulty difficulty;
 
 @property (nonatomic, getter = isInProgress) BOOL inProgress;
@@ -27,12 +38,15 @@ typedef enum {
 @property (strong, nonatomic) NSDate* startDate;
 
 //designated init
--(id)initWithSong:(DPSong*) song;
+-(id)initWithSongNumber:(int) songNum;
+-(id)initWithSongNumber:(int) songNum andDifficulty: (Difficulty) difficulty;
 -(id)initWithSong:(DPSong*) song andDifficulty: (Difficulty) difficulty;
+
+-(void)addNoteNode: (DPNoteNode*) node;
+-(float)percentComplete;
 
 -(void)startGame;
 -(void)resetGame;
 -(void)endGame;
 
--(float)percentCompleteWith:(DPSong*) song;
 @end

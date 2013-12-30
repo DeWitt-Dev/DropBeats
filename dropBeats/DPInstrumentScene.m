@@ -11,14 +11,14 @@
 
 @interface DPInstrumentScene() <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
 {
-    #define GRAVITY -3.5
-    #define BALL_RESTITUTION 1.0f
-    #define MIN_COLLISIONIMPULSE 4
+    #define GRAVITY -2.5
+    #define BALL_RESTITUTION 0.95f
+    #define MIN_COLLISIONIMPULSE 2.0
     #define DELETE_VELOCITY 1000
     
-    #define BALL_SIZE CGSizeMake(35, 35)
     #define WIGGLE_REPEATS 2
     #define WIGGLE_AMPLITUDE 0.08
+    CGSize BALL_SIZE;
 }
 
 @property (nonatomic) CGSize startingInstrumentSize;
@@ -39,8 +39,7 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 +(void)loadEverythingYouCanWithCompletionHandeler: (DPSceneCompletionHandler) handler
 {
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),
-                   ^{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)    , ^{
                        [InstrumentNode loadActions];
                        
                        if (handler)
@@ -52,6 +51,7 @@ static const uint32_t floorCategory = 0x1 << 1;
     if (self = [super initWithSize:size game:game]) {
         
         self.startingInstrumentSize = instrumentSize;
+        BALL_SIZE = IS_IPAD ? CGSizeMake(35, 35) : CGSizeMake(30, 30);
 //        [DPInstrumentScene loadEverythingYouCanWithCompletionHandeler:nil];
     }
     return self;
@@ -89,15 +89,6 @@ static const uint32_t floorCategory = 0x1 << 1;
     [self.view addGestureRecognizer:pinchRecognizer];
 }
 
-//-(void)initBallDrop
-//{
-//    self.scaleMode = SKSceneScaleModeAspectFill;
-//    
-//    SKAction *releaseBalls = [SKAction sequence:@[[SKAction performSelector:@selector(createBallNodeAtLocation:) onTarget:self], [SKAction waitForDuration:4]]];
-//    [self runAction: [SKAction repeatActionForever:releaseBalls]]; //[SKAction repeatAction:releaseBalls count:self.ballCount]];
-//}
-
-
 - (void) drawStanza
 {
     self.stanzaNode = [[SKSpriteNode alloc] initWithImageNamed:@"Stanza"];
@@ -106,7 +97,7 @@ static const uint32_t floorCategory = 0x1 << 1;
     self.stanzaNode.zPosition = ZFLOOR-1;
     self.stanzaNode.name = kStanzaNode;
     
-    CGPoint position = CGPointMake((self.frame.size.width - self.stanzaNode.size.width)/2, .935 * self.frame.size.height);
+    CGPoint position = CGPointMake((self.frame.size.width - self.stanzaNode.size.width)/2, .9 * self.frame.size.height);
     self.stanzaNode.position = position;
     
     [self addChild:self.stanzaNode];
@@ -133,7 +124,7 @@ static const uint32_t floorCategory = 0x1 << 1;
     if (contact.collisionImpulse >= MIN_COLLISIONIMPULSE) {
         [instrumentNode playInstrument];
         
-        float time = 1.0 + ([self.game.startDate timeIntervalSinceNow] / (self.game.song.duration));
+        float time = -[self.game.startDate timeIntervalSinceNow] / (self.game.song.duration);
                 
         DPNote* note = [DPNote DPNoteAtTime:time
                                        freq:[instrumentNode.note freq]
@@ -202,7 +193,6 @@ static const uint32_t floorCategory = 0x1 << 1;
 
 -(void)clearGame
 {
-    [super clearGame];
     [self.game endGame];
     
     float edge = -500; //Arbitrary distance off screen

@@ -15,9 +15,6 @@
 {
     #define ANIMATION_DURATION 0.5
     #define DEFAULT_LOCATION CGPointMake(300, 300)
-    
-#define IS_IPAD   (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
-
 }
 
 @property (weak, nonatomic) IBOutlet SKView *skView;
@@ -28,6 +25,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *hideShowButton;
 @property (weak, nonatomic) IBOutlet UIButton *playPause;
+@property (strong, nonatomic) IBOutlet UIButton *retryBack;
 
 @end
 
@@ -44,13 +42,19 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     self.skView.showsNodeCount = YES;
     self.skView.showsDrawCount = YES;
     
-    self.collectionView.backgroundColor = [UIColor clearColor];
+    self.collectionView.backgroundColor = [UIColor whiteColor];
+    
+    //TODO -should be custom graphic not text 
+    [self.retryBack setImage:nil forState:UIControlStateNormal];
+    [self.retryBack setTitle:@" <" forState:UIControlStateNormal];
+    self.retryBack.titleLabel.textColor = [UIColor blackColor];
+
 
     //Resister for Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(gameStateChanged:) name:@"gameStarted" object:nil];
+                                             selector:@selector(gameStateChanged:) name:gameStartNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(gameStateChanged:) name:@"gameEnded" object:nil];
+                                             selector:@selector(gameStateChanged:) name:gameEndNotification object:nil];
     
     // Create and configure the instrumentScene
     CGSize collectionViewCellSize = IS_IPAD ? CGSizeMake(140,140) : CGSizeMake(100,100);
@@ -101,13 +105,16 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     InstrumentCell* cell = (InstrumentCell*)sender.view;
 
     if (sender.state == UIGestureRecognizerStateBegan) {
-        cell.hidden = YES;
-        
+        CGPoint velocity = [sender velocityInView:self.view];
+
         NSIndexPath* pathForInstrument = [self.collectionView indexPathForCell: cell];
         CGPoint start = [sender locationInView:self.skScene.view];
         start.y = self.view.frame.size.height - start.y;
-        
-        [self.skScene createInstrument:pathForInstrument.row AtLocation:start];
+      
+        if (abs(velocity.y) > abs(velocity.x)){
+            cell.hidden = YES;
+            [self.skScene createInstrument:pathForInstrument.row AtLocation:start];
+        }
     }
     
     [self.skScene handlePan:sender];
@@ -125,7 +132,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
         [UIView animateWithDuration:ANIMATION_DURATION animations:
          ^{
              CGRect frame = self.bannerView.frame;
-             frame.origin.x = -self.bannerView.bounds.size.width + (IS_IPAD ? 80 : 40); // to display button
+             frame.origin.x = -self.bannerView.bounds.size.width + (IS_IPAD ? 80 : 20); // to display button
              self.bannerView.frame = frame;
              
          } completion:nil];
@@ -210,12 +217,16 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 -(void)gameStateChanged: (NSNotification *) notification
 {
     if ([self.game isInProgress]) {
+        [self.retryBack setImage:[UIImage imageNamed:@"Retry.png"] forState:UIControlStateNormal];
         [self.playPause setImage:[UIImage imageNamed:@"Pause.png"] forState:UIControlStateNormal];
         if (!self.displayBanner) {
             [self hideShowBanner:self.hideShowButton];
         }
     }
     else{
+        [self.retryBack setImage:nil forState:UIControlStateNormal];
+        [self.retryBack setTitle:@" <" forState:UIControlStateNormal];
+        self.retryBack.titleLabel.textColor = [UIColor blackColor];
         [self.playPause setImage:[UIImage imageNamed:@"Play.png"] forState:UIControlStateNormal];
     }
 }
@@ -223,7 +234,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    NSLog(@"GAME: MEM. Warning");
+    NSLog(@"***GAME: MEM. Warning***");
 }
 
 @end

@@ -13,11 +13,16 @@
 
 @interface DPTrackScene()
 {
-    #define SIZE_FACTOR 0.85
-    #define VERTICAL_OFFSET_FACTOR 0.05
+    float VERTICAL_OFFSET_FACTOR;
+    float SIZE_FACTOR;
 }
 @property SKSpriteNode* tick;
+
+- (void) removeStrikes;
+-(void) removeTick;
 @end
+
+static NSString* const kGameLabel = @"gameLabelNode";
 
 @implementation DPTrackScene
 
@@ -34,15 +39,18 @@
 
 -(void)commonInit
 {
+    SIZE_FACTOR = IS_IPAD ? 0.85 : 0.75;
+    VERTICAL_OFFSET_FACTOR = IS_IPAD ? 0.05 : 0.15;
+    
     //Resister for Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(gameEnded:) name:@"gameEnded" object:nil];
+                                             selector:@selector(gameEnded:) name:gameEndNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(gameStarted:) name:@"gameStarted" object:nil];
+                                             selector:@selector(gameStarted:) name:gameStartNotification object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(gameReset:) name:@"gameReset" object:nil];
+                                             selector:@selector(gameReset:) name:gameResettNotification object:nil];
 }
 -(void)dealloc
 {
@@ -57,22 +65,18 @@
         [self drawDivider];
         [self displaySong: self.game.song];
         
-        self.playedSong = [[DPSong alloc]init];
-
         self.sceneCreated = YES;
     }
 }
 
 - (void) displaySong: (DPSong*) song
 {
-    self.game.song = song;
-    
     int i = 0;
     for (DPNote* dpnote in [song getNotes])
     {
-        double delayInSeconds = 0.1f * ++i;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        double delayInSeconds = 0.2f * ++i;
+//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(delayInSeconds, dispatch_get_main_queue(), ^(void){
             
             [self drawDPNote:dpnote onSide:SideLeft];
         });
@@ -85,19 +89,20 @@
     float adjustedHeight = SIZE_FACTOR * self.frame.size.height;
     CGSize size = CGSizeMake(3, adjustedHeight);
     
-    UIColor* color = [[UIColor blackColor] colorWithAlphaComponent: ALPHA_BACKGROUND];
+    UIColor* color = [[UIColor blackColor] colorWithAlphaComponent: BACKGROUND_ALPHA];
     SKSpriteNode* divider = [[SKSpriteNode alloc] initWithColor:color size: size];
-    divider.alpha = ALPHA_BACKGROUND;
+    divider.alpha = BACKGROUND_ALPHA;
     
     divider.anchorPoint = CGPointMake(0, 0);
-    divider.position = CGPointMake(self.frame.size.width /2, 0.05 * self.frame.size.height);
+    divider.position = CGPointMake(self.frame.size.width /2, VERTICAL_OFFSET_FACTOR * self.frame.size.height);
     divider.zPosition = ZFLOOR;
     [self addChild:divider];
     
     //Add game Perctage Tracker
     self.gameLabel = [[SKLabelNode alloc]init];
+    self.gameLabel.name = kGameLabel;
     self.gameLabel.fontColor = color;
-    self.gameLabel.position = CGPointMake(self.frame.size.width /2, 60);
+    self.gameLabel.position = CGPointMake(self.frame.size.width /2, divider.position.y - 35);
     self.gameLabel.zPosition = ZFLOOR;
     
     [self addChild:self.gameLabel];
@@ -106,7 +111,6 @@
 - (void) startTick
 {
     [self drawTickWithCompletionHandler:^{}];
-    //float adjustedHeight = 0.85 * self.frame.size.height;
     float bottomOffset = VERTICAL_OFFSET_FACTOR * self.frame.size.height;
     
     CGPoint point2 = CGPointMake(self.frame.size.width/2, bottomOffset);
@@ -123,8 +127,8 @@
     
     CGSize size = CGSizeMake(35, 5);
     
-    UIColor* color = [[UIColor blackColor] colorWithAlphaComponent: ALPHA_BACKGROUND];
-    self.tick.alpha = ALPHA_BACKGROUND;
+    UIColor* color = [[UIColor blackColor] colorWithAlphaComponent: BACKGROUND_ALPHA];
+    self.tick.alpha = BACKGROUND_ALPHA;
     self.tick = [[SKSpriteNode alloc] initWithColor: color size: size];//CGSizeMake(0, size.height)];
     self.tick.position = CGPointMake(self.frame.size.width / 2, adjustedHeight + bottomOffset);
     self.tick.zPosition = ZFLOOR - 1;
@@ -141,48 +145,7 @@
     }];
 }
 
-- (void)DPNotePlayed:(DPNote*) note
-{
-    [self.playedSong addNote:note];
-    
-    //update label
-    float percentComplete = [self.game percentCompleteWith: self.playedSong];
-    self.gameLabel.text = [NSString stringWithFormat: @"%10.0f%%", percentComplete];
-
-    if (note.time <= 1.0) { //must be normalized
-        
-        //TODO: This logic should be handeled with drawDPNOT
-        DPNoteNode* node = [DPNoteNode noteNodeWithNote:note tolerance: self.game.difficulty onSide:SideRight animate:YES];
-                            
-        //Placing logic
-        //float x = 0 ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
-        float x = CGRectGetMidX(self.frame) + 3;
-        float y = (note.time * (SIZE_FACTOR * self.frame.size.height)) + (VERTICAL_OFFSET_FACTOR * self.frame.size.height);
-        
-        if (y > self.view.bounds.size.height * 0.5f) {
-            [node setPosition: CGPointMake(x, y)];
-            [self addChild:node];
-        }
-    }
-    else
-    {
-        [self endStrikes]; //After the song is over
-    }
-}
-
-- (void) drawDPNote: (DPNote*) note onSide: (NSInteger) side
-{
-    float adjustedHeight = SIZE_FACTOR * self.frame.size.height;
-    DPNoteNode* node = [DPNoteNode noteNodeWithNote:note tolerance:self.game.difficulty onSide: SideLeft animate:YES];
-                        
-    float x = !side ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame);
-    float y = adjustedHeight * (1 -[[node note] time]) + (VERTICAL_OFFSET_FACTOR* self.frame.size.height);
-    
-    [node setPosition: CGPointMake(x, y + (VERTICAL_OFFSET_FACTOR * self.frame.size.height))];
-    [self addChild:node];
-}
-
-- (void) endStrikes
+- (void) removeStrikes
 {
     [self enumerateChildNodesWithName:@"notenode" usingBlock:
      ^(SKNode *node,BOOL *stop) {
@@ -191,36 +154,86 @@
              [node removeFromParent];
          }
      }];
-    
+}
+
+-(void) removeTick
+{
     [self enumerateChildNodesWithName:@"ticknode" usingBlock:
      ^(SKNode *node,BOOL *stop) {
          [node removeFromParent];
      }];
 }
 
+#pragma mark - DPNoteNode
+
+//This could use a serious rewrite, I tried to consolidate the placement logic into a helper method but the code is still very convoluted.
+- (void) drawDPNote: (DPNote*) note onSide: (NSInteger) side
+{
+    DPNoteNode* node = [DPNoteNode noteNodeWithNote:note tolerance:self.game.difficulty onSide: SideLeft animate:YES];
+    [self placeNoteNode:node];
+}
+
+- (void)DPNotePlayed:(DPNote*) note
+{
+    if (note.time <= 1.0) { //1.0 representing percentage of song, must be normalized
+        
+        DPNoteNode* node = [DPNoteNode noteNodeWithNote:note tolerance: self.game.difficulty onSide:SideRight animate:YES];
+        [self placeNoteNode:node];
+    }
+    else{
+        [self removeTick];
+    }
+    
+    //update label
+    self.gameLabel.text = [NSString stringWithFormat: @"%10.0f%%", [self.game percentComplete]];
+}
+
+-(void)placeNoteNode:(DPNoteNode*) node //helper method for placing logic
+{
+    float x = node.side == SideLeft ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame) + 3;
+
+    float y;
+    if ([self.game isInProgress])
+        y = self.tick.position.y; //most acurate way to ensure tick displays at correct position
+    else{
+        float dividerHeight = SIZE_FACTOR * self.frame.size.height;
+        float bottomOffset = VERTICAL_OFFSET_FACTOR * self.frame.size.height;
+        y = (1 - node.note.time) * dividerHeight + bottomOffset;
+    }
+    
+    [node setPosition: CGPointMake(x, y)];
+    [self addChild:node];
+    [node drawNoteNodeWithReferenceSize:self.size.width];
+    
+    //Added game logic
+    [self.game addNoteNode:node]; //THIS IS CRUCIAL, game keeps track of nodes and notes for comparision
+}
+
 #pragma mark - Game notifications
 -(void)gameStarted: (NSNotification*) notification
 {
     [self gameReset:nil];
-    self.gameLabel.text = @"-";
+    self.gameLabel.text = @"";
 }
 
 -(void)gameReset: (NSNotification*) notification //when the ball leaves the screen
 {
-    [self endStrikes];
+    [self removeStrikes];
+    [self removeTick];
+    self.gameLabel.text = @"";
+
     [self startTick];
 }
 
 -(void)gameEnded: (NSNotification *) notification
 {
-    [self endStrikes];
+    [self removeTick];
 }
 
 #pragma mark - Game Status/ AlertView
 -(void)checkGameStatus
 {
-    if (!self.game.isComplete) {
-        [self.playedSong clearNotes];
+    if (![self.game isComplete]) {
         [self.game resetGame];
     }
     else{
@@ -231,16 +244,21 @@
 
 - (void)nextLevel: (UITapGestureRecognizer*)recognizer
 {
-//    if (recognizer) {
-//        [self.game endGame];
-//        [self clearGame];
-//    }
-//    else{
-//        [self.game resetGame];
-//    }
-}
--(void)clearGame{
-    [self.playedSong clearNotes];
+    CGPoint touchLocation = [recognizer locationInView:self.view];
+    touchLocation = [self convertPointFromView:touchLocation];
+    SKSpriteNode *touchedNode = (SKSpriteNode *)[self nodeAtPoint: touchLocation];
+    
+    if([[touchedNode name] isEqualToString:kGameLabel]) {
+        
+        if ([self.game isComplete]) {
+            [self.game endGame];
+            self.game = [[DPGame alloc]initWithSongNumber:++self.game.songNum andDifficulty:self.game.difficulty];
+            [self.game startGame]; 
+        }
+        else{
+            [self.game resetGame];
+        }
+    }
 }
 
 @end
