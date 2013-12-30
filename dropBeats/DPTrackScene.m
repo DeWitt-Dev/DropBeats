@@ -75,8 +75,8 @@ static NSString* const kGameLabel = @"gameLabelNode";
     for (DPNote* dpnote in [song getNotes])
     {
         double delayInSeconds = 0.2f * ++i;
-//        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(delayInSeconds, dispatch_get_main_queue(), ^(void){
+        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             
             [self drawDPNote:dpnote onSide:SideLeft];
         });
@@ -228,6 +228,7 @@ static NSString* const kGameLabel = @"gameLabelNode";
 -(void)gameEnded: (NSNotification *) notification
 {
     [self removeTick];
+    self.gameLabel.text = @"";
 }
 
 #pragma mark - Game Status/ AlertView
@@ -252,8 +253,8 @@ static NSString* const kGameLabel = @"gameLabelNode";
         
         if ([self.game isComplete]) {
             [self.game endGame];
-            self.game = [[DPGame alloc]initWithSongNumber:++self.game.songNum andDifficulty:self.game.difficulty];
-            [self.game startGame]; 
+            self.game = [[DPGame alloc]initWithSongNumber: ++self.game.songNum andDifficulty:self.game.difficulty];
+            [self displaySong:self.game.song];
         }
         else{
             [self.game resetGame];

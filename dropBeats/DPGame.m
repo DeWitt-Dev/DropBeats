@@ -38,7 +38,7 @@
 {
     if (self = [super init]) {
         self.song = song;
-        self.difficulty = kEasy;
+        self.difficulty = difficulty;
         [self commonInit];
     }
     return self;
@@ -46,8 +46,7 @@
 
 -(void)commonInit
 {
-#warning Partial Implemention - tolerance needs to be tuned
-    self.tolerance = (self.difficulty + 1.0)/ 5.0;
+    self.tolerance = (self.difficulty + 1.0)/ 10.0;
     self.songNodes = [[NSMutableArray alloc]initWithCapacity:10];
     self.userNodes = [[NSMutableArray alloc]initWithCapacity:10];
     self.usersSong = [[DPSong alloc] init];
@@ -75,8 +74,8 @@
         [self.songNodes count] : [self.userNodes count];
         
         if (count > 0) {
-            DPNoteNode* songNode = [self.songNodes objectAtIndex:0];
-            DPNoteNode* userNode = [self.userNodes objectAtIndex:0];
+            DPNoteNode* songNode = [self.songNodes objectAtIndex:count - 1];
+            DPNoteNode* userNode = [self.userNodes lastObject];
             
             if ([songNode.note isEqualToNote:userNode.note withTolerance:self.tolerance]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
@@ -90,6 +89,8 @@
 
 -(float)percentComplete
 {
+#warning Assumes notes are in chronological order. This is not necessarily a good assumption but checking every note would make this an O2...
+
     float fractionComplete = 0.0f;
     NSUInteger count = [[self.song getNotes]count] < [[self.usersSong getNotes]count] ?
     [[self.song getNotes]count] : [[self.usersSong getNotes]count];

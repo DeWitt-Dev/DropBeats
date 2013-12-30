@@ -29,21 +29,15 @@
 {
     if (self.type == note.type) {
         if (self.freq == note.freq) {
-            if (tolerance)
-            {
-                float sTime = [self time];
-                float uTime = [note time];
-                
-                float sTimeLow = sTime - tolerance;
-                float sTimeHigh = sTime + tolerance;
-                
-                if (sTimeLow <= uTime && uTime <= sTimeHigh)
-                {
-                    return YES;
-                }
 
-            }
-            else{
+            float sTime = [self time];
+            float uTime = [note time];
+            
+            float sTimeLow = sTime - tolerance/2.0;
+            float sTimeHigh = sTime + tolerance/2.0;
+            
+            if (sTimeLow <= uTime && uTime <= sTimeHigh)
+            {
                 return YES;
             }
         }

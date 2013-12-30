@@ -42,7 +42,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     self.skView.showsNodeCount = YES;
     self.skView.showsDrawCount = YES;
     
-    self.collectionView.backgroundColor = [UIColor whiteColor];
+    self.collectionView.backgroundColor = [UIColor clearColor];
     
     //TODO -should be custom graphic not text 
     [self.retryBack setImage:nil forState:UIControlStateNormal];
@@ -67,6 +67,12 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     }];
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.game endGame];
+}
+
 -(void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -83,6 +89,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     
     if (cell.panGesture == nil) {
         cell.panGesture = [[UIPanGestureRecognizer alloc]initWithTarget:self action:@selector(dragInstrument:)];
+        cell.panGesture.cancelsTouchesInView = NO;
         [cell addGestureRecognizer:cell.panGesture];
     }
     

@@ -40,6 +40,7 @@
 
 - (void) addNote: (DPNote*) note
 {
+    //[self.notes insertObject:note atIndex:0];
     [self.notes addObject:note];
 }
 
@@ -130,10 +131,9 @@
 + (NSMutableArray*) getSong4
 {
     NSMutableArray* array = [[NSMutableArray alloc] initWithCapacity:3];
-    
-    [array addObject: [DPNote DPNoteAtTime:0.3 freq:kLowFrequency type:kBass]];
     [array addObject: [DPNote DPNoteAtTime:0.1 freq:kLowFrequency type:kCymbol]];
     [array addObject: [DPNote DPNoteAtTime:0.2 freq:kMidFrequency type:kSnare]];
+    [array addObject: [DPNote DPNoteAtTime:0.3 freq:kLowFrequency type:kBass]];
     
     return [array copy];
 }
@@ -141,12 +141,11 @@
 + (NSMutableArray*) getSong5
 {
     NSMutableArray* array = [[NSMutableArray alloc] initWithCapacity:5];
-    
-    [array addObject: [DPNote DPNoteAtTime:0.7 freq:kMidFrequency type:kSnare]];
+    [array addObject: [DPNote DPNoteAtTime:0.1 freq:kLowFrequency type:kCymbol]];
     [array addObject: [DPNote DPNoteAtTime:0.2 freq:kLowFrequency type:kSnare]];
     [array addObject: [DPNote DPNoteAtTime:0.3 freq:kMidFrequency type:kCymbol]];
     [array addObject: [DPNote DPNoteAtTime:0.4 freq:kLowFrequency type:kBass]];
-    [array addObject: [DPNote DPNoteAtTime:0.1 freq:kLowFrequency type:kCymbol]];
+    [array addObject: [DPNote DPNoteAtTime:0.7 freq:kMidFrequency type:kSnare]];
     
     return [array copy];
 }

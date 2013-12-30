@@ -13,7 +13,7 @@
 {
     #define GRAVITY -2.5
     #define BALL_RESTITUTION 0.95f
-    #define MIN_COLLISIONIMPULSE 2.0
+    #define MIN_COLLISIONIMPULSE 1.0
     #define DELETE_VELOCITY 1000
     
     #define WIGGLE_REPEATS 2

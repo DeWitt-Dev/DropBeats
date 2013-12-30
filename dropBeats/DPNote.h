@@ -31,6 +31,6 @@ typedef enum {
 + (instancetype) DPNoteAtTime: (float) time freq: (FrequencyRange) freq type: (NoteType) type;
 - (id) initAtTime: (float) time freq: (FrequencyRange) freq type: (NoteType) type;
 
--(BOOL)isEqualToNote:(DPNote*) note withTolerance: (float) tolerance; //if tolerance is nil this method simply compares type and freq; 
+-(BOOL)isEqualToNote:(DPNote*) note withTolerance: (float) tolerance;
 
 @end
