@@ -40,6 +40,7 @@ static NSMutableArray *songs;
 }
 
 + (void) addSongJsonData: (NSMutableDictionary*) songData {
+    NSLog([songData description]);
     DPSong* song = [[DPSong alloc] initWithJsonData: songData];
     [song printSong];
     [self addSong: song];

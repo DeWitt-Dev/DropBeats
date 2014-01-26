@@ -50,7 +50,7 @@
     {
         noteType = kBass;
     }
-    else if ([@"cymbol" isEqualToString: nt])
+    else if ([@"cymbal" isEqualToString: nt])
     {
         noteType = kCymbol;
     }
@@ -94,9 +94,13 @@
     {
         freqRange = kHighFrequency;
     }
+    else if ([@"none" isEqualToString:fr])
+    {
+        
+    }
     else
     {
-        NSLog(@"Error parsing frequency range");
+        NSLog(@"Error parsing frequency range: %s", fr);
     }
     
     return freqRange;

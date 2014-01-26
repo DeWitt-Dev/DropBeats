@@ -19,7 +19,7 @@
     NSInteger tempo = -1;
     TimeSignature signature;
     NSMutableArray* measures = [[NSMutableArray alloc] init];
-    
+    song = [song objectForKey:@"song"];
     title = [song objectForKey: @"title"];
     level = [[song objectForKey: @"level"] integerValue];
     tempo = [[song objectForKey: @"tempo"] integerValue];
