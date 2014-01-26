@@ -8,20 +8,33 @@
 
 #import <Foundation/Foundation.h>
 #import "DPNote.h"
+#import "DPMeasure.h"
 
-@interface DPSong : NSObject
+@interface DPSong : NSObject <NSCoding>
 
-@property (nonatomic) float duration;
+typedef struct TimeSignatureStruct {
+    NSInteger beatsPerMeasure;
+    NSInteger beatValue;
+} TimeSignature;
 
-+ (DPSong*) getSong: (int) index andDuration: (float) duration;
-+(int)numberOfSongs;
+@property NSString *title;
+@property NSInteger level;
+@property NSInteger tempo;
+@property (nonatomic) NSUInteger duration; //in seconds
+@property TimeSignature signature;
+@property NSMutableArray* measures;
 
-- (NSArray*) getNotes;
+- (id) initWithJsonData: (NSMutableDictionary*) song;
 
-+ (instancetype) song;
-//+ (instancetype) songFromNotes: (NSMutableArray*) notesArray;
-- (void) addNote: (DPNote*) note;
-- (DPNote*) getNote: (NSInteger) index;
--(void)clearNotes;
+- (id)initWithTitle: (NSString*) title
+           andLevel: (NSInteger) level
+           andTempo: (NSInteger) tempo
+       andSignature: (TimeSignature) signature
+        andMeasures: (NSMutableArray*) measures;
+
+- (void) printSong;
+
+- (void) encodeWithCoder: (NSCoder *) encoder;
+- (id) initWithCoder: (NSCoder *) decoder;
 
 @end

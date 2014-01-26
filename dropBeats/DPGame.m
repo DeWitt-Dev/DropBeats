@@ -11,8 +11,9 @@
 
 @interface DPGame()
 
+//Using userNodes to compare to init song
+
 @property (strong, nonatomic, readwrite) DPSong* song;
-@property (strong, nonatomic) DPSong* usersSong;
 @property (strong, nonatomic) NSMutableArray* songNodes;
 @property (strong, nonatomic) NSMutableArray* userNodes;
 
@@ -22,22 +23,18 @@
 
 @implementation DPGame
 
--(id)initWithSongNumber:(int) songNum
+-(id)initWithSongNumber:(NSInteger) songNum andDifficulty: (Difficulty) difficulty
 {
     self.songNum = songNum;
-    return [self initWithSong: [DPSong getSong:songNum andDuration:10] andDifficulty:kEasy];
-}
-
--(id)initWithSongNumber:(int) songNum andDifficulty: (Difficulty) difficulty
-{
-    self.songNum = songNum;
-    return [self initWithSong: [DPSong getSong:songNum andDuration:10] andDifficulty: difficulty];
+    return [self initWithSong: [DPMusicFolder getSongByNumber: songNum] andDifficulty: difficulty];
 }
 
 -(id)initWithSong:(DPSong*) song andDifficulty: (Difficulty) difficulty;
 {
     if (self = [super init]) {
         self.song = song;
+        [self.song printSong];
+        
         self.difficulty = difficulty;
         [self commonInit];
     }
@@ -49,7 +46,6 @@
     self.tolerance = (self.difficulty + 1.0)/ 10.0;
     self.songNodes = [[NSMutableArray alloc]initWithCapacity:10];
     self.userNodes = [[NSMutableArray alloc]initWithCapacity:10];
-    self.usersSong = [[DPSong alloc] init];
 }
 
 -(void)addNoteNode: (DPNoteNode*) node
@@ -61,7 +57,6 @@
     else if (node.side == SideRight) //user node
     {
         [self.userNodes addObject:node];
-        [self.usersSong addNote:node.note];
         
         [self compareNodes];
     }
@@ -77,7 +72,7 @@
             DPNoteNode* songNode = [self.songNodes objectAtIndex:count - 1];
             DPNoteNode* userNode = [self.userNodes lastObject];
             
-            if ([songNode.note isEqualToNote:userNode.note withTolerance:self.tolerance]) {
+            if ([songNode.note isEqualToNote:userNode.note]) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     songNode.color = [UIColor greenColor];
                     userNode.color = [UIColor greenColor];
@@ -91,23 +86,24 @@
 {
 #warning Assumes notes are in chronological order. This is not necessarily a good assumption but checking every note would make this an O2...
 
-    float fractionComplete = 0.0f;
-    NSUInteger count = [[self.song getNotes]count] < [[self.usersSong getNotes]count] ?
-    [[self.song getNotes]count] : [[self.usersSong getNotes]count];
-    
-    for (int i = 0; i < count; i++)
-    {
-        DPNote* songNote = [[self.song getNotes] objectAtIndex:i];
-        DPNote* userNote = [[self.usersSong getNotes] objectAtIndex:i];
-
-        if ([songNote isEqualToNote:userNote withTolerance:self.tolerance]){
-                fractionComplete += 1.0/[[self.song getNotes]count];
-            }
-    }
-    
-    self.gameComplete = fractionComplete >= PERCENT_TO_WIN ? YES : NO;
-    
-    return fractionComplete * 100.0;
+//    float fractionComplete = 0.0f;
+//    NSUInteger count = [[self.song getNotes]count] < [[self.usersSong getNotes]count] ?
+//    [[self.song getNotes]count] : [[self.usersSong getNotes]count];
+//    
+//    for (int i = 0; i < count; i++)
+//    {
+//        DPNote* songNote = [[self.song getNotes] objectAtIndex:i];
+//        DPNote* userNote = [[self.usersSong getNotes] objectAtIndex:i];
+//
+//        if ([songNote isEqualToNote:userNote withTolerance:self.tolerance]){
+//                fractionComplete += 1.0/[[self.song getNotes]count];
+//            }
+//    }
+//    
+//    self.gameComplete = fractionComplete >= PERCENT_TO_WIN ? YES : NO;
+//    
+//    return fractionComplete * 100.0;
+    return 0;
 }
 
 #pragma mark - Game Notifications
@@ -138,7 +134,6 @@
     self.gameComplete = NO;
     
     [self.userNodes removeAllObjects];
-    [self.usersSong clearNotes];
     
     self.startDate = [NSDate date];
     

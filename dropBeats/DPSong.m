@@ -8,145 +8,82 @@
 
 #import "DPSong.h"
 #import "DPNote.h"
-
-@interface DPSong()
-
-@property (nonatomic, strong) NSMutableArray* notes;
-
-@end
+#import "DPMeasure.h"
 
 @implementation DPSong
 
-//+ (instancetype) songFromNotes: (NSMutableArray*) notesArray
-//{
-//    [self song];
-//    self.notes = notesArray;
-//    
-//    return [self alloc];
-//}
-
-+ (instancetype) song
+- (id) initWithJsonData:(NSMutableDictionary *) song
 {
-    return [[self alloc] init];
-}
-
--(NSMutableArray*)notes
-{
-    if (!_notes) {
-        _notes = [[NSMutableArray alloc]initWithCapacity:10];
-    }
-    return _notes;
-}
-
-- (void) addNote: (DPNote*) note
-{
-    //[self.notes insertObject:note atIndex:0];
-    [self.notes addObject:note];
-}
-
-- (DPNote*) getNote: (NSInteger) index
-{
-    return [self.notes objectAtIndex:index];
-}
-
-- (NSArray*) getNotes
-{
-    return [self.notes copy];
-}
-
--(void)clearNotes
-{
-    self.notes = nil;
-}
-
-#pragma mark - class Methods
-+(int)numberOfSongs
-{
-    return 5;
-}
-
-+ (DPSong*) getSong: (int) index andDuration: (float) duration
-{
-    DPSong *song = [[DPSong alloc]init];
-    song.duration = duration;
+    NSString* title;
+    NSInteger level = -1;
+    NSInteger tempo = -1;
+    TimeSignature signature;
+    NSMutableArray* measures = [[NSMutableArray alloc] init];
     
-    switch (index) {
-        case 1:
-            song.notes = [DPSong getSong1];
-            break;
-        case 2:
-            song.notes = [DPSong getSong2];
-            break;
-        case 3:
-            song.notes = [DPSong getSong3];
-            break;
-        case 4:
-            song.notes = [DPSong getSong4];
-            break;
-        case 5:
-            song.notes = [DPSong getSong5];
-            break;
-        default:
-            break;
+    title = [song objectForKey: @"title"];
+    level = [[song objectForKey: @"level"] integerValue];
+    tempo = [[song objectForKey: @"tempo"] integerValue];
+    signature.beatsPerMeasure = [[[song objectForKey: @"signature"] objectForKey: @"beatsPerMeasure"] integerValue];
+    signature.beatValue= [[[song objectForKey: @"signature"] objectForKey: @"beatValue"] integerValue];
+    
+    for (NSMutableDictionary *measure in [song objectForKey:@"measures"])
+    {
+        [measures addObject:[[DPMeasure alloc] initWithJsonData: measure]];
     }
     
-    return song;
+    return [self initWithTitle:title andLevel:level andTempo:tempo andSignature:signature andMeasures:measures];
 }
 
-+ (NSMutableArray*) getSong1
+
+- (id) initWithTitle:(NSString *)title andLevel:(NSInteger)level andTempo:(NSInteger)tempo andSignature:(TimeSignature)signature andMeasures: (NSMutableArray*) measures
 {
-    NSMutableArray* array = [[NSMutableArray alloc] initWithCapacity:5];
+    self = [super init];
+    self.title = title;
+    self.level = level;
+    self.tempo = tempo;
+    self.signature = signature;
+    self.measures = measures;
     
-    [array addObject: [DPNote DPNoteAtTime:0.2 freq:kMidFrequency type:kSnare]];
-    [array addObject: [DPNote DPNoteAtTime:0.4 freq:kLowFrequency type:kSnare]];
-    [array addObject: [DPNote DPNoteAtTime:0.5 freq:kMidFrequency type:kCymbol]];
-    [array addObject: [DPNote DPNoteAtTime:0.6 freq:kLowFrequency type:kBass]];
-    [array addObject: [DPNote DPNoteAtTime:0.7 freq:kLowFrequency type:kCymbol]];
-    
-    return [array copy];
+    return self;
 }
 
-+ (NSMutableArray*) getSong2
-{
-    NSMutableArray* array = [[NSMutableArray alloc] initWithCapacity:3];
-    
-    [array addObject: [DPNote DPNoteAtTime:0.1 freq:kLowFrequency type:kBass]];
-    [array addObject: [DPNote DPNoteAtTime:0.3 freq:kLowFrequency type:kCymbol]];
-    [array addObject: [DPNote DPNoteAtTime:0.5 freq:kMidFrequency type:kSnare]];
-   
-    return [array copy];
+- (void) encodeWithCoder: (NSCoder *) encoder {
+    TimeSignature sig;
+    [encoder encodeObject:self.title forKey:@"title"];
+    [encoder encodeInteger:self.level forKey:@"level"];
+    [encoder encodeInteger:self.tempo forKey:@"tempo"];
+    [encoder encodeInt:self.signature.beatsPerMeasure forKey:@"bpm"];
+    [encoder encodeInt:self.signature.beatValue forKey:@"bv"];
+    [encoder encodeObject:self.measures forKey:@"measures"];
 }
 
-+ (NSMutableArray*) getSong3
-{
-    NSMutableArray* array = [[NSMutableArray alloc] initWithCapacity:1];
-    
-    [array addObject: [DPNote DPNoteAtTime:0.1 freq:kMidFrequency type:kSnare]];
-    [array addObject: [DPNote DPNoteAtTime:0.3 freq:kMidFrequency type:kBass]];
-    [array addObject: [DPNote DPNoteAtTime:0.7 freq:kMidFrequency type:kBass]];
-    
-    return [array copy];
+- (id) initWithCoder: (NSCoder *) decoder {
+    TimeSignature sig;
+    NSString* title = [decoder decodeObjectForKey:@"title"];
+    NSInteger level = [decoder decodeIntegerForKey:@"level"];
+    NSInteger tempo = [decoder decodeIntegerForKey:@"tempo"];
+    NSMutableArray* measures = [decoder decodeObjectForKey:@"measures"];
+    sig.beatsPerMeasure = [decoder decodeIntForKey:@"bmp"];
+    sig.beatValue = [decoder decodeIntForKey:@"bv"];
+    return [self initWithTitle:title andLevel:level andTempo:tempo andSignature:sig andMeasures:measures];
 }
 
-+ (NSMutableArray*) getSong4
+-(NSUInteger)duration
 {
-    NSMutableArray* array = [[NSMutableArray alloc] initWithCapacity:3];
-    [array addObject: [DPNote DPNoteAtTime:0.1 freq:kLowFrequency type:kCymbol]];
-    [array addObject: [DPNote DPNoteAtTime:0.2 freq:kMidFrequency type:kSnare]];
-    [array addObject: [DPNote DPNoteAtTime:0.3 freq:kLowFrequency type:kBass]];
-    
-    return [array copy];
+   return ([self.measures count] * self.signature.beatsPerMeasure*60)/self.tempo;
 }
 
-+ (NSMutableArray*) getSong5
+- (void) printSong
 {
-    NSMutableArray* array = [[NSMutableArray alloc] initWithCapacity:5];
-    [array addObject: [DPNote DPNoteAtTime:0.1 freq:kLowFrequency type:kCymbol]];
-    [array addObject: [DPNote DPNoteAtTime:0.2 freq:kLowFrequency type:kSnare]];
-    [array addObject: [DPNote DPNoteAtTime:0.3 freq:kMidFrequency type:kCymbol]];
-    [array addObject: [DPNote DPNoteAtTime:0.4 freq:kLowFrequency type:kBass]];
-    [array addObject: [DPNote DPNoteAtTime:0.7 freq:kMidFrequency type:kSnare]];
+    NSLog(@"Title: %@", self.title);
+    NSLog(@"Level: %d", self.level);
+    NSLog(@"Tempo: %d", self.tempo);
     
-    return [array copy];
+    for (DPMeasure *measure in self.measures)
+    {
+        [measure printMeasure];
+    }
+    
 }
+
 @end

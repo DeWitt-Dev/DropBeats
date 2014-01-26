@@ -97,7 +97,7 @@ static const uint32_t floorCategory = 0x1 << 1;
     self.stanzaNode.zPosition = ZFLOOR-1;
     self.stanzaNode.name = kStanzaNode;
     
-    CGPoint position = CGPointMake((self.frame.size.width - self.stanzaNode.size.width)/2, .9 * self.frame.size.height);
+    CGPoint position = CGPointMake((self.frame.size.width - self.stanzaNode.size.width)/2, .92 * self.frame.size.height);
     self.stanzaNode.position = position;
     
     [self addChild:self.stanzaNode];
@@ -123,13 +123,8 @@ static const uint32_t floorCategory = 0x1 << 1;
     
     if (contact.collisionImpulse >= MIN_COLLISIONIMPULSE) {
         [instrumentNode playInstrument];
-        
-        float time = -[self.game.startDate timeIntervalSinceNow] / (self.game.song.duration);
                 
-        DPNote* note = [DPNote DPNoteAtTime:time
-                                       freq:[instrumentNode.note freq]
-                                           type:instrumentNode.instrumentNoteIndex];
-        [self DPNotePlayed:note];
+        [self DPNotePlayed:instrumentNode.note];
     }
 }
 

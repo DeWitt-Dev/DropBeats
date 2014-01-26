@@ -22,19 +22,19 @@
 
 @implementation DPNoteNode : SKSpriteNode
 
-+ (instancetype) noteNodeWithNote: (DPNote*) note tolerance: (CGFloat) tolerance onSide:(Side) side animate: (BOOL) animate
++ (instancetype) noteNodeWithNote: (DPNote*) note time: (float) time difficulty: (Difficulty) difficulty onSide:(Side) side animate: (BOOL) animate
 {
-    return [[self alloc] initWithNote:note tolerance:tolerance onSide:side animate:animate];
+    return [[self alloc] initWithNote:note time:time difficulty:difficulty onSide:side animate:animate];
 }
 
-- (id) initWithNote: (DPNote*) note tolerance: (CGFloat) tolerance onSide:(Side) side animate: (BOOL) animate
+- (id) initWithNote: (DPNote*) note time: (float) time difficulty: (Difficulty) difficulty onSide:(Side) side animate: (BOOL) animate
 {
     
     if (self = [super init])
     {
         self.side = side;
         self.note = note;
-        self.tolerance = tolerance;
+        self.tolerance = difficulty;
         self.animate = animate;
         [self resetNodeColor];
     }

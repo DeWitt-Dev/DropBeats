@@ -56,6 +56,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(gameStateChanged:) name:gameEndNotification object:nil];
     
+    
     // Create and configure the instrumentScene
     CGSize collectionViewCellSize = IS_IPAD ? CGSizeMake(140,140) : CGSizeMake(100,100);
     self.skScene = [[DPInstrumentScene alloc] initWithSize:self.skView.bounds.size game:self.game andInstrumentSize: collectionViewCellSize];

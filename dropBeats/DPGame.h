@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DPSong.h"
+#import "DPMusicFolder.h"
 
 @class DPNoteNode;
 
@@ -38,8 +38,7 @@ static NSString* const gameEndNotification = @"gameEnded";
 @property (strong, nonatomic) NSDate* startDate;
 
 //designated init
--(id)initWithSongNumber:(int) songNum;
--(id)initWithSongNumber:(int) songNum andDifficulty: (Difficulty) difficulty;
+-(id)initWithSongNumber:(NSInteger) songNum andDifficulty: (Difficulty) difficulty;
 -(id)initWithSong:(DPSong*) song andDifficulty: (Difficulty) difficulty;
 
 -(void)addNoteNode: (DPNoteNode*) node;

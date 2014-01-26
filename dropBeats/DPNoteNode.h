@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <SpriteKit/SpriteKit.h>
 #import "DPNote.h"
+#import "DPGame.h"
 
 @interface DPNoteNode : SKSpriteNode
 
@@ -21,10 +22,14 @@ typedef enum{
 @property (weak, nonatomic) DPNote* note;
 @property (nonatomic) CGFloat tolerance;
 @property (nonatomic) Side side;
+@property (nonatomic) float time;
+
 @property (nonatomic) BOOL animate; 
 
-+ (instancetype) noteNodeWithNote: (DPNote*) note tolerance: (CGFloat) tolerance onSide:(Side) side animate: (BOOL) animate;
++ (instancetype) noteNodeWithNote: (DPNote*) note time: (float) time difficulty: (Difficulty) difficulty onSide:(Side) side animate: (BOOL) animate;
+
 - (void) drawNoteNodeWithReferenceSize: (float) viewWidth;
+
 -(UIColor*)resetNodeColor;
 
 @end

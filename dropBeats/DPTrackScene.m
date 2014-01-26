@@ -63,23 +63,37 @@ static NSString* const kGameLabel = @"gameLabelNode";
         
         //Background Notes
         [self drawDivider];
-        [self displaySong: self.game.song];
+        [self displayNoteNodes: self.game.song];
         
         self.sceneCreated = YES;
     }
 }
 
-- (void) displaySong: (DPSong*) song
+- (void) displayNoteNodes: (DPSong*) song
 {
-    int i = 0;
-    for (DPNote* dpnote in [song getNotes])
+    float songLength = song.duration;
+
+    for (int mNum=0 ; mNum < [song.measures count]; mNum++)
     {
-        double delayInSeconds = 0.2f * ++i;
-        dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-        dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        DPMeasure* measure = song.measures[mNum];
+
+        for (int noteNum=0; noteNum < song.signature.beatsPerMeasure; noteNum++) {
             
-            [self drawDPNote:dpnote onSide:SideLeft];
-        });
+//            double delayInSeconds = 0.2f * ++mNum;
+//            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
+//            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+            
+#warning Do we know what we're doing here?
+            
+            DPNote* note = [measure.notes objectAtIndex:noteNum];
+            if (note.type != kRest) {
+                float time = (mNum*song.signature.beatsPerMeasure+ noteNum)/songLength;
+                
+                DPNoteNode* node =[DPNoteNode noteNodeWithNote:note time:time difficulty:self.game.difficulty onSide:SideLeft animate:YES];
+                [self placeNoteNode:node];
+                }
+//            });
+        }
     }
 }
 
@@ -166,18 +180,13 @@ static NSString* const kGameLabel = @"gameLabelNode";
 
 #pragma mark - DPNoteNode
 
-//This could use a serious rewrite, I tried to consolidate the placement logic into a helper method but the code is still very convoluted.
-- (void) drawDPNote: (DPNote*) note onSide: (NSInteger) side
-{
-    DPNoteNode* node = [DPNoteNode noteNodeWithNote:note tolerance:self.game.difficulty onSide: SideLeft animate:YES];
-    [self placeNoteNode:node];
-}
-
 - (void)DPNotePlayed:(DPNote*) note
 {
-    if (note.time <= 1.0) { //1.0 representing percentage of song, must be normalized
+    float time = -[self.game.startDate timeIntervalSinceNow] / (self.game.song.duration);
+    
+    if (time <= 1.0) { //1.0 representing percentage of song, must be normalized
         
-        DPNoteNode* node = [DPNoteNode noteNodeWithNote:note tolerance: self.game.difficulty onSide:SideRight animate:YES];
+        DPNoteNode* node = [DPNoteNode noteNodeWithNote:note time:time difficulty:self.game.difficulty onSide:SideRight animate:YES];
         [self placeNoteNode:node];
     }
     else{
@@ -198,7 +207,7 @@ static NSString* const kGameLabel = @"gameLabelNode";
     else{
         float dividerHeight = SIZE_FACTOR * self.frame.size.height;
         float bottomOffset = VERTICAL_OFFSET_FACTOR * self.frame.size.height;
-        y = (1 - node.note.time) * dividerHeight + bottomOffset;
+        y = (1 - node.time) * dividerHeight + bottomOffset;
     }
     
     [node setPosition: CGPointMake(x, y)];
@@ -254,7 +263,7 @@ static NSString* const kGameLabel = @"gameLabelNode";
         if ([self.game isComplete]) {
             [self.game endGame];
             self.game = [[DPGame alloc]initWithSongNumber: ++self.game.songNum andDifficulty:self.game.difficulty];
-            [self displaySong:self.game.song];
+            [self displayNoteNodes:self.game.song];
         }
         else{
             [self.game resetGame];

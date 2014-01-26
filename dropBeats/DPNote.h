@@ -8,13 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DPNote : NSObject
+@interface DPNote : NSObject <NSCoding>
 
 typedef enum {
-    kCymbol,
-    kSnare,
     kBass,
+    kCymbol,
     kGuitar,
+    kRest,
+    kSnare,
     kStrike
 } NoteType;
 
@@ -24,13 +25,18 @@ typedef enum {
     kHighFrequency
 } FrequencyRange;
 
-@property (nonatomic) float time;
+@property (nonatomic) NSInteger length;
 @property (nonatomic) FrequencyRange freq;
 @property (nonatomic) NoteType type;
 
-+ (instancetype) DPNoteAtTime: (float) time freq: (FrequencyRange) freq type: (NoteType) type;
-- (id) initAtTime: (float) time freq: (FrequencyRange) freq type: (NoteType) type;
+- (id) initWithJsonData: (NSMutableDictionary*) note;
+- (id) initWithType: (NoteType) type andFreq: (FrequencyRange) freq andLength: (NSInteger) length;
 
--(BOOL)isEqualToNote:(DPNote*) note withTolerance: (float) tolerance;
+-(BOOL)isEqualToNote:(DPNote*) note;
+
+- (void) printNote;
+
+- (void) encodeWithCoder: (NSCoder *) encoder;
+- (id) initWithCoder: (NSCoder *) decoder;
 
 @end

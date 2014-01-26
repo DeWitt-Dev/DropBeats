@@ -10,6 +10,8 @@
 #import "DPGameViewController.h"
 #import "LevelCollectionViewCell.h"
 #import "DPGame.h"
+#import "DPMusicFolder.h"
+#import "DPUpdater.h"
 
 @interface DPMenuViewController ()<UICollectionViewDelegate, UICollectionViewDataSource>
 
@@ -33,6 +35,15 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     self.levelCollectionView.backgroundColor = [UIColor clearColor];
+    
+    //Update song Notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(networkUpdate:) name:songsUpdateNotification object:nil];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,15 +55,21 @@
 }
 
 #pragma mark - MenuCollectionView
+-(void)networkUpdate:(NSNotification*)notificaiton
+{
+    [self.levelCollectionView reloadData];
+}
+
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [DPSong numberOfSongs]; //number of levels
+    return [DPMusicFolder numberOfSongs]; //number of levels
 }
+
 -(UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     LevelCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LevelCell" forIndexPath:indexPath];
     
-    DPGame* game = [[DPGame alloc]initWithSongNumber:(int) indexPath.row + 1];
+    DPGame* game = [[DPGame alloc]initWithSongNumber:(int) indexPath.row + 1 andDifficulty:kEasy];
     [cell prepareSceneWithGame:game];
     
     return cell;

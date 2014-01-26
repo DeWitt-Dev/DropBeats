@@ -39,7 +39,6 @@ static NSMutableDictionary* instrumentAnimations;
     if (self = [super initWithTexture:texture]) {
         
         self.name = kInstrumentNode;
-        self.instrumentNoteIndex = index;
         [self setSize:size];
         [self updatePhysicsBody];
         

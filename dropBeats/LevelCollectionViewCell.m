@@ -34,7 +34,7 @@
         
         // Present the scene.
         [self.levelView presentScene:self.levelScene];
-        }
+    }
 }
 
 /*
