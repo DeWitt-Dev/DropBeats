@@ -36,6 +36,7 @@
         self.note = note;
         self.tolerance = difficulty;
         self.animate = animate;
+        self.time = time;
         [self resetNodeColor];
     }
     
