@@ -88,8 +88,6 @@ static NSString* const kGameLabel = @"gameLabelNode";
             DPNote* note = [measure.notes objectAtIndex:noteNum];
             if (note.type != kRest) {
                 float time = (((mNum * song.signature.beatsPerMeasure) + noteNum)*60)/song.tempo;
-                //float time = (((mNum*song.signature.beatsPerMeasure+ noteNum))/song.tempo)/songLength;
-                NSLog(@"time: %f percent: %f songLength: %f", time, time/songLength, songLength);
                 
                 DPNoteNode* node =[DPNoteNode noteNodeWithNote:note time:time/songLength
                                                     difficulty:self.game.difficulty onSide:SideLeft animate:YES];

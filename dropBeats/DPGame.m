@@ -33,7 +33,7 @@
 {
     if (self = [super init]) {
         self.song = song;
-        [self.song printSong];
+        //[self.song printSong];
         
         self.difficulty = difficulty;
         [self commonInit];

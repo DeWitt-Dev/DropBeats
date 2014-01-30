@@ -40,9 +40,9 @@ static NSMutableArray *songs;
 }
 
 + (void) addSongJsonData: (NSMutableDictionary*) songData {
-    NSLog([songData description]);
+    //NSLog([songData description]);
     DPSong* song = [[DPSong alloc] initWithJsonData: songData];
-    [song printSong];
+    //[song printSong];
     [self addSong: song];
 }
 
@@ -76,6 +76,15 @@ static NSMutableArray *songs;
     } else {
         array = [[NSMutableArray alloc] initWithCapacity:20];
     }
+    NSLog(@"loadSongs");
+    if ([array count] > 0) {
+      NSLog([array description]);
+        NSLog(@"---");
+        [[array objectAtIndex:0] printSong];
+        NSLog(@"---");
+    }
+    
+    
     return array;
 }
 
