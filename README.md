@@ -1,11 +1,14 @@
 DropBeats
 =========
 
-DropBeats is a SpriteKit based physics drumbeat game created at Cal Poly Hackathon: 
+DropBeats is a SpriteKit-based drumbeat game created at a Cal Poly Hackathon: 
 
+[WISH iOS Challenge](http://sloiac.challengepost.com/submissions/18226-dropbeat "")
 
-Use the help of gravity to bounce a ball off drums and match the timing of the beat. 
-Fun animations, brain teasing levels, and beautiful graphics produce a unique game experience.
+## Description
+
+Use gravity to bounce a ball off drums and cymbals to match the beat. 
+Fun animations, challenging levels, and beautiful graphics produce a unique game experience.
 
 ![Alt text](/DropBeatsScreenShot.png?raw=true "Level 1")
 
