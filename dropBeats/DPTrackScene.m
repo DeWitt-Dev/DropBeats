@@ -13,6 +13,7 @@
 
 @interface DPTrackScene()
 {
+    //Would be contants, but depends on device
     float VERTICAL_OFFSET_FACTOR;
     float SIZE_FACTOR;
 }
@@ -180,7 +181,7 @@ static NSString* const kGameLabel = @"gameLabelNode";
 
 #pragma mark - DPNoteNode
 
-- (void)DPNotePlayed:(DPNote*) note
+- (void)notePlayed:(DPNote*) note
 {
     float time = -[self.game.startDate timeIntervalSinceNow] / (self.game.song.duration);
     
@@ -199,26 +200,31 @@ static NSString* const kGameLabel = @"gameLabelNode";
 
 -(void)placeNoteNode:(DPNoteNode*) node //helper method for placing logic
 {
-    float x = node.side == SideLeft ? CGRectGetMidX(self.frame) - [node size].width : CGRectGetMidX(self.frame) + 3;
+    float x = (node.side == SideLeft) ? CGRectGetMidX(self.frame) - node.size.width : CGRectGetMidX(self.frame) + 3;
 
     float y;
-    if ([self.game isInProgress])
+    if ([self.game isInProgress]) {
         y = self.tick.position.y; //most acurate way to ensure tick displays at correct position
-    else{
+    }
+    else {
         float dividerHeight = SIZE_FACTOR * self.frame.size.height;
         float bottomOffset = VERTICAL_OFFSET_FACTOR * self.frame.size.height;
         y = (1 - node.time) * dividerHeight + bottomOffset;
     }
     
-    [node setPosition: CGPointMake(x, y)];
     [self addChild:node];
-    [node drawNoteNodeWithReferenceSize:self.size.width];
     
-    //Added game logic
-    [self.game addNoteNode:node]; //THIS IS CRUCIAL, game keeps track of nodes and notes for comparision
+    //Height adjustment
+    float nodeHeight = [node drawNoteNodeWithReferenceSize:self.size.width];
+    y -= nodeHeight/2;
+    [node setPosition:CGPointMake(x, y)];
+
+    //THIS IS CRUCIAL, game keeps track of nodes and notes for comparision
+    [self.game addNoteNode:node];
 }
 
 #pragma mark - Game notifications
+
 -(void)gameStarted: (NSNotification*) notification
 {
     [self gameReset:nil];
@@ -241,6 +247,7 @@ static NSString* const kGameLabel = @"gameLabelNode";
 }
 
 #pragma mark - Game Status/ AlertView
+
 -(void)checkGameStatus
 {
     if (![self.game isComplete]) {

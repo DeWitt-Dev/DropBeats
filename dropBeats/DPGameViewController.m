@@ -103,6 +103,8 @@
     [self.skScene createInstrument:indexPath.row AtLocation: DEFAULT_LOCATION];
 }
 
+#pragma mark - Instrument Panel
+
 - (void)dragInstrument:(UIPanGestureRecognizer *)sender {
 
     InstrumentCell* cell = (InstrumentCell*)sender.view;
@@ -187,6 +189,9 @@
 //        [sender setTranslation:CGPointZero inView:sender.view];
     }
 }
+
+#pragma mark - Game Notifications
+
 - (IBAction)resetGame:(UIButton *)sender {
     
     if ([self.game isInProgress]) {

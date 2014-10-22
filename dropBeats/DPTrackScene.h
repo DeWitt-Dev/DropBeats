@@ -26,7 +26,7 @@
 //designated initilizer
 -(id)initWithSize:(CGSize)size game: (DPGame*) game;
 
-- (void)DPNotePlayed:(DPNote*) note; //user Note
+- (void)notePlayed:(DPNote*) note; //user Note
 - (void)checkGameStatus;
 
 -(void)gameStarted: (NSNotification*) notification;

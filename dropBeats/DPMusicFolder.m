@@ -76,14 +76,14 @@ static NSMutableArray *songs;
     } else {
         array = [[NSMutableArray alloc] initWithCapacity:20];
     }
-    NSLog(@"loadSongs");
-    if ([array count] > 0) {
-      NSLog(@"%@", [array description]);
-        NSLog(@"---");
-        [[array objectAtIndex:0] printSong];
-        NSLog(@"---");
-    }
     
+//    NSLog(@"loadSongs");
+//    if ([array count] > 0) {
+//      NSLog(@"%@", [array description]);
+//        NSLog(@"---");
+//        [[array objectAtIndex:0] printSong];
+//        NSLog(@"---");
+//    }
     
     return array;
 }

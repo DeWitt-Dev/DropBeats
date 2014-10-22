@@ -15,11 +15,11 @@ typedef void (^DPSceneCompletionHandler)(void);
 -(id)initWithSize:(CGSize)size game: (DPGame*) game andInstrumentSize: (CGSize) instrumentSize;
 +(void)loadEverythingYouCanWithCompletionHandeler: (DPSceneCompletionHandler) handler;
 
--(void) createBall;
--(void) dropBall; 
--(void) createInstrument: (NSInteger) index AtLocation: (CGPoint) location;
+-(void)createBall;
+-(void)dropBall;
+-(void)createInstrument:(NSInteger)index AtLocation:(CGPoint)location;
 -(void)clearGame;
 
--(void)handlePan:(UIPanGestureRecognizer*)recognizer; //recieved from collectionVeiw
+-(void)handlePan:(UIPanGestureRecognizer*)recognizer; //recieved from collectionView
 
 @end

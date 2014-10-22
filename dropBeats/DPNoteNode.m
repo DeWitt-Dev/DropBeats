@@ -67,7 +67,7 @@
     return instrumentColor;
 }
 
-- (void) drawNoteNodeWithReferenceSize: (float) viewWidth
+- (float)drawNoteNodeWithReferenceSize:(float)viewWidth
 {
     viewWidth /= 2.0; //only drawing notes on half the view
     
@@ -88,7 +88,6 @@
             break;
     }
     height = (int)((1.0 + self.tolerance) * (viewWidth * HEIGHT_TOLERANCE_SCALE));
-//    NSLog(@"NodeWidth %f", width);
 
     CGSize size = CGSizeMake(width, height); //final size
     if (self.side == SideLeft) {
@@ -116,6 +115,8 @@
     else{
         self.size = size;
     }
+    
+    return height;
 }
 
 @end

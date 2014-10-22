@@ -13,7 +13,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
     [[DPUpdater sharedClient] updateSongs];
     
     return YES;

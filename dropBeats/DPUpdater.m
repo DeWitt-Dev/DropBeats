@@ -36,7 +36,9 @@ NSString * const kSongsUpdateNotification = @"songUpdate";
                                     error:&error]];
                
                [[NSNotificationCenter defaultCenter] postNotificationName: kSongsUpdateNotification object:nil];
-               [DPMusicFolder saveSongs];
+               
+               //FIXME: Saving currently fails to load songs
+//               [DPMusicFolder saveSongs];
            }
            onFailure:^(NSError* error){
                NSLog(@"Failure");

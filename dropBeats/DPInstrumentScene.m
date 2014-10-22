@@ -63,7 +63,6 @@ static const uint32_t floorCategory = 0x1 << 1;
     {
         [super didMoveToView:view];
         
-        /* Setup your scene here */
         self.physicsWorld.gravity = CGVectorMake(0, GRAVITY);
         self.physicsWorld.contactDelegate = self;
         self.sceneCreated = YES;
@@ -104,30 +103,6 @@ static const uint32_t floorCategory = 0x1 << 1;
     self.ballStart = CGPointMake(self.view.frame.size.width/2, self.stanzaNode.position.y+self.stanzaNode.size.height/2);
 }
 
-#pragma mark - Collision Dection
-
-- (void)didBeginContact:(SKPhysicsContact *)contact
-{
-    SKSpriteNode *ballNode;
-    InstrumentNode *instrumentNode;
-    
-    if ([contact.bodyA.node isKindOfClass:[InstrumentNode class]]) {
-        
-        instrumentNode = (InstrumentNode *)contact.bodyA.node;
-        ballNode = (SKSpriteNode *) contact.bodyB.node;
-    }
-    else if ([contact.bodyB.node isKindOfClass:[InstrumentNode class]])
-    {
-        instrumentNode = (InstrumentNode *)contact.bodyB.node;
-        ballNode = (SKSpriteNode *) contact.bodyA.node;
-    }
-    
-    if (contact.collisionImpulse >= MIN_COLLISIONIMPULSE) {
-        [instrumentNode playInstrument];
-        [self DPNotePlayed:instrumentNode.note];
-    }
-}
-
 -(void) createInstrument: (NSInteger) index AtLocation: (CGPoint) location
 {
     SKSpriteNode *tonePad = [[InstrumentNode alloc]initWithInstrumentIndex:index andSize:self.startingInstrumentSize];
@@ -146,7 +121,7 @@ static const uint32_t floorCategory = 0x1 << 1;
 {
     [self enumerateChildNodesWithName:kBallNode usingBlock:
      ^(SKNode *node,BOOL *stop) {
-            [node removeFromParent]; //ensures only one ball at a time
+         [node removeFromParent]; //ensures only one ball at a time
      }];
     
     self.ballNode = [[SKSpriteNode alloc] initWithImageNamed:@"Ball"];
@@ -204,6 +179,31 @@ static const uint32_t floorCategory = 0x1 << 1;
          [self wiggleNode: node];
          [node runAction:sequence];
      }];
+}
+
+
+#pragma mark - SKSceneDelegaet
+
+- (void)didBeginContact:(SKPhysicsContact *)contact
+{
+    SKSpriteNode *ballNode;
+    InstrumentNode *instrumentNode;
+    
+    if ([contact.bodyA.node isKindOfClass:[InstrumentNode class]]) {
+        
+        instrumentNode = (InstrumentNode *)contact.bodyA.node;
+        ballNode = (SKSpriteNode *) contact.bodyB.node;
+    }
+    else if ([contact.bodyB.node isKindOfClass:[InstrumentNode class]])
+    {
+        instrumentNode = (InstrumentNode *)contact.bodyB.node;
+        ballNode = (SKSpriteNode *) contact.bodyA.node;
+    }
+    
+    if (contact.collisionImpulse >= MIN_COLLISIONIMPULSE) {
+        [instrumentNode playInstrument];
+        [self notePlayed:instrumentNode.note];
+    }
 }
 
 -(void)didSimulatePhysics

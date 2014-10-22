@@ -28,7 +28,8 @@ typedef enum{
 
 + (instancetype) noteNodeWithNote: (DPNote*) note time: (float) time difficulty: (Difficulty) difficulty onSide:(Side) side animate: (BOOL) animate;
 
-- (void) drawNoteNodeWithReferenceSize: (float) viewWidth;
+//Returns hight of node
+- (float)drawNoteNodeWithReferenceSize: (float) viewWidth;
 
 -(UIColor*)resetNodeColor;
 
