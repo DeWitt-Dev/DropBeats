@@ -7,7 +7,7 @@
 //
 
 #import "DPInstrumentScene.h"
-#import "InstrumentNode.h"
+#import "DBInstrumentNode.h"
 
 @interface DPInstrumentScene() <SKPhysicsContactDelegate, UIGestureRecognizerDelegate>
 {
@@ -39,7 +39,7 @@ static const uint32_t floorCategory = 0x1 << 1;
 + (void)loadEverythingYouCanWithCompletionHandeler:(DPSceneCompletionHandler)handler
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)    , ^{
-       [InstrumentNode loadActions];
+       [DBInstrumentNode loadActions];
         
         if (handler) {
            dispatch_sync(dispatch_get_main_queue(), handler);
@@ -103,9 +103,9 @@ static const uint32_t floorCategory = 0x1 << 1;
     self.ballStart = CGPointMake(self.view.frame.size.width/2, self.stanzaNode.position.y+self.stanzaNode.size.height/2);
 }
 
--(void) createInstrument: (NSInteger) index AtLocation: (CGPoint) location
+-(void) createInstrument:(NSInteger)index AtLocation: (CGPoint)location
 {
-    SKSpriteNode *tonePad = [[InstrumentNode alloc]initWithInstrumentIndex:index andSize:self.startingInstrumentSize];
+    SKSpriteNode *tonePad = [[DBInstrumentNode alloc]initWithInstrumentIndex:index andSize:self.startingInstrumentSize];
     
     tonePad.name = kInstrumentNode;
     tonePad.position = location;
@@ -187,16 +187,16 @@ static const uint32_t floorCategory = 0x1 << 1;
 - (void)didBeginContact:(SKPhysicsContact *)contact
 {
     SKSpriteNode *ballNode;
-    InstrumentNode *instrumentNode;
+    DBInstrumentNode *instrumentNode;
     
-    if ([contact.bodyA.node isKindOfClass:[InstrumentNode class]]) {
+    if ([contact.bodyA.node isKindOfClass:[DBInstrumentNode class]]) {
         
-        instrumentNode = (InstrumentNode *)contact.bodyA.node;
+        instrumentNode = (DBInstrumentNode *)contact.bodyA.node;
         ballNode = (SKSpriteNode *) contact.bodyB.node;
     }
-    else if ([contact.bodyB.node isKindOfClass:[InstrumentNode class]])
+    else if ([contact.bodyB.node isKindOfClass:[DBInstrumentNode class]])
     {
-        instrumentNode = (InstrumentNode *)contact.bodyB.node;
+        instrumentNode = (DBInstrumentNode *)contact.bodyB.node;
         ballNode = (SKSpriteNode *) contact.bodyA.node;
     }
     
@@ -258,7 +258,7 @@ static const uint32_t floorCategory = 0x1 << 1;
         }
         self.selectedNode = self.ballNode;
     }
-    else if([touchedNode isKindOfClass:[InstrumentNode class]]
+    else if([touchedNode isKindOfClass:[DBInstrumentNode class]]
        && ![self.selectedNode isEqual:touchedNode]) {
         
         self.selectedNode = touchedNode;

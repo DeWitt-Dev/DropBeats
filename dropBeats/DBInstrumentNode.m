@@ -6,15 +6,13 @@
 //  Copyright (c) 2013 Michael Dewitt. All rights reserved.
 //
 
-#import "InstrumentNode.h"
+#import "DBInstrumentNode.h"
 
 NSString * const kInstrumentNode = @"InstrumentNode";
 NSString * const kInstrumentPrefix = @"Instrument";
 
-@interface InstrumentNode()
+@interface DBInstrumentNode()
 {
-    #define NUMBER_OF_SOUNDS 3
-    
     #define DEFAULT_ANIMATION_FRAMES 10
     #define ANIMATION_INTERVAL 0.01
     #define WIGGLE_DURATION 0.04
@@ -28,14 +26,16 @@ NSString * const kInstrumentPrefix = @"Instrument";
 
 @end
 
-@implementation InstrumentNode
+@implementation DBInstrumentNode
 
 static NSMutableDictionary *instrumentSounds;
 static NSMutableDictionary *instrumentAnimations;
 
--(id)initWithInstrumentIndex: (NSInteger) index andSize: (CGSize) size
+-(id)initWithInstrumentIndex:(NSInteger)index andSize: (CGSize) size
 {
-    self.instrumentID = [NSString stringWithFormat:@"%@%d",kInstrumentPrefix, (int)index+1];
+    int instrumentIndex = (int)index + 1;
+    
+    self.instrumentID = [NSString stringWithFormat:@"%@%d",kInstrumentPrefix, instrumentIndex];
     SKTexture *texture = [instrumentAnimations objectForKey:self.instrumentID][0];
     
     if (self = [super initWithTexture:texture]) {
@@ -46,7 +46,7 @@ static NSMutableDictionary *instrumentAnimations;
         
         //init note
         self.note.freq = kMidFrequency;
-        self.note.type = index;
+        self.note.type = instrumentIndex;
     }
     
     return self;
@@ -60,7 +60,7 @@ static NSMutableDictionary *instrumentAnimations;
     for (int i = 0; i <= NUMBER_OF_INSTRUMENTS-1; i++) {
         NSString* imageIDKEY = [NSString stringWithFormat:@"%@%d",kInstrumentPrefix, (i+1)];
         
-        NSMutableArray* sounds = [[NSMutableArray alloc]initWithCapacity:NUMBER_OF_SOUNDS];
+        NSMutableArray* sounds = [[NSMutableArray alloc]initWithCapacity:NUMBER_OF_INSTRUMENTS];
         [sounds addObject: [SKAction playSoundFileNamed:[NSString stringWithFormat:@"%@_%d.caf", imageIDKEY, kLowFrequency] waitForCompletion:YES]];
         [sounds addObject: [SKAction playSoundFileNamed:[NSString stringWithFormat:@"%@_%d.caf", imageIDKEY, kMidFrequency] waitForCompletion:YES]];
         [sounds addObject:  [SKAction playSoundFileNamed:[NSString stringWithFormat:@"%@_%d.caf", imageIDKEY, kHighFrequency] waitForCompletion:YES]];
@@ -83,6 +83,7 @@ static NSMutableDictionary *instrumentAnimations;
 }
 
 #pragma mark - Setters/getters
+
 -(DPNote*)note
 {
     if (!_note) {
@@ -90,6 +91,7 @@ static NSMutableDictionary *instrumentAnimations;
     }
     return _note;
 }
+
 -(void)setScale:(CGFloat)scale
 {
     if (scale < MAX_SCALE && scale > MIN_SCALE) {

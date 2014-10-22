@@ -70,7 +70,7 @@ static NSString* const kGameLabel = @"gameLabelNode";
     }
 }
 
-- (void) displayNoteNodes: (DPSong*) song
+- (void)displayNoteNodes:(DPSong*) song
 {
     float songLength = song.duration;
 
@@ -86,6 +86,7 @@ static NSString* const kGameLabel = @"gameLabelNode";
             
 //FIXME: No idea what's happening here. 
             DPNote* note = [measure.notes objectAtIndex:noteNum];
+            
             if (note.type != kRest) {
                 float time = (((mNum * song.signature.beatsPerMeasure) + noteNum)*60)/song.tempo;
                 
@@ -99,6 +100,7 @@ static NSString* const kGameLabel = @"gameLabelNode";
 }
 
 #pragma mark - Background Track
+
 - (void) drawDivider
 {
     float adjustedHeight = SIZE_FACTOR * self.frame.size.height;
@@ -183,7 +185,7 @@ static NSString* const kGameLabel = @"gameLabelNode";
 
 - (void)notePlayed:(DPNote*) note
 {
-    float time = -[self.game.startDate timeIntervalSinceNow] / (self.game.song.duration);
+    float time = -[self.game.startDate timeIntervalSinceNow] / self.game.song.duration;
     
     if (time <= 1.0) { //1.0 representing percentage of song, must be normalized
         
@@ -215,7 +217,7 @@ static NSString* const kGameLabel = @"gameLabelNode";
     [self addChild:node];
     
     //Height adjustment
-    float nodeHeight = [node drawNoteNodeWithReferenceSize:self.size.width];
+    float nodeHeight = [node setupNoteNodeWithReferenceSize:self.size.width];
     y -= nodeHeight/2;
     [node setPosition:CGPointMake(x, y)];
 

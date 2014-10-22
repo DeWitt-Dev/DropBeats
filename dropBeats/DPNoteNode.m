@@ -27,7 +27,7 @@
     return [[self alloc] initWithNote:note time:time difficulty:difficulty onSide:side animate:animate];
 }
 
-- (id) initWithNote: (DPNote*) note time: (float) time difficulty: (Difficulty) difficulty onSide:(Side) side animate: (BOOL) animate
+- (instancetype) initWithNote: (DPNote*) note time: (float) time difficulty: (Difficulty) difficulty onSide:(Side) side animate: (BOOL) animate
 {
     
     if (self = [super init])
@@ -67,7 +67,7 @@
     return instrumentColor;
 }
 
-- (float)drawNoteNodeWithReferenceSize:(float)viewWidth
+- (float)setupNoteNodeWithReferenceSize:(float)viewWidth
 {
     viewWidth /= 2.0; //only drawing notes on half the view
     

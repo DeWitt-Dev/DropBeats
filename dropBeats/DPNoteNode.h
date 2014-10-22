@@ -26,10 +26,10 @@ typedef enum{
 
 @property (nonatomic) BOOL animate; 
 
-+ (instancetype) noteNodeWithNote: (DPNote*) note time: (float) time difficulty: (Difficulty) difficulty onSide:(Side) side animate: (BOOL) animate;
++ (instancetype)noteNodeWithNote:(DPNote*)note time: (float) time difficulty: (Difficulty) difficulty onSide:(Side) side animate: (BOOL) animate;
 
 //Returns hight of node
-- (float)drawNoteNodeWithReferenceSize: (float) viewWidth;
+- (float)setupNoteNodeWithReferenceSize: (float) viewWidth;
 
 -(UIColor*)resetNodeColor;
 

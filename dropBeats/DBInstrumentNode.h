@@ -12,7 +12,7 @@
 extern NSString *const kInstrumentNode;
 extern NSString *const kInstrumentPrefix;
 
-@interface InstrumentNode : SKSpriteNode
+@interface DBInstrumentNode : SKSpriteNode
 {
     #define NUMBER_OF_INSTRUMENTS 3
 }
@@ -20,6 +20,7 @@ extern NSString *const kInstrumentPrefix;
 @property (nonatomic) DPNote* note;
 
 -(id)initWithInstrumentIndex:(NSInteger)index andSize:(CGSize)size;
+
 +(void)loadActions;
 -(void)playInstrument;
 

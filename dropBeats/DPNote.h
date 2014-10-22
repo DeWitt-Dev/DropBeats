@@ -11,11 +11,11 @@
 @interface DPNote : NSObject <NSCoding>
 
 typedef NS_ENUM(NSInteger, NoteType) {
-    kBass,
-    kCymbol,
-    kGuitar,
     kRest,
+    kCymbol,
     kSnare,
+    kBass,
+    kGuitar,
     kStrike
 };
 
