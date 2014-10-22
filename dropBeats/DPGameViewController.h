@@ -14,6 +14,7 @@
 
 @property (strong, nonatomic) DPGame* game;
 @property (nonatomic) BOOL displayBanner;
+
 - (IBAction)hideShowBanner:(UIButton *)sender;
 
 @end

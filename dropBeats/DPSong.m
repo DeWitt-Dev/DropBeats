@@ -48,13 +48,12 @@
 }
 
 - (void) encodeWithCoder: (NSCoder *) encoder {
-    TimeSignature sig;
-    [encoder encodeObject:self.title forKey:@"title"];
-    [encoder encodeInteger:self.level forKey:@"level"];
-    [encoder encodeInteger:self.tempo forKey:@"tempo"];
-    [encoder encodeInt:self.signature.beatsPerMeasure forKey:@"bpm"];
-    [encoder encodeInt:self.signature.beatValue forKey:@"bv"];
-    [encoder encodeObject:self.measures forKey:@"measures"];
+    [encoder encodeObject:self.title forKey: NSStringFromSelector(@selector(title))];
+    [encoder encodeInteger:self.level forKey: NSStringFromSelector(@selector(level))];
+    [encoder encodeInteger:self.tempo forKey: NSStringFromSelector(@selector(tempo))];
+    [encoder encodeInteger:self.signature.beatsPerMeasure forKey:@"bpm"];
+    [encoder encodeInteger:self.signature.beatValue forKey:@"bv"];
+    [encoder encodeObject:self.measures forKey:NSStringFromSelector(@selector(measures))];
 }
 
 - (id) initWithCoder: (NSCoder *) decoder {
@@ -76,8 +75,8 @@
 - (void) printSong
 {
     NSLog(@"Title: %@", self.title);
-    NSLog(@"Level: %d", self.level);
-    NSLog(@"Tempo: %d", self.tempo);
+    NSLog(@"Level: %d", (int)self.level);
+    NSLog(@"Tempo: %d", (int)self.tempo);
     
     for (DPMeasure *measure in self.measures)
     {

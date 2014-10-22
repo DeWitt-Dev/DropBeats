@@ -22,8 +22,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *bannerView;
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-
 @property (weak, nonatomic) IBOutlet UIButton *hideShowButton;
+
 @property (weak, nonatomic) IBOutlet UIButton *playPause;
 @property (strong, nonatomic) IBOutlet UIButton *retryBack;
 
@@ -31,25 +31,17 @@
 
 @implementation DPGameViewController
 
-static NSString * const kInstrumentPrefix = @"Instrument";
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     // Configure the view.
-    self.skView.showsFPS = YES;
-    self.skView.showsNodeCount = YES;
-    self.skView.showsDrawCount = YES;
+//    self.skView.showsFPS = YES;
+//    self.skView.showsNodeCount = YES;
+//    self.skView.showsDrawCount = YES;
     
     self.collectionView.backgroundColor = [UIColor clearColor];
     
-    //TODO -should be custom graphic not text 
-    [self.retryBack setImage:nil forState:UIControlStateNormal];
-    [self.retryBack setTitle:@" <" forState:UIControlStateNormal];
-    self.retryBack.titleLabel.textColor = [UIColor blackColor];
-
-
     //Resister for Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(gameStateChanged:) name:gameStartNotification object:nil];
@@ -79,11 +71,13 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-#pragma mark - CollectionView
+#pragma mark - CollectionView Delegate
+
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     return NUMBER_OF_INSTRUMENTS; //defined in InstrumentNode
 }
+
 -(UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     InstrumentCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"InstrumentCell" forIndexPath:indexPath];
@@ -94,7 +88,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
         [cell addGestureRecognizer:cell.panGesture];
     }
     
-    NSString* imageID = [NSString stringWithFormat:@"%@%d", kInstrumentPrefix, indexPath.row+1];
+    NSString* imageID = [NSString stringWithFormat:@"%@%d", kInstrumentPrefix, (int)indexPath.row+1];
     NSString *textureName = [NSString stringWithFormat:@"%@_0", imageID];
 
     cell.imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -108,6 +102,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 {
     [self.skScene createInstrument:indexPath.row AtLocation: DEFAULT_LOCATION];
 }
+
 - (void)dragInstrument:(UIPanGestureRecognizer *)sender {
 
     InstrumentCell* cell = (InstrumentCell*)sender.view;
@@ -197,7 +192,6 @@ static NSString * const kInstrumentPrefix = @"Instrument";
     if ([self.game isInProgress]) {
         [self.game endGame];
         
-        //Good candidate for UIKitDynamics
         CABasicAnimation* animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
         animation.fromValue = @0.0f;
         animation.toValue = @(2*M_PI);
@@ -211,6 +205,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
         [self dismissViewControllerAnimated:YES completion:nil];
     }
 }
+
 - (IBAction)PlayPause:(UIButton *)sender {
     if (![self.game isInProgress]) {
         [self.game startGame];
@@ -242,7 +237,7 @@ static NSString * const kInstrumentPrefix = @"Instrument";
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    NSLog(@"***GAME: MEM. Warning***");
+    NSLog(@"GAME: MEM. Warning");
 }
 
 @end

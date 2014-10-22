@@ -36,15 +36,15 @@ static NSString * const kStanzaNode = @"StanzaNode";
 static const uint32_t ballCategory = 0x1 << 0;
 static const uint32_t floorCategory = 0x1 << 1;
 
-
-+(void)loadEverythingYouCanWithCompletionHandeler: (DPSceneCompletionHandler) handler
++ (void)loadEverythingYouCanWithCompletionHandeler:(DPSceneCompletionHandler)handler
 {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)    , ^{
-                       [InstrumentNode loadActions];
-                       
-                       if (handler)
-                       dispatch_sync(dispatch_get_main_queue(), handler);
-                   });
+       [InstrumentNode loadActions];
+        
+        if (handler) {
+           dispatch_sync(dispatch_get_main_queue(), handler);
+        }
+   });
 }
 
 -(id)initWithSize:(CGSize)size game: (DPGame*) game andInstrumentSize: (CGSize) instrumentSize {
@@ -105,7 +105,8 @@ static const uint32_t floorCategory = 0x1 << 1;
 }
 
 #pragma mark - Collision Dection
-- (void) didBeginContact:(SKPhysicsContact *)contact
+
+- (void)didBeginContact:(SKPhysicsContact *)contact
 {
     SKSpriteNode *ballNode;
     InstrumentNode *instrumentNode;
@@ -123,7 +124,6 @@ static const uint32_t floorCategory = 0x1 << 1;
     
     if (contact.collisionImpulse >= MIN_COLLISIONIMPULSE) {
         [instrumentNode playInstrument];
-                
         [self DPNotePlayed:instrumentNode.note];
     }
 }
@@ -169,6 +169,7 @@ static const uint32_t floorCategory = 0x1 << 1;
 }
 
 #pragma mark - Game notifications
+
 -(void)gameReset: (NSNotification*) notification //when the ball leaves the screen
 {
     [super gameReset:notification];
@@ -217,6 +218,7 @@ static const uint32_t floorCategory = 0x1 << 1;
              }
          }
     }];
+    
     [self enumerateChildNodesWithName:kInstrumentNode usingBlock:
      ^(SKNode *node,BOOL *stop) {
          if (node.position.x < 0 || node.position.y < 0

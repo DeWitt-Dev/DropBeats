@@ -100,7 +100,7 @@
     }
     else
     {
-        NSLog(@"Error parsing frequency range: %s", fr);
+        NSLog(@"Error parsing frequency range: %@", fr);
     }
     
     return freqRange;
@@ -111,9 +111,9 @@
     return self.type == note.type && self.freq == note.freq;
 }
 
-- (void) printNote
+- (void)printNote
 {
-    NSLog(@"Type: %d, Freq: %d, Length: %d", self.type, self.freq, self.length);
+    NSLog(@"Type: %d, Freq: %d, Length: %d", (int)self.type, self.freq, (int)self.length);
 }
 
 @end

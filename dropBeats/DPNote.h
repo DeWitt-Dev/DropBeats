@@ -10,14 +10,14 @@
 
 @interface DPNote : NSObject <NSCoding>
 
-typedef enum {
+typedef NS_ENUM(NSInteger, NoteType) {
     kBass,
     kCymbol,
     kGuitar,
     kRest,
     kSnare,
     kStrike
-} NoteType;
+};
 
 typedef enum {
     kLowFrequency,

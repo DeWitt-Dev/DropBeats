@@ -29,7 +29,7 @@ static NSString* const gameEndNotification = @"gameEnded";
 #define PERCENT_TO_WIN 0.75
 
 @property (strong, nonatomic, readonly) DPSong* song;
-@property int songNum;
+@property NSInteger songNum;
 
 @property (nonatomic) Difficulty difficulty;
 

@@ -78,7 +78,7 @@ static NSMutableArray *songs;
     }
     NSLog(@"loadSongs");
     if ([array count] > 0) {
-      NSLog([array description]);
+      NSLog(@"%@", [array description]);
         NSLog(@"---");
         [[array objectAtIndex:0] printSong];
         NSLog(@"---");

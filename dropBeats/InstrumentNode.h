@@ -9,15 +9,17 @@
 #import <SpriteKit/SpriteKit.h>
 #import "DPNote.h"
 
+extern NSString *const kInstrumentNode;
+extern NSString *const kInstrumentPrefix;
+
 @interface InstrumentNode : SKSpriteNode
 {
-    #define kInstrumentNode @"instrumentNode"
     #define NUMBER_OF_INSTRUMENTS 3
 }
 
 @property (nonatomic) DPNote* note;
 
--(id)initWithInstrumentIndex: (NSInteger) index andSize: (CGSize) size;
+-(id)initWithInstrumentIndex:(NSInteger)index andSize:(CGSize)size;
 +(void)loadActions;
 -(void)playInstrument;
 

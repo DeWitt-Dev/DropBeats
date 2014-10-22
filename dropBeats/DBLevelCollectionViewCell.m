@@ -6,16 +6,16 @@
 //  Copyright (c) 2013 Michael Dewitt. All rights reserved.
 //
 
-#import "LevelCollectionViewCell.h"
+#import "DBLevelCollectionViewCell.h"
 
-@interface LevelCollectionViewCell()
+@interface DBLevelCollectionViewCell()
 
 @property (strong, nonatomic) IBOutlet SKView *levelView;
 @property (strong, nonatomic, readwrite) DPTrackScene* levelScene;
 
 @end
 
-@implementation LevelCollectionViewCell
+@implementation DBLevelCollectionViewCell
 
 - (id)initWithFrame:(CGRect)frame
 {

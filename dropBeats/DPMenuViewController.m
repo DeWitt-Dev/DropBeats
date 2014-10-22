@@ -8,7 +8,7 @@
 
 #import "DPMenuViewController.h"
 #import "DPGameViewController.h"
-#import "LevelCollectionViewCell.h"
+#import "DBLevelCollectionViewCell.h"
 #import "DPGame.h"
 #import "DPMusicFolder.h"
 #import "DPUpdater.h"
@@ -33,12 +33,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     self.levelCollectionView.backgroundColor = [UIColor clearColor];
     
     //Update song Notifications
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(networkUpdate:) name:songsUpdateNotification object:nil];
+                                             selector:@selector(networkUpdate:) name:kSongsUpdateNotification object:nil];
 }
 
 -(void)dealloc
@@ -49,8 +48,6 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-    
     NSLog(@"MENU: MEM Warning");
 }
 
@@ -67,7 +64,8 @@
 
 -(UICollectionViewCell*) collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    LevelCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"LevelCell" forIndexPath:indexPath];
+    NSString *const identifier = @"LevelCell";
+    DBLevelCollectionViewCell* cell = [collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:indexPath];
     
     DPGame* game = [[DPGame alloc]initWithSongNumber:(int) indexPath.row + 1 andDifficulty:kEasy];
     [cell prepareSceneWithGame:game];
@@ -77,21 +75,19 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    LevelCollectionViewCell* cell = (LevelCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
+    DBLevelCollectionViewCell* cell = (DBLevelCollectionViewCell*)[collectionView cellForItemAtIndexPath:indexPath];
     [self performSegueWithIdentifier:@"playSegue" sender: cell];
 }
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    if ([segue.identifier  isEqualToString:@"playSegue"]) {
-        if ([segue.destinationViewController isKindOfClass:[DPGameViewController class]]) {
+    if ([segue.destinationViewController isKindOfClass:[DPGameViewController class]]) {
             
-            DPGameViewController* dpgvc = (DPGameViewController*)segue.destinationViewController;
-            
-            if ([sender isKindOfClass:[LevelCollectionViewCell class]]) {
-                DPGame* displayedGame = ((LevelCollectionViewCell*)sender).levelScene.game;
-                dpgvc.game =  [[DPGame alloc] initWithSong: displayedGame.song andDifficulty:displayedGame.difficulty]; //initilizing new game when scene is instantiated.
-            }
+        DPGameViewController *dpgvc = (DPGameViewController*)segue.destinationViewController;
+        
+        if ([sender isKindOfClass:[DBLevelCollectionViewCell class]]) {
+            DPGame *displayedGame = ((DBLevelCollectionViewCell*)sender).levelScene.game;
+            dpgvc.game =  [[DPGame alloc] initWithSong: displayedGame.song andDifficulty:displayedGame.difficulty]; //initilizing new game.
         }
     }
 }

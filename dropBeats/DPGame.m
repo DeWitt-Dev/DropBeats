@@ -32,9 +32,8 @@
 -(id)initWithSong:(DPSong*) song andDifficulty: (Difficulty) difficulty;
 {
     if (self = [super init]) {
+        //[song printSong];
         self.song = song;
-        //[self.song printSong];
-        
         self.difficulty = difficulty;
         [self commonInit];
     }
@@ -84,15 +83,15 @@
 
 -(float)percentComplete
 {
-#warning Assumes notes are in chronological order. This is not necessarily a good assumption but checking every note would make this an O2...
+    //FIXME: Assumes notes are in chronological order. This is not necessarily a good assumption but checking every note would make this an O2...
 
 //    float fractionComplete = 0.0f;
-//    NSUInteger count = [[self.song getNotes]count] < [[self.usersSong getNotes]count] ?
-//    [[self.song getNotes]count] : [[self.usersSong getNotes]count];
+//    NSUInteger count = [[self.song measures]count] < [[self.usersSong measures]count] ?
+//    [[self.song measures]count] : [[self.usersSong measures]count];
 //    
 //    for (int i = 0; i < count; i++)
 //    {
-//        DPNote* songNote = [[self.song getNotes] objectAtIndex:i];
+//        DPNote* songNote = [[self.song measures] objectAtIndex:i];
 //        DPNote* userNote = [[self.usersSong getNotes] objectAtIndex:i];
 //
 //        if ([songNote isEqualToNote:userNote withTolerance:self.tolerance]){
@@ -103,6 +102,7 @@
 //    self.gameComplete = fractionComplete >= PERCENT_TO_WIN ? YES : NO;
 //    
 //    return fractionComplete * 100.0;
+    
     return 0;
 }
 

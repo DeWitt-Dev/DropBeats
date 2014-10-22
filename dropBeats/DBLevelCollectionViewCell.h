@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DPTrackScene.h"
 
-@interface LevelCollectionViewCell : UICollectionViewCell
+@interface DBLevelCollectionViewCell : UICollectionViewCell
 
 -(void)prepareSceneWithGame: (DPGame*)game;
 @property (strong, nonatomic, readonly) DPTrackScene* levelScene;

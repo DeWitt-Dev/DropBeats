@@ -8,6 +8,9 @@
 
 #import "InstrumentNode.h"
 
+NSString * const kInstrumentNode = @"InstrumentNode";
+NSString * const kInstrumentPrefix = @"Instrument";
+
 @interface InstrumentNode()
 {
     #define NUMBER_OF_SOUNDS 3
@@ -27,13 +30,12 @@
 
 @implementation InstrumentNode
 
-static NSString * const kInstrumentPrefix = @"Instrument";
-static NSMutableDictionary * instrumentSounds;
-static NSMutableDictionary* instrumentAnimations;
+static NSMutableDictionary *instrumentSounds;
+static NSMutableDictionary *instrumentAnimations;
 
 -(id)initWithInstrumentIndex: (NSInteger) index andSize: (CGSize) size
 {
-    self.instrumentID = [NSString stringWithFormat:@"%@%d",kInstrumentPrefix, index+1];
+    self.instrumentID = [NSString stringWithFormat:@"%@%d",kInstrumentPrefix, (int)index+1];
     SKTexture *texture = [instrumentAnimations objectForKey:self.instrumentID][0];
     
     if (self = [super initWithTexture:texture]) {
@@ -55,7 +57,7 @@ static NSMutableDictionary* instrumentAnimations;
     instrumentSounds = [[NSMutableDictionary alloc]init];
     instrumentAnimations = [[NSMutableDictionary alloc]init];
     
-    for (int i = 0 ; i <= NUMBER_OF_INSTRUMENTS-1; i++) {
+    for (int i = 0; i <= NUMBER_OF_INSTRUMENTS-1; i++) {
         NSString* imageIDKEY = [NSString stringWithFormat:@"%@%d",kInstrumentPrefix, (i+1)];
         
         NSMutableArray* sounds = [[NSMutableArray alloc]initWithCapacity:NUMBER_OF_SOUNDS];
@@ -112,12 +114,12 @@ static NSMutableDictionary* instrumentAnimations;
     }
 }
 
-- (BOOL) isNum: (float) num between: (float) first and: (float) second
+- (BOOL)isNum:(float)num between:(float)first and:(float)second
 {
     return num >= first && num <= second;
 }
 
--(void)playInstrument
+- (void)playInstrument
 {
     [self removeAllActions];
     

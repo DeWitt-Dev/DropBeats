@@ -83,8 +83,7 @@ static NSString* const kGameLabel = @"gameLabelNode";
 //            dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
 //            dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             
-#warning Do we know what we're doing here?
-            
+//FIXME: No idea what's happening here. 
             DPNote* note = [measure.notes objectAtIndex:noteNum];
             if (note.type != kRest) {
                 float time = (((mNum * song.signature.beatsPerMeasure) + noteNum)*60)/song.tempo;

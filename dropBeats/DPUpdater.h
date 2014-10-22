@@ -12,7 +12,7 @@
 typedef void (^ SucessBlock)(NSMutableData*);
 typedef void (^ FailureBlock)(NSError*);
 
-static NSString const* songsUpdateNotification = @"songUpdate";
+extern NSString *const kSongsUpdateNotification;
 
 @interface DPUpdater : NSObject <DPNetworkHandlerDelegate>
 @property (nonatomic, copy) SucessBlock successBlock;

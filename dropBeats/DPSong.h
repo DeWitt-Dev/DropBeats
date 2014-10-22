@@ -24,7 +24,7 @@ typedef struct TimeSignatureStruct {
 @property TimeSignature signature;
 @property NSMutableArray* measures;
 
-- (id) initWithJsonData: (NSMutableDictionary*) song;
+- (id) initWithJsonData:(NSMutableDictionary*) song;
 
 - (id)initWithTitle: (NSString*) title
            andLevel: (NSInteger) level

@@ -10,6 +10,8 @@
 #import "DPUrlConstants.h"
 #import "DPMusicFolder.h"
 
+NSString * const kSongsUpdateNotification = @"songUpdate";
+
 @implementation DPUpdater
 
 +(DPUpdater *)sharedClient
@@ -25,14 +27,6 @@
     return _sharedClient;
 }
 
-- (instancetype)init
-{
-    self = [super init];
-    if (self) {
-    }
-    return self;
-}
-
 - (BOOL) updateSongs {
    [self startRequest: URL_UPDATE_SONGS
            onSuccess:^(NSMutableData* data) {
@@ -41,7 +35,7 @@
                [DPMusicFolder addSongJsonData:[NSJSONSerialization JSONObjectWithData:data options:kNilOptions
                                     error:&error]];
                
-               [[NSNotificationCenter defaultCenter] postNotificationName:songsUpdateNotification object:nil];
+               [[NSNotificationCenter defaultCenter] postNotificationName: kSongsUpdateNotification object:nil];
                [DPMusicFolder saveSongs];
            }
            onFailure:^(NSError* error){

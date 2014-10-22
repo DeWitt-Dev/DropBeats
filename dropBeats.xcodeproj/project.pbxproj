@@ -73,7 +73,7 @@
 		C8AC87791894C5CE00D6038D /* DPSong.m in Sources */ = {isa = PBXBuildFile; fileRef = C8AC87781894C5CE00D6038D /* DPSong.m */; };
 		C8AC877C1894C60100D6038D /* DPNote.m in Sources */ = {isa = PBXBuildFile; fileRef = C8AC877B1894C60100D6038D /* DPNote.m */; };
 		C8C41DA5182D7DCD00C03DD1 /* DPMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C41DA4182D7DCD00C03DD1 /* DPMenuViewController.m */; };
-		C8C41DA8182D7F7400C03DD1 /* LevelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C41DA7182D7F7400C03DD1 /* LevelCollectionViewCell.m */; };
+		C8C41DA8182D7F7400C03DD1 /* DBLevelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C8C41DA7182D7F7400C03DD1 /* DBLevelCollectionViewCell.m */; };
 		C8DF60FD186FC46700A4C0EF /* MainTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = C8DF60FB186FC46700A4C0EF /* MainTitle.png */; };
 		C8DF60FE186FC46700A4C0EF /* MainTitle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C8DF60FC186FC46700A4C0EF /* MainTitle@2x.png */; };
 		C8DF6109186FC54E00A4C0EF /* LevelBar.png in Resources */ = {isa = PBXBuildFile; fileRef = C8DF6100186FC54E00A4C0EF /* LevelBar.png */; };
@@ -184,8 +184,8 @@
 		C8AC877B1894C60100D6038D /* DPNote.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPNote.m; sourceTree = "<group>"; };
 		C8C41DA3182D7DCD00C03DD1 /* DPMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DPMenuViewController.h; sourceTree = "<group>"; };
 		C8C41DA4182D7DCD00C03DD1 /* DPMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DPMenuViewController.m; sourceTree = "<group>"; };
-		C8C41DA6182D7F7400C03DD1 /* LevelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelCollectionViewCell.h; sourceTree = "<group>"; };
-		C8C41DA7182D7F7400C03DD1 /* LevelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LevelCollectionViewCell.m; sourceTree = "<group>"; };
+		C8C41DA6182D7F7400C03DD1 /* DBLevelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBLevelCollectionViewCell.h; sourceTree = "<group>"; };
+		C8C41DA7182D7F7400C03DD1 /* DBLevelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBLevelCollectionViewCell.m; sourceTree = "<group>"; };
 		C8DF60FB186FC46700A4C0EF /* MainTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MainTitle.png; sourceTree = "<group>"; };
 		C8DF60FC186FC46700A4C0EF /* MainTitle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MainTitle@2x.png"; sourceTree = "<group>"; };
 		C8DF6100186FC54E00A4C0EF /* LevelBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LevelBar.png; sourceTree = "<group>"; };
@@ -224,6 +224,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0AEE24B119F7493600163024 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C8C41DA6182D7F7400C03DD1 /* DBLevelCollectionViewCell.h */,
+				C8C41DA7182D7F7400C03DD1 /* DBLevelCollectionViewCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		0AEE24B219F7494300163024 /* Game */ = {
+			isa = PBXGroup;
+			children = (
+				AE3907A91812ECD8001D7BBE /* DPGameViewController.h */,
+				AE3907AA1812ECD8001D7BBE /* DPGameViewController.m */,
+				AE3AEE12181378400041DAB3 /* DPGame.h */,
+				AE3AEE13181378400041DAB3 /* DPGame.m */,
+			);
+			name = Game;
+			sourceTree = "<group>";
+		};
+		0AEE24B319F7494D00163024 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				AE3AEE1518137AE30041DAB3 /* Track */,
+				C872558D182606BE00E2653C /* Instruments */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		AE3907831812ECD7001D7BBE = {
 			isa = PBXGroup;
 			children = (
@@ -261,13 +290,9 @@
 				AE3907A61812ECD8001D7BBE /* Main_iPad.storyboard */,
 				AE3907A31812ECD8001D7BBE /* Main_iPhone.storyboard */,
 				C8C41DA9182D7F8B00C03DD1 /* Menu */,
-				AE3907A91812ECD8001D7BBE /* DPGameViewController.h */,
-				AE3907AA1812ECD8001D7BBE /* DPGameViewController.m */,
-				AE3AEE12181378400041DAB3 /* DPGame.h */,
-				AE3AEE13181378400041DAB3 /* DPGame.m */,
+				0AEE24B219F7494300163024 /* Game */,
 				C8AC876F1894C2DE00D6038D /* Networking */,
-				AE3AEE1518137AE30041DAB3 /* Track */,
-				C872558D182606BE00E2653C /* Instruments */,
+				0AEE24B319F7494D00163024 /* Model */,
 				AE3907981812ECD7001D7BBE /* Supporting Files */,
 			);
 			path = dropBeats;
@@ -416,10 +441,9 @@
 		C8C41DA9182D7F8B00C03DD1 /* Menu */ = {
 			isa = PBXGroup;
 			children = (
+				0AEE24B119F7493600163024 /* Views */,
 				C8C41DA3182D7DCD00C03DD1 /* DPMenuViewController.h */,
 				C8C41DA4182D7DCD00C03DD1 /* DPMenuViewController.m */,
-				C8C41DA6182D7F7400C03DD1 /* LevelCollectionViewCell.h */,
-				C8C41DA7182D7F7400C03DD1 /* LevelCollectionViewCell.m */,
 			);
 			name = Menu;
 			sourceTree = "<group>";
@@ -596,7 +620,7 @@
 				AE3AEE14181378400041DAB3 /* DPGame.m in Sources */,
 				C8AC87651894C2BC00D6038D /* DPNetworkHandler.m in Sources */,
 				C8AC87791894C5CE00D6038D /* DPSong.m in Sources */,
-				C8C41DA8182D7F7400C03DD1 /* LevelCollectionViewCell.m in Sources */,
+				C8C41DA8182D7F7400C03DD1 /* DBLevelCollectionViewCell.m in Sources */,
 				AE3907A21812ECD8001D7BBE /* DPAppDelegate.m in Sources */,
 				AE3907AB1812ECD8001D7BBE /* DPGameViewController.m in Sources */,
 				AE3907AE1812ECD8001D7BBE /* DPInstrumentScene.m in Sources */,
